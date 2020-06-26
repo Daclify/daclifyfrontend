@@ -1,4 +1,4 @@
-# Croneos frontend
+# Daclify frontend
 
 This is the frontend for eosgroups.
 See [eosgroups.io](https://eosgroups.io)
