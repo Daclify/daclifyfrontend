@@ -301,8 +301,12 @@ export async function fetchAvatars ({ state, commit }, groupname) {
 }
 
 export async function fetchProfile ({ state, commit, rootState, rootGetters }, accountname) {
+  let template = JSON.stringify(profile_template);
   let cached_p = state.profiles.find(p=> p.account == accountname);
-  if(cached_p) return cached_p;
+  if(cached_p){
+    console.log("serve profile from cache");
+    return cached_p;
+  }
 
   let res = await this._vm.$eos.rpc.get_table_rows({
       json: true,
@@ -313,39 +317,35 @@ export async function fetchProfile ({ state, commit, rootState, rootGetters }, a
       table: "profiledata",
       limit: 1
     });
-    if(res && res.rows.length){
-      let p = res.rows[0];
-      //console.log("xxxxxxxxxxxxxxxxxxxxx", p.data);
-      let data = {};
-      if(p && p.data){
-        
-        try {
-            p.data.forEach(entry =>{
-              if(entry.key != "text"){
-                data[entry.key] = JSON.parse(entry.value);
-              }
-              else{
-                data[entry.key] = entry.value;
-              }
-              
-            })
-        } catch(e) {
-            alert(e); // error in the above string (in this case, yes)!
+
+  res= res.rows[0];
+  let data = {
+    account: accountname,
+  };
+  if(!res || res.account != accountname){
+    data.last_update =  "";
+    return Object.assign(JSON.parse(template), data);
+  }
+  data.last_update =  res.last_update;
+  try {
+      res.data.forEach(entry =>{
+        if(entry.key != "text"){
+          data[entry.key] = JSON.parse(entry.value);
         }
-        data = Object.assign(profile_template, data);
-        data.account = p.account;
-        data.last_update = p.last_update
-       
-      }
-      //console.log("yyyyyyyyyyyyyy", data)
-      if(data.account == accountname){
-        commit('setMyOldProfile', JSON.parse(JSON.stringify(data) ) );
-      }
-      commit('updateOrAddProfile', data);
+        else{
+          data[entry.key] = entry.value;
+        }  
+      })
+  } catch(e) {alert(e); }
+  console.log(`fetched profile for ${accountname}`, data); 
+  data = Object.assign(JSON.parse(template), data);
+  commit('addProfile', data);
+  return data;
       
-      console.log(`fetched profile for ${accountname}`, data);
-      return data;
-    }
+  // if(rootState.ual.accountName == accountname){
+  //   commit('setMyOldProfile', JSON.parse(JSON.stringify(data) ) );
+  // }
+       
 }
 
 

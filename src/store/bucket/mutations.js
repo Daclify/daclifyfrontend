@@ -1,8 +1,8 @@
 export function addToActionBucket(state, payload){
-    if(!payload.hex){
-        alert('action data must be serialized befor adding to bucket');
-        return;
-    }
+    // if(!payload.hex){
+    //     alert('action data must be serialized befor adding to bucket');
+    //     return;
+    // }
     payload.unique_id= Date.now();
     state.actionBucket.push(payload);
 }

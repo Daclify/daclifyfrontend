@@ -33,15 +33,9 @@ export function updateAvatar(state, payload){
     }
 }
 
-export function updateOrAddProfile(state, payload){
-    //{account: this.getAccountName, profile: this.profile}
-    let account = state.profiles.find(a => a.account == payload.account);
-    if(account){
-        account.profile = payload.profile;
-    }
-    else{
-        state.profiles.push(payload);
-    }
+export function addProfile(state, payload){
+    state.profiles.push(payload);
+
 }
 
 export function setMyOldProfile(state, payload){

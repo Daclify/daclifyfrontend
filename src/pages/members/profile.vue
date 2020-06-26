@@ -188,6 +188,7 @@
       </div>
       <!-- <external-component  account="piecesnbits1" /> -->
       <!-- <component-loader :comp_id="102" /> -->
+     
     </div>
   </q-page>
 </template>
@@ -243,7 +244,10 @@ export default {
       // getCoreConfig: "group/getCoreConfig"
     }),
     isProfileChanged() {
-      return diff(this.getMyOldProfile, this.profile_data);
+      if(this.getMyOldProfile && this.profile_data && this.profile_data.account == this.getMyOldProfile.account){
+        return diff(this.getMyOldProfile, this.profile_data);
+      }
+      
     }
   },
   methods: {
@@ -297,19 +301,27 @@ export default {
     "$route.params.accountname": {
       immediate: true,
       async handler(newVal, oldVal) {
+        
         if (newVal && newVal != oldVal) {
+
           this.account = newVal;
-          this.profile_data = await this.$store.dispatch(
-            "group/fetchProfile",
-            this.account
-          );
+          this.profile_data = await this.$store.dispatch("group/fetchProfile",this.account);
           this.getUserVotes();
           //console.log(this.profile_data)
         } else {
+
           //this.$store.dispatch('user/loggedOutRoutine');
         }
       }
-    }
+    },
+    // getAccountName:{
+    //   immediate: true,
+    //   handler(newVal, oldVal){
+    //     if(this.account == this.getAccountName && this.profile_data){
+    //       this.$store.commit("group/setMyOldProfile", JSON.parse(JSON.stringify(this.profile_data)))
+    //     }
+    //   }
+    // }
   }
 };
 </script>

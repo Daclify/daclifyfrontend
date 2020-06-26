@@ -1,8 +1,10 @@
 import {getLogoForToken} from "../../imports/tokens.js";
-export async function loggedInRoutine ({ dispatch }, payload) {
+export async function loggedInRoutine ({ dispatch,commit }, payload) {
 
   dispatch('fetchAccount', payload.accountname);
   dispatch('fetchHubDeposits', payload.accountname);
+  let res = await dispatch('group/fetchProfile', payload.accountname,{root:true});
+  commit('group/setMyOldProfile', JSON.parse(JSON.stringify(res) ),{root:true} );
   //dispatch('fetchIsMember', payload.accountname);
 
 }

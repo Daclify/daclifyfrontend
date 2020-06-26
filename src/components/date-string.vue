@@ -1,5 +1,5 @@
 <template>
-  <div style="cursor: help;"><b>{{prepend}}</b> {{parsed_date}}
+  <div v-if="date" style="cursor: help;"><b>{{prepend}}</b> {{parsed_date}}
     <q-tooltip content-class="bg-secondary" :delay="500">
       <q-icon name="mdi-calendar-clock" class="q-mr-xs" size="16px" />
       <span>{{date}}</span>
