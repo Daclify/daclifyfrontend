@@ -30,6 +30,16 @@
           </q-item-section>
         </q-item>
 
+        <q-item v-if="getModuleByName('payroll')" clickable :to="`/manage/${getActiveGroup}/payroll`">
+          <q-item-section avatar>
+            <q-icon name="mdi-account-cash"  />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Payroll</q-item-label>
+            <!-- <q-item-label caption>mining stats</q-item-label> -->
+          </q-item-section>
+        </q-item>
+
         <q-item clickable :to="`/manage/${getActiveGroup}/proposals`">
           <q-item-section avatar>
             <q-icon name="mdi-file-key" />
@@ -99,8 +109,6 @@
         </q-item>
 
 
-
-
       </q-list>
 </template>
 
@@ -116,6 +124,7 @@ export default {
       getActiveGroup: "group/getActiveGroup",
       getResourcesLowWarning: "group/getResourcesLowWarning",
       getActionBucket: "bucket/getActionBucket",
+      getModuleByName: "group/getModuleByName",
     })
   },
 

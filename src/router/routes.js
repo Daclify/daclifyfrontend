@@ -34,6 +34,7 @@ const routes = [
       { path: 'resources', component: () => import('pages/manage/resources.vue') },
       { path: 'thresholds', component: () => import('pages/manage/thresholds.vue') },
       { path: 'modules', component: () => import('pages/manage/modules.vue') },
+      { path: 'payroll', component: () => import('pages/manage/payroll.vue') },
     ]
   },
 

@@ -125,10 +125,11 @@ export async function fetchModules ({ commit, rootState, rootGetters }, groupnam
     commit('setModules', res.rows);
     console.log(`fetched modules for group ${groupname}`, res.rows);
     //REGISTER MODULES IN STORES
-    let elections = res.rows.find(m => m.module_name = 'elections');
+    let elections = res.rows.find(m => m.module_name == 'elections');
     if(elections){
       commit('elections/setElectionsContract', elections.slave_permission.actor, {root: true});
     }
+
 
     return res.rows;
   }
