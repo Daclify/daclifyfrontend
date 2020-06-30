@@ -17,7 +17,7 @@
         </q-item-section>
         <q-item-section>
           <q-item-label class="text-capitalize">Repeat</q-item-label>
-          <q-item-label caption>{{payment.repeat}}</q-item-label>
+          <q-item-label caption>{{`${payment.repeated+1}/${payment.repeat}`}}</q-item-label>
         </q-item-section>
 
         <q-item-section side>

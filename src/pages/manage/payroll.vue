@@ -47,7 +47,7 @@
     </q-list>
     <!-- <payrolls v-if="getPayrolls.length"/> -->
 
-
+<!-- {{getPayments}} -->
 
 
     
@@ -91,7 +91,7 @@ export default {
 
       let payments = this.getPayments.filter(p=>p.payroll_tag==this.active_payroll);
       if(this.searchfilter){
-        payments = payments.filter(p=>p.receiver.includes(this.searchfilter) );
+        payments = payments.filter(p=>p.receiver.includes(this.searchfilter) || p.pay_id ==this.searchfilter );
       }
       return payments;
     },
