@@ -4,6 +4,10 @@
             <profile-pic :size="42" icon="" iconColor="positive" :account="payment.receiver"  />
         </q-item-section>
         <q-item-section>
+          <q-item-label class="text-capitalize">Pay ID</q-item-label>
+          <q-item-label caption>{{payment.pay_id}}</q-item-label>
+        </q-item-section>
+        <q-item-section>
           <q-item-label class="text-capitalize">{{payment.receiver}}</q-item-label>
           <q-item-label caption>{{payment.amount}}</q-item-label>
         </q-item-section>
@@ -15,12 +19,9 @@
           <q-item-label class="text-capitalize">Repeat</q-item-label>
           <q-item-label caption>{{payment.repeat}}</q-item-label>
         </q-item-section>
-        <q-item-section>
-          <q-item-label class="text-capitalize">ID</q-item-label>
-          <q-item-label caption>{{payment.pay_id}}</q-item-label>
-        </q-item-section>
+
         <q-item-section side>
-          <q-btn flat dense icon="delete" color="negative" size="18px">
+          <q-btn flat dense icon="delete" color="negative" size="sm">
             <q-tooltip content-class="bg-secondary" :delay="500">
               Propose removal from payroll
             </q-tooltip>
