@@ -1,7 +1,11 @@
 <template>
   <div v-if="payroll">
-    <div class="row q-gutter-md">
-      <div class="col-xs-12 col-sm-4 col-md-2">
+    <div class="row">
+      <div class="q-mr-sm">Pay Account: {{`${payroll.pay_permission.actor}@${payroll.pay_permission.permission}`}}</div>
+      <div class="q-mr-sm">Total Paid: {{payroll.total_paid.quantity}}</div>
+      <div class="q-mr-sm">Allocated: {{payroll.total_allocated}}</div>
+      <div class="q-mr-sm">Balance: {{current_balance}}</div>
+      <!-- <div class="col-xs-12 col-sm-4 col-md-2">
 
           <q-item class="no-padding">
             <q-item-section avatar>
@@ -53,7 +57,7 @@
             </q-item-section>
           </q-item>
 
-      </div>
+      </div> -->
 
       <!-- <div class="col-xs-12">
             <q-card>
@@ -113,13 +117,41 @@ import { getLogoForToken } from "../../../imports/tokens.js";
 export default {
   name: "payrollStats",
   props: {
-    payroll: false
+    payroll: false,
+    
   },
   data() {
-    return {};
+    return {
+      current_balance: ''
+    };
   },
   methods:{
-    getLogoForToken
+    getLogoForToken,
+    async getBalance(){
+      let symbol = this.payroll.total_paid.quantity.split(' ')[1];
+      let res = await this.$eos.rpc.get_currency_balance(
+        this.payroll.total_paid.contract, 
+        this.payroll.pay_permission.actor,
+        symbol
+        )
+      if(res && res.length){
+        this.current_balance = res[0]
+      }
+      else{
+        this.current_balance = `0 ${symbol}`
+      }
+    }
+  },
+  watch: {
+    payroll: {
+      immediate: true,
+      async handler(newVal, oldVal) {
+        if (newVal) {
+          this.getBalance();
+        }
+      }
+    }
+
   }
 };
 </script>
