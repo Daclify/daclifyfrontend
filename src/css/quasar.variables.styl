@@ -19,9 +19,19 @@ $negative  = #CB2739
 $info      = #31CCEC
 $warning   = #F2C037
 
-.text-primary-light {
-  color: #DFEBFB;
+
+$primary-light = lighten($primary, 80%) 
+
+:root
+  --q-color-primary-light $primary-light
+
+.text-primary-light{
+  color $primary-light !important
+  color var(--q-color-primary-light) !important 
 }
-.bg-primary-light {
-  background: #DFEBFB;
+
+.bg-primary-light{
+   background $primary-light !important
+  background var(--q-color-primary-light) !important 
 }
+
