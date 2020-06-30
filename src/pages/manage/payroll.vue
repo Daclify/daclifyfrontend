@@ -29,15 +29,15 @@
         :label="payroll.payroll_tag"
         :name="payroll.payroll_tag"
       >
-        <q-tooltip content-class="bg-secondary" :delay="500">
+        <q-tooltip content-class="bg-secondary" :delay="700">
           {{payroll.description || 'No description'}}
         </q-tooltip>
       </q-tab>
     </q-tabs>
     <q-separator  />
-
-      <payroll-stats :payroll="getActivePayRoll" />
-
+    <q-card>
+    <payroll-stats :payroll="getActivePayRoll" class="q-my-sm"/>
+    </q-card>
 
     <q-toolbar class="bg-primary text-white shadow-2">
       <q-toolbar-title>Pending Payments</q-toolbar-title>
