@@ -53,8 +53,8 @@
       :show-if-above="false"
       content-class="bg-secondary"
       :mini="miniState"
-      @mouseover="miniState = false"
-      @mouseout="miniState = false"
+      @mouseover="/*miniState = false*/"
+      @mouseout="/*miniState = false*/"
     >
       <q-list class="absolute-top" >
         <q-item clickable style="height:60px" v-ripple:primary>
@@ -158,7 +158,13 @@
           </q-item> -->
 
         </q-list>
+        
       </q-scroll-area>
+      <q-toggle v-model="miniState" class="absolute-bottom-right">
+        <q-tooltip content-class="bg-primary" :delay="500">
+          Toggle mini menu
+        </q-tooltip>
+      </q-toggle>
     </q-drawer>
 
     <q-page-container class=" text-black  overflow-hidden" style="padding-bottom:0px">

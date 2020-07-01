@@ -35,12 +35,31 @@
       </q-tab>
     </q-tabs>
     <q-separator  />
-    <q-card>
-    <payroll-stats :payroll="getActivePayRoll" class="q-my-sm"/>
+    <q-card class="q-pa-sm q-my-md">
+      <payroll-stats :payroll="getActivePayRoll"/>
     </q-card>
 
     <q-toolbar class="bg-primary text-white shadow-2">
-      <q-toolbar-title>Pending Payments</q-toolbar-title>
+      <q-toolbar-title :shrink="true">Pending Payments</q-toolbar-title>
+      <q-space />
+      <q-btn flat round dense icon="more_vert" />
+      <!-- <q-btn-dropdown round flat dense icon="more_vert">
+        <q-list>
+          <q-item-label header>Folders</q-item-label>
+          <q-item v-for="n in 3" :key="`x.${n}`" clickable v-close-popup tabindex="0">
+            <q-item-section avatar>
+              <q-avatar icon="folder" color="secondary" text-color="white" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Photos</q-item-label>
+              <q-item-label caption>February 22, 2016</q-item-label>
+            </q-item-section>
+            <q-item-section side>
+              <q-icon name="info" />
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-btn-dropdown> -->
     </q-toolbar>
     <q-list class="primary-hover-list" bordered separator striped>
       <payment v-for="(payment, i) in filterPayments" :key="payment.pay_id" :payment="payment" :class="i % 2 === 0 ?'':''" />
