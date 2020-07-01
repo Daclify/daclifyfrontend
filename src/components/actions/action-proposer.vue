@@ -77,9 +77,9 @@ export default {
     })
   },
   methods: {
-    onProposeDisplayMeta(){
-      this.propose_state_tab='propose_meta';
-    },
+    // onProposeDisplayMeta(){
+    //   this.propose_state_tab='propose_meta';
+    // },
 
     async addToBucket(e_action){
       this.propose_state_tab='add_to_bucket';

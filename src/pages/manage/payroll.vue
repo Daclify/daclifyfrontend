@@ -42,7 +42,7 @@
     <q-toolbar class="bg-primary text-white shadow-2">
       <q-toolbar-title :shrink="true">Pending Payments</q-toolbar-title>
       <q-space />
-      <q-btn round dense icon="mdi-plus" color="secondary" >
+      <q-btn round dense icon="mdi-plus" color="secondary" @click="add_payment_dialog=true">
         <q-tooltip content-class="bg-secondary" :delay="500">
           Add payment to payroll <b>{{getActivePayRoll.payroll_tag}}</b>
         </q-tooltip>  
@@ -57,6 +57,23 @@
 <!-- {{getPayments}} -->
 
 
+    <q-dialog v-model="add_payment_dialog">
+      <q-card class="overflow-hidden" style="min-width:350px">
+        <q-card-section >
+            <page-header :title="`Payroll ${getActivePayRoll.payroll_tag}`"/>
+            <q-btn icon="close" flat round dense v-close-popup class="q-ma-md absolute-top-right"/>
+
+        <action-proposer>
+          <template slot-scope="scope">
+            <add-payment @propose="scope.propose" @addtobucket="scope.addtobucket" :payroll="getActivePayRoll" />
+          </template>
+        </action-proposer>
+
+           
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+
     
   </q-page>
 </template>
@@ -65,6 +82,8 @@
 import { mapGetters } from "vuex";
 import { getLogoForToken } from "../../imports/tokens.js";
 import pageHeader from "components/page-header";
+import actionProposer from "components/actions/action-proposer";
+import addPayment from "components/modules/payroll/add-payment";
 
 import payment from "components/modules/payroll/payment";
 import payrollStats from "components/modules/payroll/payroll-stats";
@@ -74,12 +93,15 @@ export default {
   components:{
     pageHeader,
     payrollStats,
-    payment
+    payment,
+    actionProposer,
+    addPayment
   },
   data () {
     return {
       active_payroll: '',
-      searchfilter: ''
+      searchfilter: '',
+      add_payment_dialog: false
     }
   },
   computed: {
