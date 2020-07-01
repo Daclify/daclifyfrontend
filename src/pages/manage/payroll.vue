@@ -42,7 +42,11 @@
     <q-toolbar class="bg-primary text-white shadow-2">
       <q-toolbar-title :shrink="true">Pending Payments</q-toolbar-title>
       <q-space />
-      <q-btn flat round dense icon="more_vert" />
+      <q-btn round dense icon="mdi-plus" color="secondary" >
+        <q-tooltip content-class="bg-secondary" :delay="500">
+          Add payment to payroll <b>{{getActivePayRoll.payroll_tag}}</b>
+        </q-tooltip>  
+      </q-btn>
       <!-- <q-btn-dropdown round flat dense icon="more_vert">
         <q-list>
           <q-item-label header>Folders</q-item-label>

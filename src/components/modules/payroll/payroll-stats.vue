@@ -3,7 +3,7 @@
     <div class="row justify-between items-center overflow-hidden">
       <div class="row">
         <div class="q-mr-sm">
-          <q-img :src="getLogoForToken(payroll.total_paid.contract, payroll.total_paid.quantity.split(' ')[1])" style="cursor:help;height:20px; width:20px">
+          <q-img :src="getLogoForToken(payroll.total_paid.contract, payroll.total_paid.quantity.split(' ')[1])" style="cursor:help;height:24px; width:24px">
             <q-tooltip content-class="bg-secondary" :delay="500">
               Payment Token: {{`${payroll.total_paid.quantity.split(' ')[1]} (${payroll.total_paid.contract})`}}
             </q-tooltip>
@@ -28,7 +28,7 @@
           :key="has_enough_balance!==false?'positive':'warning'"
         >
           <q-tooltip content-class="bg-secondary" :delay="500">
-            {{has_enough_balance!==false?'Balance sufficient to pay allocated':'Balance insufficient to pay allocated'}}
+            {{has_enough_balance!==false?'Balance sufficient to pay allocated':`Balance insufficient to pay allocated, need to top up ${payroll.pay_permission.actor}`}}
           </q-tooltip>
         </q-icon>
       </transition>
