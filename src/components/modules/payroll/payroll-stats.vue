@@ -1,10 +1,27 @@
 <template>
   <div v-if="payroll">
-    <div class="row">
-      <div class="q-mr-sm"><q-badge>Pay Account</q-badge> {{`${payroll.pay_permission.actor}@${payroll.pay_permission.permission}`}}</div>
-      <div class="q-mr-sm"><q-badge>Total Paid</q-badge> {{payroll.total_paid.quantity}}</div>
-      <div class="q-mr-sm"><q-badge>Allocated</q-badge> {{payroll.total_allocated}}</div>
-      <div class="q-mr-sm"><q-badge>Balance</q-badge> {{current_balance}}</div>
+    <div class="row justify-between items-center">
+      <div class="row">
+        <div class="q-mr-sm">
+          <q-img :src="getLogoForToken(payroll.total_paid.contract, payroll.total_paid.quantity.split(' ')[1])" style="cursor:help;height:20px; width:20px">
+            <q-tooltip content-class="bg-secondary" :delay="500">
+              Payment Token: {{`${payroll.total_paid.quantity.split(' ')[1]} (${payroll.total_paid.contract})`}}
+            </q-tooltip>
+          </q-img>
+        </div>
+        <div class="q-mr-sm"><q-badge>Pay Account</q-badge> {{`${payroll.pay_permission.actor}@${payroll.pay_permission.permission}`}}</div>
+        <div class="q-mr-sm"><q-badge>Total Paid</q-badge> {{payroll.total_paid.quantity}}</div>
+        <div class="q-mr-sm"><q-badge>Allocated</q-badge> {{payroll.total_allocated}}</div>
+        <div class="q-mr-sm"><q-badge>Balance</q-badge> {{current_balance}}</div>
+      </div>
+      <div  >
+        <q-icon  :color="has_enough_balance!==false?'positive':'warning'" :name="has_enough_balance!==false?'mdi-check':'mdi-alert'" size="md" style="cursor:help">
+          <q-tooltip content-class="bg-secondary" :delay="500">
+            {{has_enough_balance!==false?'Balance sufficient to pay allocated':'Balance insufficient to pay allocated'}}
+          </q-tooltip>
+        </q-icon>
+      </div>
+
     </div>
   </div>
 </template>
@@ -21,6 +38,15 @@ export default {
     return {
       current_balance: ''
     };
+  },
+  computed:{
+    has_enough_balance(){
+      //check if the pay account has enough balance to pay allocated payments
+      if(this.current_balance){
+        return parseFloat(this.current_balance) - parseFloat(this.payroll.total_allocated) > 0;
+      }
+      
+    }
   },
   methods:{
     getLogoForToken,
