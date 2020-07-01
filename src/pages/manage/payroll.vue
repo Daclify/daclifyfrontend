@@ -6,7 +6,7 @@
         <q-icon name="search" class="cursor-pointer" />
       </template>
       <template v-slot:append>
-        <transition-group
+        <transition
           appear
           enter-active-class="animated fadeInRight"
           leave-active-class="animated fadeOutRight"
@@ -19,7 +19,7 @@
             @click="searchfilter = ''"
             class="cursor-pointer"
           />
-        </transition-group>
+        </transition>
       </template>
     </q-input>
     <q-tabs v-model="active_payroll" class="text-primary" dense align="left">

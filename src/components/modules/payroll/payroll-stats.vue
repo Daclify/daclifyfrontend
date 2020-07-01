@@ -1,6 +1,6 @@
 <template>
   <div v-if="payroll">
-    <div class="row justify-between items-center">
+    <div class="row justify-between items-center overflow-hidden">
       <div class="row">
         <div class="q-mr-sm">
           <q-img :src="getLogoForToken(payroll.total_paid.contract, payroll.total_paid.quantity.split(' ')[1])" style="cursor:help;height:20px; width:20px">
@@ -14,13 +14,24 @@
         <div class="q-mr-sm"><q-badge>Allocated</q-badge> {{payroll.total_allocated}}</div>
         <div class="q-mr-sm"><q-badge>Balance</q-badge> {{current_balance}}</div>
       </div>
-      <div  >
-        <q-icon  :color="has_enough_balance!==false?'positive':'warning'" :name="has_enough_balance!==false?'mdi-check':'mdi-alert'" size="md" style="cursor:help">
+      <transition
+          appear
+          enter-active-class="animated fadeInRight"
+          mode="out-in"
+          tag="div"
+        >
+        <q-icon
+          :color="has_enough_balance!==false?'positive':'warning'"
+          :name="has_enough_balance!==false?'mdi-check':'mdi-alert'"
+          size="md"
+          style="cursor:help"
+          :key="has_enough_balance!==false?'positive':'warning'"
+        >
           <q-tooltip content-class="bg-secondary" :delay="500">
             {{has_enough_balance!==false?'Balance sufficient to pay allocated':'Balance insufficient to pay allocated'}}
           </q-tooltip>
         </q-icon>
-      </div>
+      </transition>
 
     </div>
   </div>
