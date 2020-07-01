@@ -75,19 +75,21 @@
         enter-active-class="animated zoomIn"
         leave-active-class="animated zoomOut"
         class="q-gutter-md row items-start"
+        mode="out-in"
       >
         <div
           v-for="(photo, i) in profile_data.gallery"
           :key="photo.url + i"
-          class="relative-position bg-green"
+          class="relative-position"
           style="height:120px; width:220px"
         >
-          <q-video v-if="isYouTubeUrl(photo.url) === true" :src="photo.url" style="object-fit: cover;  height:100%"/>
+          <q-video v-if="isYouTubeUrl(photo.url) === true" :src="photo.url" style="object-fit: cover;  height:100%" />
           <q-img
             v-else
             :src="photo.url"
             spinner-color="primary"
-            style="object-fit: contain;  height:120px; width:220px"
+            style="object-fit: contain;  height:120px; width:220px; cursor:pointer"
+            @click="slide=i; mode='carousel'; "
             
           >
             <!-- <div class="absolute-bottom text-subtitle1 text-center">
