@@ -1,4 +1,6 @@
 <template>
+<div>
+  
   <div v-if="profile_data.gallery">
     <div class="q-mb-xs row justify-end">
       <q-btn dense flat :icon="mode=='carousel'?'mdi-view-carousel' :'mdi-grid'" @click="mode=='carousel' ? mode='grid' : mode='carousel'" color="primary">
@@ -53,8 +55,8 @@
     <!-- <div  class="q-gutter-md row items-start"> -->
       <transition-group v-if="mode == 'grid'" appear enter-active-class="animated zoomIn" leave-active-class="animated zoomOut" class="q-gutter-md row items-start">
         <div
-          v-for="photo in profile_data.gallery"
-          :key="photo.url"
+          v-for="(photo,i) in profile_data.gallery"
+          :key="photo.url+i"
         >
           <q-video v-if="isYouTubeUrl(photo.url) === true" :src="photo.url" />
           <q-img v-else contain :src="photo.url" spinner-color="primary" style="height:150px; width:100px">
@@ -71,16 +73,19 @@
       </transition-group>
     <!--</div> -->
 
-    <!-- <pre>{{profile_data.profile.links}}</pre> -->
+    <!-- <pre>{{profile_data.gallery}}</pre> -->
   </div>
+  <new-image v-if="getAccountName == profile_data.account" @newImage="addImage" />
+</div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import { isYouTubeUrl } from "../../imports/validators";
+import newImage from 'components/profile_data/new-image'
 export default {
   // name: 'ComponentName',
-  name: "profilePhotos",
+  name: "profileGallery",
   props: {
     account: {
       type: String,
@@ -93,7 +98,9 @@ export default {
       }
     }
   },
-  components: {},
+  components: {
+    newImage
+  },
   data() {
     return {
       slide: 0,
@@ -110,7 +117,11 @@ export default {
     })
   },
   methods: {
-    isYouTubeUrl
+    isYouTubeUrl,
+    addImage(e){
+      let img = {url: e};
+      this.profile_data.gallery.push(img);
+    }
   }
 };
 </script>

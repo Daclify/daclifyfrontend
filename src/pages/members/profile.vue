@@ -108,7 +108,7 @@
                   name="mdi-pencil"
                   v-if="
                     isProfileChanged &&
-                      isProfileChanged.find(ipc => ipc.path == 'gallery')
+                      isProfileChanged.find(ipc => ipc.path == 'files')
                   "
                 />
               </q-tab>

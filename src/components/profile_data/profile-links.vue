@@ -1,20 +1,6 @@
 <template>
   <div>
-    <q-input
-      v-model="newLink"
-      v-if="getAccountName == profile_data.account"
-      outlined
-      dense
-      class="q-mb-md"
-      bottom-slots
-      hint=""
-      placeholder="add new link"
-      
-    >
-      <template v-slot:before>
-        <q-btn icon="mdi-plus" @click="addLink" color="primary" round/>
-      </template>
-    </q-input>
+
     <div v-if="profile_data.links.length">
       <div
         v-for="(link, i) in profile_data.links"
@@ -33,7 +19,20 @@
       </div>
     </div>
 
-    <!-- <pre>{{profile_data.profile.links}}</pre> -->
+    <q-input
+      v-model="newLink"
+      v-if="getAccountName == profile_data.account"
+      outlined
+      class="q-mt-md"
+      bottom-slots
+      hint=""
+      placeholder="add new link"
+      
+    >
+      <template v-slot:after>
+        <q-btn icon="mdi-plus" @click="addLink" color="primary" round/>
+      </template>
+    </q-input>
   </div>
 </template>
 
