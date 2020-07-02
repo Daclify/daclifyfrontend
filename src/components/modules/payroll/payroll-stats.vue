@@ -54,7 +54,7 @@ export default {
     has_enough_balance(){
       //check if the pay account has enough balance to pay allocated payments
       if(this.current_balance){
-        return parseFloat(this.current_balance) - parseFloat(this.payroll.total_allocated) > 0;
+        return parseFloat(this.current_balance) - parseFloat(this.payroll.total_allocated) >= 0;
       }
       
     }

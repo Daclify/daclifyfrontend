@@ -44,7 +44,7 @@
         <template  v-slot:hint>
           <transition  enter-active-class="animated zoomIn" leave-active-class="animated zoomOut"  tag="div" >
             <div v-if="balance_overdraw_warning" class="row items-center text-warning">
-              <q-icon name="mdi-alert" class="q-mr-xs" />Amount exceeds unallocated balance
+              <q-icon name="mdi-alert" class="q-mr-xs" />Amount will make {{payroll.pay_permission.actor}} insolvent
             </div>
           </transition>
         </template>
@@ -87,12 +87,12 @@
       </transition>
     </div>
 
-
+<!-- {{recurrence_delay}} -->
     <div class="row justify-between full-width items-center" >
       <threshold-badge  label :contract="action.account" :action_name="action.name"/>
       <propose-bucket-btn @click-propose="emitPropose" @click-bucket="emitBucket" label="Add Payment" :disabled="false" />
     </div>
-    <!-- <pre>{{getGroupWallet}}</pre> -->
+    <!-- <pre>{{action}}</pre> -->
   </div>
 </template>
 
@@ -106,6 +106,7 @@ import {
   isValidAccountName,
   isExistingAccountName
 } from "../../../imports/validators";
+import {time_options} from "../../../imports/time_options";
 
 export default {
   name: "addPayment",
@@ -125,14 +126,8 @@ export default {
       formIsValidated: false,
       token_contract: "eosio.token",
       symbol: "EOS",
-      recurrence_delay:"monthly",
-      recurrence_delay_options: [
-        {label: "hourly", value: 60*60*60},
-        // {label: "2 hours", value: 60*60*60*2},
-        {label: "daily", value: 60*60*60*24},
-        {label: "weekly", value: 60*60*60*24*7},
-        {label: "monthly", value: 60*60*60*24*30},
-      ],
+      recurrence_delay:{label: "monthly", value: 60*60*24*30},
+      recurrence_delay_options: time_options.options,
       auto_pay: false,
       action:{
         account: "",
@@ -142,7 +137,8 @@ export default {
           receiver: "",
           amount: "",
           due_date:"",
-          repeat:1
+          repeat:1,
+          recurrence_sec:0,
         },
         authorization:[]
       },
@@ -216,10 +212,15 @@ export default {
     is_recurrent_payment: function(newV, oldV){
       if(newV===false){
         this.action.data.repeat = 1;
+        this.action.data.recurrence_sec = 0;
       }
       else{
         this.action.data.repeat = 2;
+        this.action.data.recurrence_sec = this.recurrence_delay.value;
       }
+    },
+    recurrence_delay: function(newV, oldV){
+      this.action.data.recurrence_sec = this.recurrence_delay.value
     }
   }
 };

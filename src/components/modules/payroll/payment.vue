@@ -17,7 +17,9 @@
         </q-item-section>
         <q-item-section>
           <q-item-label class="text-capitalize">Repeat</q-item-label>
-          <q-item-label caption>{{`${payment.repeated+1}/${payment.repeat}`}}</q-item-label>
+          <q-item-label caption>
+            {{convert_recurrence_sec(payment.recurrence_sec)}} {{`${payment.repeated+1}/${payment.repeat}`}}
+          </q-item-label>
         </q-item-section>
 
         <q-item-section side>
@@ -32,6 +34,7 @@
 
 <script>
 import profilePic from "components/profile-pic";
+import {time_options} from "../../../imports/time_options";
 export default {
   name: 'payment',
   props:{
@@ -42,6 +45,13 @@ export default {
   },
   data () {
     return {}
+  },
+  methods:{
+    convert_recurrence_sec(sec){
+      return time_options.get(sec);
+    }
+    
   }
+
 }
 </script>
