@@ -50,30 +50,35 @@
     </div>
 
     <div class="col-xs-6 q-pl-xs">
-      <q-toggle label="Recurrent Payment" v-model="is_recurrent_payment" />
-      <q-icon v-if="is_recurrent_payment" name="mdi-check" color="positive" size="24px" />
+      <span class="q-mr-md"> 
+        <q-toggle label="Recurrent Payment" v-model="is_recurrent_payment" />
+        <q-icon v-if="is_recurrent_payment" name="mdi-check" color="positive" size="24px" />
+      </span>
+      <span>
+        <q-toggle label="Auto Pay With Croneos" v-model="auto_pay" />
+        <q-icon v-if="auto_pay" name="mdi-check" color="positive" size="24px" />
+      </span>
     </div>
 
     <div  class="col-xs-6 q-pr-xs">
       <transition enter-active-class="animated zoomIn" leave-active-class="animated zoomOut" mode="out-in" tag="div" >
-        <q-input
-          key="repeat"
-          v-if="is_recurrent_payment"
-          v-model="action.data.repeat" 
-          label="repeat" 
-          outlined 
-          bottom-slots
-        >
+        <q-select v-if="is_recurrent_payment" borderless v-model="recurrence_delay" :options="recurrence_delay_options"  outlined label="repeat" bottom-slots key="recurrent">
           <template v-slot:after>
-            <q-select borderless v-model="delay" :options="delay_options" style="min-width:100px" />
+            <q-input
+              style="max-width:80px"
+              v-model="action.data.repeat" 
+              label="pay" 
+              outlined 
+            >
+              <template v-slot:append>
+                X
+              </template>
+            </q-input>
           </template>
-          <template v-slot:append>
-            times
-          </template>
-        </q-input>
-        
+        </q-select>     
       </transition>
     </div>
+
 
     <div class="row justify-between full-width items-center" >
       <threshold-badge  label :contract="action.account" :action_name="action.name"/>
@@ -111,14 +116,15 @@ export default {
       formIsValidated: false,
       token_contract: "eosio.token",
       symbol: "EOS",
-      delay:"monthly",
-      delay_options: [
+      recurrence_delay:"monthly",
+      recurrence_delay_options: [
         {label: "hourly", value: 60*60*60},
         // {label: "2 hours", value: 60*60*60*2},
         {label: "daily", value: 60*60*60*24},
         {label: "weekly", value: 60*60*60*24*7},
         {label: "monthly", value: 60*60*60*24*30},
       ],
+      auto_pay: false,
       action:{
         account: "",
         name: "paymentadd",
