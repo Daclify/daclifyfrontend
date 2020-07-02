@@ -28,7 +28,7 @@
           :key="has_enough_balance!==false?'positive':'warning'"
         >
           <q-tooltip content-class="bg-secondary" :delay="500">
-            {{has_enough_balance!==false?'Balance sufficient to pay allocated':`Balance insufficient to pay allocated, need to top up ${payroll.pay_permission.actor}`}}
+            {{has_enough_balance!==false?`${payroll.pay_permission.actor} is solvent`:`Balance insufficient to pay allocated payments, need to top up ${payroll.pay_permission.actor}`}}
           </q-tooltip>
         </q-icon>
       </transition>
