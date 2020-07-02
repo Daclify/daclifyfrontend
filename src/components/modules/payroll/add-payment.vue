@@ -1,8 +1,9 @@
 <template>
-  <div class="row  q-pb-xs">
+  <div class="row  q-col-gutter-md q-pb-xs">
     <!-- {{payroll}} -->
-    <div class="col-xs-6 q-pr-xs">
+    <div class="col-xs-12 col-sm-6">
       <q-input
+        ref="receiver"
         v-model="action.data.receiver" 
         label="receiver" 
         outlined 
@@ -17,11 +18,12 @@
         <template v-slot:prepend>
           <profile-pic :account="action.data.receiver" :size="36"/>
         </template>
+
       </q-input>
     </div>
 
     
-    <div class="col-xs-6 q-pl-xs">
+    <div class="col-xs-12 col-sm-6">
       <q-input
         ref="amount"
         type="number"
@@ -33,23 +35,29 @@
         no-error-icon
         :rules="[
           val => !!val || '* Required',
-          val => val > 0 || 'Must be greater then zero',
-          validateAmount
+          val => val > 0 || 'Must be greater then zero'
           ]"
       >
         <template v-slot:append>
           {{payroll.total_paid.quantity.split(' ')[1]}}
         </template>
+        <template  v-slot:hint>
+          <transition  enter-active-class="animated zoomIn" leave-active-class="animated zoomOut"  tag="div" >
+            <div v-if="balance_overdraw_warning" class="row items-center text-warning">
+              <q-icon name="mdi-alert" class="q-mr-xs" />Amount exceeds unallocated balance
+            </div>
+          </transition>
+        </template>
       </q-input>
     </div>
 
-    <div class="col-xs-6 q-pr-xs">
+    <div class="col-xs-12 col-sm-6">
     
       <pick-chain-date v-model="action.data.due_date" label="due date" />
 
     </div>
 
-    <div class="col-xs-6 q-pl-xs">
+    <div class="col-xs-12 col-sm-6">
       <span class="q-mr-md"> 
         <q-toggle label="Recurrent Payment" v-model="is_recurrent_payment" />
         <q-icon v-if="is_recurrent_payment" name="mdi-check" color="positive" size="24px" />
@@ -60,7 +68,7 @@
       </span>
     </div>
 
-    <div  class="col-xs-6 q-pr-xs">
+    <div  class="col-xs-12 col-sm-6">
       <transition enter-active-class="animated zoomIn" leave-active-class="animated zoomOut" mode="out-in" tag="div" >
         <q-select v-if="is_recurrent_payment" borderless v-model="recurrence_delay" :options="recurrence_delay_options"  outlined label="repeat" bottom-slots key="recurrent">
           <template v-slot:after>
@@ -108,7 +116,8 @@ export default {
     pickChainDate
   },
   props:{
-    payroll: false
+    payroll: false,
+    currentbalance:''
   },
   data() {
     return {
@@ -136,7 +145,8 @@ export default {
           repeat:1
         },
         authorization:[]
-      }
+      },
+      balance_overdraw_warning:""
     }
   },
   computed: {
@@ -149,20 +159,17 @@ export default {
   methods: {
     isValidAccountName,
     isExistingAccountName,
-    validateAmount(v){
 
-        // if(Number(v) > Number(token_from_group_wallet.amount) ){
-        //   return `Group only has ${token_from_group_wallet.amount} ${this.symbol}`;
-        // }
-        // else{
-        //   return true;
-        // }
-      
+    getPrecision(){
+      let amount = this.payroll.total_paid.quantity.split(' ')[0];
+      let precision = amount.split('.')[1];
+      return precision ? precision.length : 0;
     },
 
     emitPropose(){
-      this.$refs.amount.validate()
-      if(this.$refs.amount.hasError){
+      this.$refs.amount.validate();
+      this.$refs.receiver.validate();
+      if(this.$refs.amount.hasError || this.$refs.receiver.hasError){
         return;
       }
       let action = JSON.parse(JSON.stringify(this.action))
@@ -176,8 +183,9 @@ export default {
       this.$emit('propose', payload);
     },
     emitBucket(){
-      this.$refs.amount.validate()
-      if(this.$refs.amount.hasError){
+      this.$refs.amount.validate();
+      this.$refs.receiver.validate();
+      if(this.$refs.amount.hasError || this.$refs.receiver.hasError){
         return;
       }
       let action = JSON.parse(JSON.stringify(this.action))
@@ -194,7 +202,15 @@ export default {
   watch: {
     "action.data.amount": function(newV, oldV) {
       if (this.action.data.amount ) {
-        this.action.data.amount = this.action.data.amount //Number(this.action.data.quant).toFixed(this.getPaymentToken().precision);
+        this.action.data.amount = Number(this.action.data.amount).toFixed(this.getPrecision() );
+
+        let unallocated_balance = parseFloat(this.currentbalance) - parseFloat(this.payroll.total_allocated);
+        if(this.action.data.amount > unallocated_balance){
+          this.balance_overdraw_warning = "warning"
+        }
+        else{
+          this.balance_overdraw_warning = ""
+        }
       }
     },
     is_recurrent_payment: function(newV, oldV){

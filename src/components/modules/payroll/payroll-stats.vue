@@ -74,6 +74,7 @@ export default {
       else{
         this.current_balance = `0 ${symbol}`
       }
+      this.$emit('onbalance', this.current_balance);
     }
   },
   watch: {

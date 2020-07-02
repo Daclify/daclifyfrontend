@@ -36,7 +36,7 @@
     </q-tabs>
     <q-separator  />
     <q-card class="q-pa-sm q-my-md">
-      <payroll-stats :payroll="getActivePayRoll"/>
+      <payroll-stats :payroll="getActivePayRoll" @onbalance="active_payroll_balance = $event" />
     </q-card>
 
     <q-toolbar class="bg-primary text-white shadow-2">
@@ -63,7 +63,7 @@
         <!-- <q-btn icon="close"  round dense  class="q-ma-md " @click="add_payment_view=false"/> -->
         <action-proposer>
           <template slot-scope="scope">
-            <add-payment @propose="scope.propose" @addtobucket="scope.addtobucket" :payroll="getActivePayRoll" />
+            <add-payment @propose="scope.propose" @addtobucket="scope.addtobucket" :payroll="getActivePayRoll" :currentbalance="active_payroll_balance"/>
           </template>
         </action-proposer>
     </div>
@@ -117,7 +117,8 @@ export default {
     return {
       active_payroll: '',
       searchfilter: '',
-      add_payment_view: false
+      add_payment_view: false,
+      active_payroll_balance: ""
     }
   },
   computed: {
