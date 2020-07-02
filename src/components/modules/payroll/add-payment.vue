@@ -13,9 +13,14 @@
           isValidAccountName,
           isExistingAccountName
           ]"
-      />
+      >
+        <template v-slot:prepend>
+          <profile-pic :account="action.data.receiver" :size="36"/>
+        </template>
+      </q-input>
     </div>
 
+    
     <div class="col-xs-6 q-pl-xs">
       <q-input
         ref="amount"
@@ -39,21 +44,35 @@
     </div>
 
     <div class="col-xs-6 q-pr-xs">
-      <q-input
-        v-model="action.data.due_date" 
-        label="due date" 
-        outlined 
-        bottom-slots
-      />
+    
+      <pick-chain-date v-model="action.data.due_date" label="due date" />
+
     </div>
 
     <div class="col-xs-6 q-pl-xs">
-      <q-input
-        v-model="action.data.repeat" 
-        label="repeat" 
-        outlined 
-        bottom-slots
-      />
+      <q-toggle label="Recurrent Payment" v-model="is_recurrent_payment" />
+      <q-icon v-if="is_recurrent_payment" name="mdi-check" color="positive" size="24px" />
+    </div>
+
+    <div  class="col-xs-6 q-pr-xs">
+      <transition enter-active-class="animated zoomIn" leave-active-class="animated zoomOut" mode="out-in" tag="div" >
+        <q-input
+          key="repeat"
+          v-if="is_recurrent_payment"
+          v-model="action.data.repeat" 
+          label="repeat" 
+          outlined 
+          bottom-slots
+        >
+          <template v-slot:after>
+            <q-select borderless v-model="delay" :options="delay_options" style="min-width:100px" />
+          </template>
+          <template v-slot:append>
+            times
+          </template>
+        </q-input>
+        
+      </transition>
     </div>
 
     <div class="row justify-between full-width items-center" >
@@ -68,6 +87,8 @@
 import { mapGetters } from "vuex";
 import thresholdBadge from "components/threshold-badge";
 import proposeBucketBtn from "components/actions/propose-bucket-btn";
+import profilePic from "components/profile-pic";
+import pickChainDate from "components/form/pick-chain-date";
 import {
   isValidAccountName,
   isExistingAccountName
@@ -77,16 +98,27 @@ export default {
   name: "addPayment",
   components:{
     thresholdBadge,
-    proposeBucketBtn
+    proposeBucketBtn,
+    profilePic,
+    pickChainDate
   },
   props:{
     payroll: false
   },
   data() {
     return {
+      is_recurrent_payment:false,
       formIsValidated: false,
       token_contract: "eosio.token",
       symbol: "EOS",
+      delay:"monthly",
+      delay_options: [
+        {label: "hourly", value: 60*60*60},
+        // {label: "2 hours", value: 60*60*60*2},
+        {label: "daily", value: 60*60*60*24},
+        {label: "weekly", value: 60*60*60*24*7},
+        {label: "monthly", value: 60*60*60*24*30},
+      ],
       action:{
         account: "",
         name: "paymentadd",
@@ -157,6 +189,14 @@ export default {
     "action.data.amount": function(newV, oldV) {
       if (this.action.data.amount ) {
         this.action.data.amount = this.action.data.amount //Number(this.action.data.quant).toFixed(this.getPaymentToken().precision);
+      }
+    },
+    is_recurrent_payment: function(newV, oldV){
+      if(newV===false){
+        this.action.data.repeat = 1;
+      }
+      else{
+        this.action.data.repeat = 2;
       }
     }
   }

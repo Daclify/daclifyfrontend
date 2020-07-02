@@ -45,6 +45,10 @@ export const action_icon_map = {
       name: "mdi-alpha-r-circle",
       size: "30px"
     },
+    paymentadd: {
+      name: "mdi-account-cash",
+      size: "30px"
+    },
     
     DEFAULT: {
       name: "settings",
