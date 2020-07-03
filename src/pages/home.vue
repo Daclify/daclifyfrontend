@@ -32,11 +32,11 @@
               <img src="~assets/dac1.jpg" style="max-width:100%; max-height:300px">
           </q-card-section>
     
-          <q-card-section style="font-size:17px">
+          <q-card-section class="bg-white text-grey-9" style="font-size:17px">
             <b>What is a DAC?</b>
           </q-card-section>
       
-          <q-card-section class="q-pt-none">
+          <q-card-section class="q-pt-none bg-white text-grey-9">
             <q-scroll-area
               :thumb-style="thumbStyle"
               :bar-style="barStyle"
@@ -77,10 +77,10 @@
               <q-card-section class="bg-white">
               <img src="~assets/question.jpg" style="max-width:100%; max-height:300px">
               </q-card-section>
-                <q-card-section style="font-size:17px">
+                <q-card-section class="bg-white text-grey-9" style="font-size:17px">
                   <b>Why would you create a DAC?</b>
                 </q-card-section>
-                <q-card-section class="q-pt-none">
+                <q-card-section class="q-pt-none bg-white text-grey-9">
                 <q-scroll-area
               :thumb-style="thumbStyle"
               :bar-style="barStyle"
@@ -121,10 +121,10 @@
               <q-card-section class="bg-white text-center">
               <img src="~assets/modules.jpg" class="flex-center" style="max-width:100%; max-height:300px">
               </q-card-section>
-                <q-card-section style="font-size:17px">
+                <q-card-section class="bg-white text-grey-9" style="font-size:17px">
                   <b>Modules</b>
                 </q-card-section>
-                <q-card-section class="q-pt-none">
+                <q-card-section class="bg-white text-grey-9 q-pt-none">
                   <q-scroll-area
               :thumb-style="thumbStyle"
               :bar-style="barStyle"
@@ -160,14 +160,14 @@
             </q-scroll-area>
                 </q-card-section>
             </q-card>
-            <q-card style="max-width:510px; height:600px">
+            <q-card class="bg-white" style="max-width:510px; height:600px">
               <q-card-section>
               <img src="~assets/blockchain.jpg" style="max-width:100%; max-height:300px">
               </q-card-section>
-                <q-card-section style="font-size:17px">
+                <q-card-section class="bg-white text-grey-9" style="font-size:17px">
                   <b>On-chain</b>
                 </q-card-section>
-                <q-card-section class="q-pt-none">
+                <q-card-section class="bg-white text-grey-9 q-pt-none">
                  <q-scroll-area
               :thumb-style="thumbStyle"
               :bar-style="barStyle"
@@ -226,7 +226,24 @@ export default {
   data() {
     return {
       showYouTubeVideo: false,
-      video_is_loaded: false
+      video_is_loaded: false,
+      contentStyle: {
+        backgroundColor: 'rgba(0,0,0,0.02)',
+        color: '#555'
+      },
+
+      contentActiveStyle: {
+        backgroundColor: '#eee',
+        color: 'black'
+      },
+
+      thumbStyle: {
+        right: '2px',
+        borderRadius: '5px',
+        backgroundColor: '#027be3',
+        width: '5px',
+        opacity: 0.75
+      }
     };
   },
   computed: {
