@@ -26,184 +26,12 @@
           <comparison-table style="max-width:700px"/>
         </div>
 
-    <div class="row justify-center q-gutter-xl text-grey-9 offset-1 text-weight-medium">
-       <q-card style="max-width:510px; height:600px">
-          <q-card-section  class="bg-white">
-              <img src="~assets/dac1.jpg" style="max-width:100%; max-height:300px">
-          </q-card-section>
-    
-          <q-card-section class="bg-white text-grey-9" style="font-size:17px">
-            <b>What is a DAC?</b>
-          </q-card-section>
-      
-          <q-card-section class="q-pt-none bg-white text-grey-9">
-            <q-scroll-area
-              :thumb-style="thumbStyle"
-              :bar-style="barStyle"
-              style="height: 190px; max-width: 100%"
-            >                  
-              <div
-                v-for="n in 1"
-                :key="n"
-                class="q-pa-xs"
-              >
-             Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.
-              </div>
-            </q-scroll-area>
-          </q-card-section>
-        </q-card>
-          
-            <q-card style="max-width:510px; height:600px">
-              <q-card-section class="bg-white">
-              <img src="~assets/question.jpg" style="max-width:100%; max-height:300px">
-              </q-card-section>
-                <q-card-section class="bg-white text-grey-9" style="font-size:17px">
-                  <b>Why would you create a DAC?</b>
-                </q-card-section>
-                <q-card-section class="q-pt-none bg-white text-grey-9">
-                <q-scroll-area
-              :thumb-style="thumbStyle"
-              :bar-style="barStyle"
-              style="height: 190px; max-width: 100%"
-            >                  
-              <div
-                v-for="n in 1"
-                :key="n"
-                class="q-pa-xs"
-              >
-                     Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.
-              </div>
-            </q-scroll-area>
-                </q-card-section>
-            </q-card>
-            
-            <q-card style="max-width:510px; height:600px">
-              <q-card-section class="bg-white text-center">
-              <img src="~assets/modules.jpg" class="flex-center" style="max-width:100%; max-height:300px">
-              </q-card-section>
-                <q-card-section class="bg-white text-grey-9" style="font-size:17px">
-                  <b>Modules</b>
-                </q-card-section>
-                <q-card-section class="bg-white text-grey-9 q-pt-none">
-                  <q-scroll-area
-              :thumb-style="thumbStyle"
-              :bar-style="barStyle"
-              style="height: 190px; max-width: 100%"
-            >                  
-              <div
-                v-for="n in 1"
-                :key="n"
-                class="q-pa-xs"
-              >
-                   Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.
-              </div>
-            </q-scroll-area>
-                </q-card-section>
-            </q-card>
-            <q-card class="bg-white" style="max-width:510px; height:600px">
-              <q-card-section>
-              <img src="~assets/blockchain.jpg" style="max-width:100%; max-height:300px">
-              </q-card-section>
-                <q-card-section class="bg-white text-grey-9" style="font-size:17px">
-                  <b>On-chain</b>
-                </q-card-section>
-                <q-card-section class="bg-white text-grey-9 q-pt-none">
-                 <q-scroll-area
-              :thumb-style="thumbStyle"
-              :bar-style="barStyle"
-              style="height: 190px; max-width: 100%"
-            >                  
-              <div
-                v-for="n in 1"
-                :key="n"
-                class="q-pa-xs"
-              >
-                     Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.
-              </div>
-            </q-scroll-area>
-                </q-card-section>
-            </q-card>
-        </div>
+    <div class="row justify-center q-gutter-xl text-grey-9 offset-1 text-weight-medium"> 
+      <whatisdac />
+      <whydac />          
+      <modules />      
+      <onchain />       
+    </div>
   
     </div>
   </q-page>
@@ -215,14 +43,21 @@
 import { mapGetters } from "vuex";
 import splitBtn from "components/split-btn";
 import comparisonTable from "components/home/comparison-table";
+import whatisdac from "components/home/whatisdac";
+import whydac from "components/home/whydac";
+import modules from "components/home/modules";
+import onchain from "components/home/onchain";
 
 export default {
   name: "PageIndex",
   components: {
     splitBtn,
-    comparisonTable
-    
-  },
+    comparisonTable,
+    whatisdac,
+    whydac,
+    modules,
+    onchain
+    },
   data() {
     return {
       showYouTubeVideo: false,
