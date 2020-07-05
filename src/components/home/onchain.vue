@@ -19,8 +19,9 @@
           class="q-pa-xs"
           >
           <div>
-          Daclify's core is working fully on an EOSIO blockchain, this allows real decentralization.
-          You can use an existing UI or create a custom one for yourself. You just need to conect it the contract.
+          <p>Daclify's core has been built on EOSIO platform. The main reason for choosing EOSIO technology was primarly decentralization and speed.</p>
+          <p>Main UI is free for all to use but with DAC's contracts/operations always running on the blockchain it gives different groups and projects an opportunity to design
+             their own UI if need to.</p>
           </div>
           
           </div>
@@ -33,7 +34,25 @@
 export default {
   name: 'onchain',
   data () {
-    return {}
+    return {
+      contentStyle: {
+        backgroundColor: 'rgba(0,0,0,0.02)',
+        color: '#555'
+      },
+
+      contentActiveStyle: {
+        backgroundColor: '#eee',
+        color: 'black'
+      },
+
+      thumbStyle: {
+        right: '2px',
+        borderRadius: '5px',
+        backgroundColor: '#027be3',
+        width: '5px',
+        opacity: 0.75
+      }
+    }
   }
 }
 </script>

@@ -20,11 +20,12 @@
       class="q-pa-xs"
       >
       <div>
-      Daclify is designed to be modular.
-      A module is a contract installed on an account.
-      You can link different modules with your group to enable certain features.
-      This allows for the platform to be very flexible and be fit for purpose.
-      Examples: payroll module, voting module, etc.
+      <p>Daclify has a modular design.
+      This allows for the platform to scale and be very flexible.</p>
+      <p>A module is a contract installed on an account.
+      You can link different modules within your group to enable certain features.
+      With time there will be more and more modules available to use. Everyone can help with developing them as the code is open-source.</p>
+      <p>Examples: payroll module, voting module, etc.</p>
       </div>
       </div>
     </q-scroll-area>
@@ -36,7 +37,25 @@
 export default {
   name: 'modules',
   data () {
-    return {}
+    return {
+      contentStyle: {
+        backgroundColor: 'rgba(0,0,0,0.02)',
+        color: '#555'
+      },
+
+      contentActiveStyle: {
+        backgroundColor: '#eee',
+        color: 'black'
+      },
+
+      thumbStyle: {
+        right: '2px',
+        borderRadius: '5px',
+        backgroundColor: '#027be3',
+        width: '5px',
+        opacity: 0.75
+      }
+    }
   }
 }
 </script>
