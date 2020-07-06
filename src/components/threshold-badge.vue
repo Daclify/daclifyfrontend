@@ -1,7 +1,7 @@
 <template>
   <div v-if="THRESHOLD">
     <span v-if="label" class="text-caption text-grey-6 q-mr-xs">Threshold:</span>
-    <q-badge color="secondary">
+    <q-badge color="secondary" style="cursor:help">
       {{THRESHOLD.threshold_name}}
       <q-tooltip content-class="bg-secondary" :delay="300">
         Requires {{THRESHOLD.threshold}} approval votes

@@ -80,9 +80,10 @@ export default {
         let cobj = {};
         cobj.claim_ms = start + (i*this.payment.recurrence_sec*1000);
         cobj.claim_date = date.formatDate(cobj.claim_ms, 'dddd Do MMMM YYYY HH:mm') //new Date(cobj.claim_ms);
-        cobj.claimable = cobj.claim_ms <= now;
+        
         cobj.ms_left = cobj.claim_ms - now;
         cobj.is_claimed = this.payment.repeated > i;
+        cobj.claimable = cobj.is_claimed || cobj.claim_ms <= now;
         res.push(cobj);
       }
       return res;
@@ -92,12 +93,8 @@ export default {
 
       let action = JSON.parse(JSON.stringify(this.action))
 
-
-      let title = `Remove ${this.payment.receiver} to payroll ${this.payment.payroll_tag}`;
-      let description = `Remove ${this.payment.receiver}.\n`;
-      // if(action.data.repeat > 1){
-      //   description += `This is a ${time_options.get(action.data.recurrence_sec)} recurrent payment. It will be repeated ${action.data.repeat} times.`;
-      // }
+      let title = `Remove ${this.payment.receiver} from payroll ${this.payment.payroll_tag}`;
+      let description = `Remove ID ${this.payment.pay_id} from payroll ${this.payment.payroll_tag}. All payments associated with this pay_id will be cancelled.`;
 
       const payload = {
         actions: [action],
