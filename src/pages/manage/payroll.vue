@@ -1,6 +1,7 @@
 <template>
-  <q-page v-if="getPayrolls.length" padding class="constrain-page-width">
+  <q-page  padding class="constrain-page-width">
     <page-header title="Payrolls" />
+    <div v-if="getPayrolls.length">
     <q-input placeholder="Find Payment" outlined v-model.trim="searchfilter" class="" @input="add_payment_view= false">
       <template v-slot:prepend>
         <q-icon name="search" class="cursor-pointer" />
@@ -55,8 +56,13 @@
     </q-toolbar>
     <transition enter-active-class="animated zoomIn" leave-active-class="animated zoomOut" mode="out-in" tag="div" >
     <div v-if="!add_payment_view" key="payments">
-      <q-list class="primary-hover-list" bordered separator striped>
+      <q-list v-if="filterPayments.length"  class="primary-hover-list" bordered separator striped>
         <payment v-for="(payment, i) in filterPayments" :key="payment.pay_id" :payment="payment" :class="i % 2 === 0 ?'':''" />
+      </q-list>
+      <q-list v-else bordered separator striped>
+        <q-item>
+          <q-item-label caption>No Payments</q-item-label>
+        </q-item>
       </q-list>
     </div>
     <div v-else class="relative-position" key="add">
@@ -68,29 +74,12 @@
         </action-proposer>
     </div>
     </transition>
-    <!-- <payrolls v-if="getPayrolls.length"/> -->
-
-<!-- {{getPayments}} -->
-
-
-    <!-- <q-dialog v-model="add_payment_view">
-      <q-card class="overflow-hidden" style="min-width:350px">
-        <q-card-section >
-            <page-header :title="`Payroll ${getActivePayRoll.payroll_tag}`"/>
-            <q-btn icon="close" flat round dense v-close-popup class="q-ma-md absolute-top-right"/>
-
-        <action-proposer>
-          <template slot-scope="scope">
-            <add-payment @propose="scope.propose" @addtobucket="scope.addtobucket" :payroll="getActivePayRoll" />
-          </template>
-        </action-proposer>
-
-           
-        </q-card-section>
-      </q-card>
-    </q-dialog> -->
-
-    
+    </div>
+    <q-card v-else>
+      <q-card-section>
+        No payrolls configured yet.
+      </q-card-section>
+    </q-card>
   </q-page>
 </template>
 
