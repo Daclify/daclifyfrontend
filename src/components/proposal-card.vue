@@ -98,7 +98,14 @@
             >
               <div class="q-px-md q-pt-xs text-grey-7">
                 <div class="text-weight-bold">Description</div>
-                {{ proposal.description }}
+
+                  <q-markdown
+                    class="text-weight-light"
+                    :src="proposal.description"
+                    :no-abbreviation="false"
+                  >
+                  </q-markdown>
+
                 <!-- <span v-for="i in 1000" :key="i">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </span> -->
               </div>
             </q-scroll-area>

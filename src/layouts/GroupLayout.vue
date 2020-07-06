@@ -1,6 +1,6 @@
 <template>
-  <q-layout view="hHh Lpr fff">
-    <!-- Be sure to play with the Layout demo on docs "hHh Lpr lff" -->
+  <q-layout view="hHh Lpr lFf">
+    <!-- Be sure to play with the Layout demo on docs "hHh Lpr fff" -->
 
     <!-- (Optional) The Header -->
     <q-header>
@@ -39,9 +39,9 @@
     </q-header>
 
     <!-- (Optional) The Footer -->
-    <!-- <q-footer class="bg-secondary" style="height:100px">
-      <div>footer</div>
-    </q-footer> -->
+    <q-footer class="bg-secondary" style="height:80px">
+      <div></div>
+    </q-footer>
 
     <!-- (Optional) A Drawer; you can add one more with side="right" or change this one's side -->
     <q-drawer

@@ -63,8 +63,8 @@
         <q-icon v-if="is_recurrent_payment" name="mdi-check" color="positive" size="24px" />
       </span>
       <span>
-        <q-toggle label="Auto Pay With Croneos" v-model="auto_pay" />
-        <q-icon v-if="auto_pay" name="mdi-check" color="positive" size="24px" />
+        <q-toggle label="Auto Pay With Croneos" v-model="action.data.auto_pay" />
+        <q-icon v-if="action.data.auto_pay" name="mdi-check" color="positive" size="24px" />
       </span>
     </div>
 
@@ -128,7 +128,6 @@ export default {
       symbol: "EOS",
       recurrence_delay:{label: "monthly", value: 60*60*24*30},
       recurrence_delay_options: time_options.options,
-      auto_pay: false,
       action:{
         account: "",
         name: "paymentadd",
@@ -139,6 +138,7 @@ export default {
           due_date:"",
           repeat:1,
           recurrence_sec:0,
+          auto_pay: false
         },
         authorization:[]
       },
@@ -171,10 +171,16 @@ export default {
       let action = JSON.parse(JSON.stringify(this.action))
       action.data.amount = action.data.amount+" "+this.symbol;
 
+      let title = `Add ${action.data.receiver} to payroll ${this.payroll.payroll_tag}`;
+      let description = `Pay ${action.data.receiver} ${action.data.amount}.\n`;
+      if(action.data.repeat > 1){
+        description += `This is a ${time_options.get(action.data.recurrence_sec)} recurrent payment. It will be repeated ${action.data.repeat} times.`;
+      }
+
       const payload = {
         actions: [action],
-        description: `Proposal to add to payroll "${this.payroll.payroll_tag}"`,
-        title: 'Add to payroll'     
+        description: description,
+        title: title     
       }
       this.$emit('propose', payload);
     },

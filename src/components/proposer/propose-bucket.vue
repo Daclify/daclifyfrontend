@@ -131,8 +131,20 @@
           <q-tab-panel name="bucket_meta" class="overflow-hidden">
             <div class="q-col-gutter-md">
               <q-input label="Title" v-model="propose_title" outlined />
-              <q-input label="Description" v-model="propose_description" type="textarea" outlined />
-              
+              <div>
+                <div class=" cursor-pointer text-caption" @click="preview_description=!preview_description">
+                  ({{preview_description?'Edit':'Preview'}})
+                </div>
+                <q-markdown
+                  style="min-height:145px"
+                  v-if="preview_description"
+                  class="text-weight-light"
+                  :src="propose_description"
+                  :no-abbreviation="false"
+                >
+                </q-markdown>
+                <q-input v-else label="Description" v-model="propose_description" type="textarea" outlined />
+              </div>
               <div class="row items-center justify-between">
                 <q-btn flat label="back" @click="bucket_view='bucket_list'" color="primary" size="md"/>
                 <q-btn :disabled="!propose_title || !propose_description" label="propose" @click="propose" color="primary" size="md"/>
@@ -195,6 +207,7 @@ export default {
   },
   data () {
     return {
+      preview_description:false,
       bucket_opened: false,
       bucket_view: "bucket_list",
       propose_title:'',
