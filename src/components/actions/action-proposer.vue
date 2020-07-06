@@ -1,6 +1,6 @@
 <template>
   
-    <q-tab-panels v-model="propose_state_tab" animated class="fit bg-transparent q-mt-md" transition-prev="fade" transition-next="fade">
+    <q-tab-panels v-model="propose_state_tab" animated class="fit bg-transparent" transition-prev="fade" transition-next="fade">
 
       <q-tab-panel name="request_input" class="overflow-hidden no-padding fit">
         <slot :propose="proposeAction" :addtobucket="addToBucket"></slot>
