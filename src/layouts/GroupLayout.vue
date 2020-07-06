@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh Lpr lFf">
+  <q-layout view="hHh Lpr lff">
     <!-- Be sure to play with the Layout demo on docs "hHh Lpr fff" -->
 
     <!-- (Optional) The Header -->
@@ -167,7 +167,7 @@
       </q-toggle>
     </q-drawer>
 
-    <q-page-container class=" text-black  overflow-hidden" style="padding-bottom:0px">
+    <q-page-container class=" text-black  overflow-hidden" style="padding-bottom:80px">
       <transition
         appear
         enter-active-class="animated fadeInRight"
@@ -207,7 +207,7 @@ export default {
   data() {
     return {
       leftDrawer: true,
-      miniState: false,
+      miniState: this.$store.state.user.miniState,
       group_is_loading: false,
       selected_group: "",
       menu_mode: "management"
@@ -281,6 +281,13 @@ export default {
         }
       }
     },
+
+    miniState:{
+      immediate:true,
+      handler(newVal, oldval){
+        this.$store.commit('user/setMiniState', newVal );
+      }
+    }
 
   }
 };

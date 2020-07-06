@@ -35,7 +35,7 @@ export default function (/* { ssrContext } */) {
       }),
       createPersistedState({
         key: "user",
-        paths: ["user.favouriteGroups", "user.resourceWarningLevels", "user.minifyCustodians", "user.isDark", "user.topicSubscriptions", "user.currentFCMToken"]
+        paths: ["user.favouriteGroups", "user.resourceWarningLevels", "user.minifyCustodians", "user.isDark", "user.miniState", "user.topicSubscriptions", "user.currentFCMToken"]
       })
     ],
 

@@ -39,6 +39,10 @@ export function setIsDark(state, payload){
     state.isDark = payload;
 }
 
+export function setMiniState(state, payload){
+    state.miniState = payload;
+}
+
 export function setIsMember(state, payload){
     state.isMember = payload;
 }
