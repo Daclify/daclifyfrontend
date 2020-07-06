@@ -7,12 +7,15 @@
         <q-expansion-item v-for="member in members" :key="member.account" group="members">
           <template v-slot:header>
             <q-item-section avatar>
-              <profile-pic :size="42" icon="" iconColor="positive" :account="member.account"  />
+              <profile-pic :size="42" :account="member.account"  :icon="getIsCustodian(member.account) ? 'mdi-star' : ''" />
             </q-item-section>
 
             <q-item-section>
-              <q-item-label class="text-capitalize">{{member.account}}</q-item-label>
+              <q-item-label class="text-capitalize">
+                <profile-link :account="member.account" :inversestyle="true" />
+              </q-item-label>
               <!-- <q-item-label caption>ID {{payment.pay_id}}</q-item-label> -->
+              <!-- {{getIsCustodian(member.account)}} -->
             </q-item-section>
           </template>
 
@@ -34,12 +37,14 @@
 import { mapGetters } from "vuex";
 import pageHeader from "components/page-header";
 import profilePic from "components/profile-pic";
+import profileLink from "components/profile-link";
 
 export default {
   name: 'members',
   components:{
     pageHeader,
-    profilePic
+    profilePic,
+    profileLink
   },
   data () {
     return {
@@ -52,6 +57,7 @@ export default {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
       getActiveGroup: "group/getActiveGroup",
+      getIsCustodian: "group/getIsCustodian"
     })
   },
   methods:{
