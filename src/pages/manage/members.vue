@@ -1,6 +1,12 @@
 <template>
   <q-page  padding class="constrain-page-width">
     <page-header title="Members" />
+    <div v-if="getCoreConfig && getCoreConfig.conf.member_registration" >
+      Member Registration Enabled
+    </div>
+    <div v-if="getCoreState" >
+      {{getCoreState.state.member_count}}
+    </div>
     <div v-if="getActiveGroup">
       <!-- <pre>{{members}}</pre> -->
       <q-list class="primary-hover-list" bordered separator>
@@ -57,7 +63,9 @@ export default {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
       getActiveGroup: "group/getActiveGroup",
-      getIsCustodian: "group/getIsCustodian"
+      getIsCustodian: "group/getIsCustodian",
+      getCoreConfig: "group/getCoreConfig",
+      getCoreState: "group/getCoreState",
     })
   },
   methods:{

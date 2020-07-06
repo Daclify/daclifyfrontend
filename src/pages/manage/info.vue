@@ -119,7 +119,7 @@
 
       <div v-if="getCoreConfig && getCoreConfig.conf.member_registration" class="col-xs-12 col-sm-6 col-lg-4">
         <q-card class="primary-hover-list">
-          <q-item clickable >
+          <q-item clickable :to="`/manage/${getActiveGroup}/members`">
             <q-item-section avatar>
               <q-icon name="mdi-account-multiple-check" color="primary" size="xl"/>
             </q-item-section>
