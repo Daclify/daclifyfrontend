@@ -1,7 +1,4 @@
 <template>
-
-
-
       <q-expansion-item>
         <template v-slot:header>
           <q-item-section avatar>
@@ -32,7 +29,7 @@
         </template>
 
         <q-card>
-          <q-card-section>
+        
             <!-- {{payment.due_date}} -->
             <q-list class="full-width">
               <q-item dense v-for="(p,i) in getClaimDates()" :key="p.claim_ms">
@@ -54,20 +51,17 @@
                 </q-item-section>
               </q-item>
             </q-list>
+          <q-card-section>
             <div class="text-right">
               <q-btn label="delete" icon="delete" color="negative" >
                 <q-tooltip content-class="bg-secondary" :delay="500">
                   Propose removal from payroll
                 </q-tooltip>
               </q-btn>
-
             </div>
           </q-card-section>
         </q-card>
       </q-expansion-item>
-
-
-
 </template>
 
 <script>
