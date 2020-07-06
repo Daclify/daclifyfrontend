@@ -4,7 +4,7 @@
       <template v-slot:prepend>
         <q-icon name="event" class="cursor-pointer">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
-            <q-date v-model="date" mask="YYYY-MM-DDTHH:mm" />
+            <q-date v-model="date" mask="YYYY-MM-DDTHH:mm" :minimal="false" :options="date => date >= now" />
           </q-popup-proxy>
         </q-icon>
       </template>
@@ -17,17 +17,20 @@
         </q-icon>
       </template>
     </q-input>
+    <!-- {{now}} -->
   </div>
 </template>
 
 <script>
+import { date } from 'quasar';
 export default {
   props:{
     label: ''
   },
   data () {
     return {
-      date: ''
+      date: '',
+      now: date.formatDate(new Date(), 'YYYY/MM/DD HH:mm')
     }
   },
   watch:{

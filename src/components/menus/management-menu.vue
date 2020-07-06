@@ -67,6 +67,16 @@
           </q-item-section>
         </q-item>
 
+        <q-item clickable :to="`/manage/${getActiveGroup}/members`">
+          <q-item-section avatar>
+            <q-icon name="mdi-account-multiple"/>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Members</q-item-label>
+            <!-- <q-item-label caption>mining stats</q-item-label> -->
+          </q-item-section>
+        </q-item>
+
         <q-item clickable :to="`/manage/${getActiveGroup}/thresholds`">
           <q-item-section avatar>
             <q-icon name="mdi-chart-gantt" class="rotate-270"/>
