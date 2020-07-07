@@ -1,12 +1,42 @@
 <template>
   <q-page  padding class="constrain-page-width">
     <page-header title="Members" />
-    <div v-if="getCoreConfig && getCoreConfig.conf.member_registration" >
-      Member Registration Enabled
+    <div v-if="getCoreConfig" class="text-right q-mb-md">
+      <q-badge  v-if="getCoreConfig.conf.member_registration" key="enabled" >Member Registration Enabled</q-badge>
+      <q-badge  color="negative" v-else key="disabled">Member Registration disabled</q-badge>
     </div>
-    <div v-if="getCoreState" >
-      {{getCoreState.state.member_count}}
-    </div>
+
+
+    <q-input placeholder="Find Member" outlined v-model.trim="searchfilter" class="q-mb-md">
+      <template v-slot:prepend>
+        <q-icon name="search" class="cursor-pointer" />
+      </template>
+      <template v-slot:append>
+        <transition-group
+          appear
+          enter-active-class="animated fadeInRight"
+          leave-active-class="animated fadeOutRight"
+          tag="div"
+        >
+          <q-icon
+            v-if="searchfilter.length"
+            name="close"
+            key="has_filter"
+            @click="searchfilter = ''"
+            class="cursor-pointer"
+          />
+        </transition-group>
+      </template>
+      <!-- <template v-slot:after>
+        <div>
+          <span>#{{candidates.length}}</span>
+          <q-tooltip :delay="250" content-class="bg-primary">{{candidates.length}} Active Candidates</q-tooltip>
+        </div>
+      </template> -->
+    </q-input>
+
+
+
     <div v-if="getActiveGroup">
       <!-- <pre>{{members}}</pre> -->
       <q-list class="primary-hover-list" bordered separator>
@@ -15,7 +45,6 @@
             <q-item-section avatar>
               <profile-pic :size="42" :account="member.account"  :icon="getIsCustodian(member.account) ? 'mdi-star' : ''" />
             </q-item-section>
-
             <q-item-section>
               <q-item-label class="text-capitalize">
                 <profile-link :account="member.account" :inversestyle="true" />
@@ -24,12 +53,15 @@
               <!-- {{getIsCustodian(member.account)}} -->
             </q-item-section>
           </template>
-
           <q-card>
             nothing here yet
           </q-card>
-
         </q-expansion-item>
+        <q-item v-if="is_loading" >
+          <div class="row items-center justify-center full-width">
+            <q-spinner color="primary" size="24px" />
+          </div>
+        </q-item>
       </q-list>
       <div class="text-right q-mt-md">
         <q-btn label="more" @click="fetchMembers()" color="primary" :disabled="!more" />
@@ -56,7 +88,9 @@ export default {
     return {
       next_key: '',
       more: false,
-      members: []
+      members: [],
+      is_loading: false,
+      searchfilter: ""
     }
   },
   computed: {
@@ -71,6 +105,7 @@ export default {
   methods:{
 
     async fetchMembers(){
+      this.is_loading =true;
       let res = await this.$eos.rpc.get_table_rows({
         json: true,
         code: this.getActiveGroup,
@@ -89,8 +124,9 @@ export default {
         this.more = res.more;
       }
       else{
-        return [];
+        //return [];
       }
+      this.is_loading =false;
     }
 
   },
