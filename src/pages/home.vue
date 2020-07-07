@@ -20,32 +20,20 @@
         </div>
       </q-parallax>
     </div>
-    <div class="center-page-content q-pa-md text-white">
-      <h5>Home page is in development</h5>
-      <p class="invisible" v-scroll-fire="(el)=>{makeVisible(el, 'fadeIn')}">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+    <div class="center-page-content q-pa-md text-white q-gutter-xl">
+      <h4 class="row justify-center text-white">EMPOWEREMENT OF DECENTRALIZED COMMUNITIES</h4>
+        <div class="fit row inline wrap justify-center">
+          <comparison-table style="max-width:700px"/>
+        </div>
 
-    
-      <!-- <comparison-table style="max-width:700px"/> -->
-      
-      
-      <div class="row justify-center">
-        <img src="~assets/daclify-d-transparent.svg"  style="width:300px;" class="invisible" v-scroll-fire="(el)=>{makeVisible(el, 'fadeInDown')}"/>
-      </div>
-      <div class="row justify-center">
-        <img src="~assets/daclify-d-transparent.svg"  style="width:300px;" class="invisible" v-scroll-fire="(el)=>{makeVisible(el, 'fadeInUp')}"/>
-      </div>
-      <div class="row justify-between ">
-        <img src="~assets/daclify-d-transparent.svg"  style="width:30px;" class="invisible" v-scroll-fire="(el)=>{makeVisible(el, 'fadeInLeft')}"/>
-        <img src="~assets/daclify-d-transparent.svg"  style="width:30px;" class="invisible" v-scroll-fire="(el)=>{makeVisible(el, 'fadeInRight')}"/>
-      </div>
-      <div class="row justify-center">
-        <img src="~assets/daclify-d-transparent.svg"  style="width:300px;" class="invisible" v-scroll-fire="(el)=>{makeVisible(el, 'fadeInUp')}"/>
-      </div>
-      
+    <div class="row justify-center q-gutter-xl text-grey-9 offset-1 text-weight-medium"> 
+      <whatisdac />
+      <whydac />          
+      <modules />      
+      <onchain />       
     </div>
-
-
-
+  
+    </div>
   </q-page>
 </template>
 
@@ -55,18 +43,42 @@
 import { mapGetters } from "vuex";
 import splitBtn from "components/split-btn";
 import comparisonTable from "components/home/comparison-table";
+import whatisdac from "components/home/whatisdac";
+import whydac from "components/home/whydac";
+import modules from "components/home/modules";
+import onchain from "components/home/onchain";
 
 export default {
   name: "PageIndex",
   components: {
     splitBtn,
-    comparisonTable
-    
-  },
+    comparisonTable,
+    whatisdac,
+    whydac,
+    modules,
+    onchain
+    },
   data() {
     return {
       showYouTubeVideo: false,
-      video_is_loaded: false
+      video_is_loaded: false,
+      contentStyle: {
+        backgroundColor: 'rgba(0,0,0,0.02)',
+        color: '#555'
+      },
+
+      contentActiveStyle: {
+        backgroundColor: '#eee',
+        color: 'black'
+      },
+
+      thumbStyle: {
+        right: '2px',
+        borderRadius: '5px',
+        backgroundColor: '#027be3',
+        width: '5px',
+        opacity: 0.75
+      }
     };
   },
   computed: {

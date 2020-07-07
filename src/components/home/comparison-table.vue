@@ -1,53 +1,53 @@
 <template>
   <div>
-    <q-markup-table :dark="false"  separator="horizontal" class="comparison-table bg-transparent">
+    <q-markup-table :dark="false"  separator="horizontal" class="comparison-table bg-grey-9">
       <thead>
         <tr  style="height:80px">
           <th class="text-left"></th>
-          <th class="text-center">
+          <th class="text-center bg-grey-9">
               <q-img
                 style="width: 20vw; max-width:135px; min-width:100px; filter: brightness(0) invert(1);"
                 contain
                 src="~assets/daclify-logo.svg"
               />
           </th>
-          <th class="text-center">
+          <th class="text-center bg-grey-9">
               <q-img
-                style="width: 20vw; max-width:150px; min-width:100px"
+                style="width: 20vw; max-width:100px; min-width:100px"
                 contain
-                src="https://dev.dacfactory.io/img/eosdac-logo.e9d070ef.svg"
+                src="~assets/other.svg"
               />
           </th>
         </tr>
       </thead>
-      <tbody class="bg-white">
+      <tbody class="bg-white text-weight-bold">
         <tr>
-          <td class="text-left">Pricing</td>
+          <td class="text-left bg-grey-9">Pricing</td>
           <td class="text-center">Free*</td>
           <td class="text-center">Setup and monthly fees</td>
         </tr>
         <tr>
-          <td class="text-left">Modular</td>
+          <td class="text-left bg-grey-9">Modular</td>
           <td class="text-center"><q-icon name="check" color="positive" size="24px"/></td>
           <td class="text-center"><q-icon name="close" color="negative" size="24px"/></td>
         </tr>
         <tr>
-          <td class="text-left">100% on chain</td>
+          <td class="text-left bg-grey-9">100% on chain</td>
           <td class="text-center"><q-icon name="check" color="positive" size="24px"/></td>
           <td class="text-center"><q-icon name="close" color="negative" size="24px"/></td>
         </tr>
         <tr>
-          <td class="text-left">Centralized API</td>
+          <td class="text-left bg-grey-9">Centralized API</td>
           <td class="text-center"><q-icon name="close" color="negative" size="24px"/></td>
           <td class="text-center"><q-icon name="check" color="positive" size="24px"/></td>
         </tr>
         <tr>
-          <td class="text-left">Trustless & Permissionless</td>
+          <td class="text-left bg-grey-9">Trustless & Permissionless</td>
           <td class="text-center"><q-icon name="check" color="positive" size="24px"/></td>
           <td class="text-center"><q-icon name="close" color="negative" size="24px"/></td>
         </tr>
         <tr>
-          <td class="text-left">Censorship Resistance</td>
+          <td class="text-left bg-grey-9">Censorship Resistance</td>
           <td class="text-center"><q-icon name="check" color="positive" size="24px"/></td>
           <td class="text-center"><q-icon name="close" color="negative" size="24px"/></td>
         </tr>
