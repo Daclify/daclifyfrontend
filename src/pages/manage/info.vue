@@ -99,7 +99,7 @@
 
       <div v-if="getElectionsState" class="col-xs-12 col-sm-6 col-lg-4">
         <q-card class="primary-hover-list">
-          <q-item clickable>
+          <q-item clickable :to="`/members/${getActiveGroup}/elections`">
             <q-item-section avatar>
               <q-icon name="mdi-account-card-details" color="primary" size="xl"/>
               <q-tooltip content-class="bg-secondary" :delay="500"  anchor="center right" self="center left" :offset="[10, 10]">
@@ -148,7 +148,7 @@
       </div>
 
       <div v-if="getElectionsContract" class="col-xs-12 col-sm-6 col-lg-8">
-        <q-card class="primary-hover-list">
+        <q-card class="primary-hover-list" >
           <new-election-timer />
         </q-card>
       </div>

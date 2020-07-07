@@ -30,7 +30,7 @@ export default {
   data () {
     return {
       date: '',
-      now: date.formatDate(new Date(), 'YYYY/MM/DD HH:mm')
+      now: date.formatDate(new Date(), 'YYYY/MM/DD')
     }
   },
   watch:{
