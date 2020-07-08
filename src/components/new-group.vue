@@ -475,8 +475,13 @@ export default {
     new_group_account_name: function() {
       console.log(this.$refs.accountinput.hasError);
     },
-    getAccountName: function(){
-      this.getGroupsByCreator();
+    getAccountName: {
+      immediate: true,
+      handler: function(newV, oldV){
+        if(this.getAccountName){
+          this.getGroupsByCreator();
+        }
+      }
     }
   }
 };
