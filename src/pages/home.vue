@@ -27,16 +27,16 @@
       </div>
 
       <div class=" q-mt-md q-pb-xl row q-col-gutter-lg text-grey-9 text-weight-medium">
-        <div class="col-xs-12 col-md-6">
+        <div class="col-xs-12 col-sm-6">
           <whatisdac />
         </div>
-        <div class="col-xs-12 col-md-6">
+        <div class="col-xs-12 col-sm-6">
           <whydac />
         </div>
-        <div class="col-xs-12 col-md-6">          
+        <div class="col-xs-12 col-sm-6">          
           <modules />
         </div>
-        <div class="col-xs-12 col-md-6">     
+        <div class="col-xs-12 col-sm-6">     
           <onchain /> 
         </div>     
       </div>
