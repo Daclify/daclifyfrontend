@@ -35,7 +35,13 @@ export function updateAvatar(state, payload){
 
 export function addProfile(state, payload){
     state.profiles.push(payload);
+}
 
+export function delProfile(state, payload){
+    let del_index = state.profiles.findIndex(p=> p.account == payload);
+    if(del_index > -1){
+        state.profiles.splice(del_index, 1);
+    }
 }
 
 export function setMyOldProfile(state, payload){

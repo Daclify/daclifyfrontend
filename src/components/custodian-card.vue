@@ -112,7 +112,7 @@ import { mapGetters } from "vuex";
 
 import {colors} from 'quasar';
 const{getBrand} = colors;
-import profileText from "components/profile_data/profile-text";
+import profileText from "components/profile/profile-text";
 import profileLink from "components/profile-link";
 import imaliveBtn from "components/imalive-btn";
 import profilePic from "components/profile-pic";

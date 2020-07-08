@@ -19,7 +19,7 @@
           </q-item-section>
         </q-item>
 
-        <q-item clickable :to="`/members/${getActiveGroup}/register`">
+        <q-item v-if="!getIsMember" clickable :to="`/members/${getActiveGroup}/register`">
           <q-item-section avatar>
             <q-icon name="mdi-account-plus" />
           </q-item-section>

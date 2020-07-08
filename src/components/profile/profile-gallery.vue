@@ -129,7 +129,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { isYouTubeUrl } from "../../imports/validators";
-import newImage from "components/profile_data/new-image";
+import newImage from "components/profile/new-image";
 export default {
   // name: 'ComponentName',
   name: "profileGallery",

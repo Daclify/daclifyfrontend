@@ -2,7 +2,9 @@
   <q-page padding class="constrain-page-width">
     <div class="row q-col-gutter-md">
       <div class="col-xs-12">
-        <q-card>
+        <profile-header :account="account"/>
+        <!-- https://i.imgur.com/37EVXOo.jpg -->
+        <!-- <q-card>
           <q-card-section>
             <q-item>
               <q-item-section avatar>
@@ -26,9 +28,7 @@
                   >Custodian</q-item-label
                 >
               </q-item-section>
-              <!-- <q-item-section side>
-            <imalive-btn v-if="custodian.account == getAccountName" />
-          </q-item-section> -->
+
             </q-item>
             <transition
               appear
@@ -40,8 +40,9 @@
                 @updated="edit_avatar = false"
               />
             </transition>
+            <q-btn icon="mdi-dots-vertical" flat dense class="absolute-top-right q-ma-md" />
           </q-card-section>
-        </q-card>
+        </q-card> -->
       </div>
       <div class="col-xs-12" v-if="getElectionsContract">
         <q-card>
@@ -195,13 +196,13 @@
 
 <script>
 import { mapGetters } from "vuex";
-import profilePic from "components/profile-pic";
-import updateProfilePic from "components/update-profile-pic";
-import profileText from "components/profile_data/profile-text";
-import profileLinks from "components/profile_data/profile-links";
-import profileFiles from "components/profile_data/profile-files";
-import profileGallery from "components/profile_data/profile-gallery";
-import textEdit from "components/profile_data/text-edit";
+
+import profileText from "components/profile/profile-text";
+import profileHeader from "components/profile/profile-header";
+import profileLinks from "components/profile/profile-links";
+import profileFiles from "components/profile/profile-files";
+import profileGallery from "components/profile/profile-gallery";
+import textEdit from "components/profile/text-edit";
 import dateString from "components/date-string";
 import { diff } from "deep-diff";
 
@@ -211,14 +212,14 @@ import componentLoader from "components/component-loader";
 export default {
   name: "profile",
   components: {
-    profilePic,
-    updateProfilePic,
+    profileHeader,
     profileText,
     profileLinks,
     profileFiles,
     profileGallery,
     textEdit,
     dateString,
+    
     componentLoader
     // externalComponent
     // externalComponent: window.httpVueLoader("https://raw.githack.com/eosgroups/eosgroups-frontend/master/src/components/external-component.vue")
@@ -227,7 +228,7 @@ export default {
     return {
       profile_data: null,
       account: null,
-      edit_avatar: false,
+      
       active_tab: "textview",
       is_transacting: false,
       votedFor: []
