@@ -30,7 +30,7 @@
             }}</q-item-label>
             <q-item-label  caption>
               <span v-if="getIsCustodian(account)">Custodian</span>
-              <span v-if="getIsMember">Custodian</span>
+              <!-- <span v-if="getIsMember">Member</span> -->
             </q-item-label
             >
           </q-item-section>

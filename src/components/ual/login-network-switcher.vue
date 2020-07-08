@@ -45,6 +45,16 @@
           </q-item-section>
         </q-item>
 
+        <q-item v-if="getAccountName" clickable v-close-popup :to="`/members/${getActiveGroup}/profile/${getAccountName}`" class="bg-secondary">
+          <q-item-section avatar>
+            <q-icon name="mdi-face-profile" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>My profile</q-item-label>
+            <q-item-label caption>go to</q-item-label>
+          </q-item-section>
+        </q-item>
+
         <q-item  class="bg-secondary" clickable v-close-popup @click="toggleNightMode">
           <q-item-section avatar>
             <q-icon name="mdi-theme-light-dark" class="cursor-pointer" :class="{'rotate-180': getIsDark }" />
@@ -136,6 +146,7 @@ export default {
       getAccountName: "ual/getAccountName",
       getShouldRenderLoginModal: "ual/getShouldRenderLoginModal",
       getActiveNetwork: "ual/getActiveNetwork",
+      getActiveGroup: "group/getActiveGroup",
       getSESSION: "ual/getSESSION",
       getIsCustodian: "group/getIsCustodian",
       getIsDark: "user/getIsDark",

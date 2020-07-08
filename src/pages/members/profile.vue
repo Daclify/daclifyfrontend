@@ -3,46 +3,6 @@
     <div class="row q-col-gutter-md">
       <div class="col-xs-12">
         <profile-header :account="account"/>
-        <!-- https://i.imgur.com/37EVXOo.jpg -->
-        <!-- <q-card>
-          <q-card-section>
-            <q-item>
-              <q-item-section avatar>
-                <profile-pic
-                  style="margin-left:-15px"
-                  :size="85"
-                  iconColor="white"
-                  iconBackground="bg-primary"
-                  :account="account"
-                  :tooltip="false"
-                  :icon="account == getAccountName ? 'mdi-plus' : ''"
-                  @iconClick="edit_avatar = !edit_avatar"
-                />
-              </q-item-section>
-
-              <q-item-section>
-                <q-item-label class="text-weight-light text-h5">{{
-                  account
-                }}</q-item-label>
-                <q-item-label v-if="getIsCustodian(account)" caption
-                  >Custodian</q-item-label
-                >
-              </q-item-section>
-
-            </q-item>
-            <transition
-              appear
-              enter-active-class="animated fadeInDown"
-              leave-active-class="animated fadeOut"
-            >
-              <update-profile-pic
-                v-if="edit_avatar"
-                @updated="edit_avatar = false"
-              />
-            </transition>
-            <q-btn icon="mdi-dots-vertical" flat dense class="absolute-top-right q-ma-md" />
-          </q-card-section>
-        </q-card> -->
       </div>
       <div class="col-xs-12" v-if="getElectionsContract">
         <q-card>
