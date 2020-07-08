@@ -21,23 +21,23 @@
       </q-parallax>
     </div>
     <div class="q-pa-md center-page-content text-white">
-      <h4 class="row justify-center text-white">EMPOWEREMENT OF DECENTRALIZED COMMUNITIES</h4>
-      <div class="fit row inline wrap justify-center">
+      <div class="text-white text-center q-mb-xl" style="font-size: calc(16px + 1.8vw);" >EMPOWEREMENT OF DECENTRALIZED COMMUNITIES</div>
+      <div class="">
         <comparison-table style="width:100%"/>
       </div>
 
       <div class=" q-mt-md q-pb-xl row q-col-gutter-lg text-grey-9 text-weight-medium">
         <div class="col-xs-12 col-sm-6">
-          <whatisdac />
+          <whatisdac class="invisible" v-scroll-fire="(el)=>{makeVisible(el, 'fadeInLeft')}" />
         </div>
         <div class="col-xs-12 col-sm-6">
-          <whydac />
+          <whydac class="invisible" v-scroll-fire="(el)=>{makeVisible(el, 'fadeInRight')}"/>
         </div>
         <div class="col-xs-12 col-sm-6">          
-          <modules />
+          <modules class="invisible" v-scroll-fire="(el)=>{makeVisible(el, 'fadeInLeft')}"/>
         </div>
         <div class="col-xs-12 col-sm-6">     
-          <onchain /> 
+          <onchain class="invisible" v-scroll-fire="(el)=>{makeVisible(el, 'fadeInRight')}"/> 
         </div>     
       </div>
   
