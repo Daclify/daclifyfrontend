@@ -8,7 +8,7 @@
               <q-item-section avatar>
                 <profile-pic
                   style="margin-left:-15px"
-                  :size="100"
+                  :size="85"
                   iconColor="white"
                   iconBackground="bg-primary"
                   :account="account"
@@ -19,7 +19,7 @@
               </q-item-section>
 
               <q-item-section>
-                <q-item-label class="text-weight-light text-h4">{{
+                <q-item-label class="text-weight-light text-h5">{{
                   account
                 }}</q-item-label>
                 <q-item-label v-if="getIsCustodian(account)" caption
