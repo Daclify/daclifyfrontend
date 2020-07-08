@@ -1,10 +1,10 @@
 <template>
   <div>
-    <q-markup-table :dark="false"  separator="horizontal" class="comparison-table bg-grey-9">
+    <q-markup-table :dark="false"  separator="horizontal" class="comparison-table bg-transparent no-shadow ">
       <thead>
         <tr  style="height:80px">
-          <th class="text-left"></th>
-          <th class="text-center bg-grey-9">
+          <th class="text-left "></th>
+          <th class="text-center ">
               <q-img
                 style="width: 20vw; max-width:135px; min-width:100px; filter: brightness(0) invert(1);"
                 contain
@@ -54,7 +54,7 @@
 
       </tbody>
     </q-markup-table>
-    <div class="text-caption">*The creator pays for the RAM associated with the deployment. RAM costs can be recovered when the group/DAC is destroyed.</div>
+    <div class="text-caption text-grey">*The creator pays for the RAM associated with the deployment. RAM costs can be recovered when the group/DAC is destroyed.</div>
   </div>
 </template>
 

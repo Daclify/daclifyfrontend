@@ -1,7 +1,7 @@
 <template>
-    <q-card style="max-width:510px; max-height:600px">
+    <q-card style=" max-height:600px">
         <q-card-section  class="bg-white">
-            <img src="~assets/dac1.jpg" style="max-width:100%; max-height:300px">
+            <q-img src="~assets/dac1.jpg" style="max-width:100%; max-height:300px"/>
         </q-card-section>
     
         <q-card-section class="bg-white text-grey-9" style="font-size:17px">

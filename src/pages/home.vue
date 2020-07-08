@@ -20,18 +20,26 @@
         </div>
       </q-parallax>
     </div>
-    <div class="center-page-content q-pa-md text-white">
+    <div class="q-pa-md center-page-content text-white">
       <h4 class="row justify-center text-white">EMPOWEREMENT OF DECENTRALIZED COMMUNITIES</h4>
-        <div class="fit row inline wrap justify-center">
-          <comparison-table style="max-width:700px"/>
+      <div class="fit row inline wrap justify-center">
+        <comparison-table style="width:100%"/>
+      </div>
+
+      <div class=" q-mt-md q-pb-xl row q-col-gutter-lg text-grey-9 text-weight-medium">
+        <div class="col-xs-12 col-md-6">
+          <whatisdac />
         </div>
-  <q-separator vertical inset class="bg-transparent q-pa-xl"/>
-    <div class="row justify-center q-gutter-xl q-pa-lg text-grey-9 text-weight-medium"> 
-      <whatisdac />
-      <whydac />          
-      <modules />      
-      <onchain />       
-    </div>
+        <div class="col-xs-12 col-md-6">
+          <whydac />
+        </div>
+        <div class="col-xs-12 col-md-6">          
+          <modules />
+        </div>
+        <div class="col-xs-12 col-md-6">     
+          <onchain /> 
+        </div>     
+      </div>
   
     </div>
   </q-page>
