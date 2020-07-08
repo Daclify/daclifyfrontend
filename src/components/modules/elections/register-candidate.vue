@@ -66,7 +66,7 @@ export default {
         data:{
           from: this.getAccountName,
           to: this.getElectionsContract,
-          quantity: Number(this.quantity).toFixed(this.getcandidateStakeConfig.precision)+ " "+this.getcandidateStakeConfig.symbol,
+          quantity: this.quantity+ " "+this.getcandidateStakeConfig.symbol,
           memo: "candidate stake"
         }
       }
@@ -90,7 +90,7 @@ export default {
         this.$emit("navigate", "manage candidacy");
       }
       else{
-        return false;
+        //return false;
       }
       this.is_registering=false;
 
@@ -118,6 +118,11 @@ export default {
         }
       }
     },
+    quantity: function(newV, oldV){
+      if(newV !=''){
+        this.quantity = Number(this.quantity).toFixed(this.getcandidateStakeConfig.precision)
+      }
+    }
 
   }
 
