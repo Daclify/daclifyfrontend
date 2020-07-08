@@ -1,7 +1,15 @@
 <template>
   <div>
     <q-card>
-      <q-card-section v-if="view == 'header'">
+
+    <transition
+      enter-active-class="animated zoomIn"
+      leave-active-class="animated zoomOut"
+      mode="out-in"
+    >
+
+
+      <q-card-section v-if="view == 'header'" key="header">
         <q-item>
           <q-item-section avatar>
             <profile-pic
@@ -39,15 +47,24 @@
         </transition>
       </q-card-section>
 
-      <q-card-section v-if="view == 'more'">
+      <q-card-section v-if="view == 'more'" key="more">
         <div class="q-gutter-md">
-          <q-btn label="unregister" color="primary" @click="unregmember" :loading="is_unregging" />
-          <q-btn label="delete profile" color="primary" @click="delprofile" :loading="is_clearing_profile" />
+          <q-btn v-if="getIsMember" label="unregister" color="primary" @click="unregmember" :loading="is_unregging">
+            <q-tooltip content-class="bg-secondary" :delay="500">
+              Unregister as member.
+            </q-tooltip>
+          </q-btn>
+          <q-btn label="delete profile" color="primary" @click="delprofile" :loading="is_clearing_profile">
+            <q-tooltip content-class="bg-secondary" :delay="500">
+              Clear all profile data inclusive avatar. This requires a page reload.
+            </q-tooltip>
+          </q-btn>
         </div>
       </q-card-section>
+    </transition>
 
       <q-btn
-        v-if="account == getAccountName && getIsMember"
+        v-if="account == getAccountName"
         :icon="view == 'header' ? 'mdi-dots-vertical' : 'mdi-close'"
         flat
         dense
@@ -110,7 +127,7 @@ export default {
         this.$store.commit('user/setIsMember', false);
       }
       this.is_unregging = false;
-      this.view = 'header';
+
 
     },
     async delprofile(){
@@ -127,7 +144,7 @@ export default {
         this.$store.commit('user/delProfile', this.getAccountName);
       }
       this.is_clearing_profile = false;
-      this.view = 'header';
+
 
     }
   },
