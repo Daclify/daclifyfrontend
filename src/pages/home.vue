@@ -20,13 +20,13 @@
         </div>
       </q-parallax>
     </div>
-    <div class="center-page-content q-pa-md text-white q-gutter-xl">
+    <div class="center-page-content q-pa-md text-white">
       <h4 class="row justify-center text-white">EMPOWEREMENT OF DECENTRALIZED COMMUNITIES</h4>
         <div class="fit row inline wrap justify-center">
           <comparison-table style="max-width:700px"/>
         </div>
-
-    <div class="row justify-center q-gutter-xl text-grey-9 offset-1 text-weight-medium"> 
+  <q-separator vertical inset class="bg-transparent q-pa-xl"/>
+    <div class="row justify-center q-gutter-xl q-pa-lg text-grey-9 text-weight-medium"> 
       <whatisdac />
       <whydac />          
       <modules />      

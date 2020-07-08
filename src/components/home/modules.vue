@@ -1,5 +1,5 @@
 <template>
- <q-card style="max-width:510px; height:600px">
+ <q-card style="max-width:510px; max-height:600px">
   <q-card-section class="bg-white text-center">
     <img src="~assets/modules.jpg" class="flex-center" style="max-width:100%; max-height:300px">
   </q-card-section>
@@ -11,7 +11,6 @@
   <q-card-section class="bg-white text-grey-9 q-pt-none">
     <q-scroll-area
     :thumb-style="thumbStyle"
-    :bar-style="barStyle"
     style="height: 190px; max-width: 100%"
     >                  
       <div

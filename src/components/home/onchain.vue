@@ -1,16 +1,15 @@
 <template>
-  <q-card class="bg-white" style="max-width:510px; height:600px">
-    <q-card-section>
+  <q-card style="max-width:510px; max-height:600px">
+    <q-card-section class="bg-white" >
       <img src="~assets/blockchain.jpg" style="max-width:100%; max-height:300px">
     </q-card-section>
     
     <q-card-section class="bg-white text-grey-9" style="font-size:17px">
       <b>On-chain</b>
     </q-card-section>
-      <q-card-section class="bg-white text-grey-9 q-pt-none">
+      <q-card-section class="q-pt-none bg-white text-grey-9">
         <q-scroll-area
-        :thumb-style="thumbStyle"
-        :bar-style="barStyle"
+        :thumb-style="thumbStyle" 
         style="height: 190px; max-width: 100%"
         >                  
           <div
