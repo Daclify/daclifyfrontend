@@ -429,11 +429,18 @@ export default {
         code: this.getAppConfig.groups_contract,
         scope: this.getAppConfig.groups_contract,
         table: "groups",
-        key_type: "i64",
+        key_type: "name",
         index_position: 3,
+        lower_bound: this.getAccountName,
+        upper_bound: this.getAccountName,
         limit: -1
       });
-      if (groups_by_creator && groups_by_creator.rows) {
+
+
+
+
+
+      if (groups_by_creator && groups_by_creator.rows.length && groups_by_creator.rows[0].creator == this.getAccountName) {
         groups_by_creator = groups_by_creator.rows;
       } else {
         groups_by_creator = [];
@@ -447,7 +454,7 @@ export default {
 
   },
   async mounted() {
-    this.getGroupsByCreator();
+    
     this.$store.dispatch('app/fetchRamPricePerByte');
     await this.get_wasm_and_abi_from_block({
       wasm: [
@@ -467,6 +474,9 @@ export default {
   watch: {
     new_group_account_name: function() {
       console.log(this.$refs.accountinput.hasError);
+    },
+    getAccountName: function(){
+      this.getGroupsByCreator();
     }
   }
 };

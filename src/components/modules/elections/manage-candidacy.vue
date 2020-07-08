@@ -36,7 +36,7 @@
 
         <div class="row justify-end q-mt-md q-pb-xs">
           <!-- <q-btn label="update pay" color="primary" @click="" :loading="is_unregistering"/> -->
-          <q-btn :label="getIsCandidate.is_active ? 'pause campaign' : 'start campaign'" color="primary" @click="pauseCampaign" :loading="is_pausing" class="q-ml-md"/>
+          <q-btn :label="getIsCandidate.is_active ? 'pause campaign' : 'resume campaign'" color="primary" @click="pauseCampaign" :loading="is_pausing" class="q-ml-md"/>
           <q-btn label="unregister" color="primary" @click="unregCand" class="q-ml-md" :loading="is_unregistering"/>
         </div>
         
