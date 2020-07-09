@@ -6,7 +6,8 @@
       <div v-if="getIsMember">
         <q-tab v-if="getIsCandidate" label="my candidacy" name="manage candidacy">
           <transition enter-active-class="animated zoomIn" leave-active-class="animated zoomOut" appear>
-            <q-badge v-if="!getIsCandidate.is_active" color="primary" floating>paused</q-badge>
+            <q-badge v-if="getIsCandidate.state==1" color="primary" floating key="active">active</q-badge>
+            <q-badge v-if="getIsCandidate.state==2" color="primary" floating key="paused">paused</q-badge>
           </transition>
         </q-tab>
         <q-tab v-else label="register as candidate" name="register candidacy" />
@@ -14,6 +15,12 @@
 
    </q-tabs>
 
+    <!-- enum candidate_state : uint8_t {
+      UNREGISTERED = 0,
+      ACTIVE = 1,
+      PAUSED = 2,
+      FIRED = 3
+    }; -->
 
     <div v-if="selected_tab == 'vote'" class="q-pt-md">
       <list-user-votes class="z-max"/>

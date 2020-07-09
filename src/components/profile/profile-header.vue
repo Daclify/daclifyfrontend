@@ -3,8 +3,8 @@
     <q-card>
 
     <transition
-      enter-active-class="animated zoomIn"
-      leave-active-class="animated zoomOut"
+      enter-active-class="animated fadeIn"
+      leave-active-class="animated fadeOut"
       mode="out-in"
     >
 
@@ -48,6 +48,15 @@
       </q-card-section>
 
       <q-card-section v-if="view == 'more'" key="more">
+        <div class="q-mb-md">
+            <profile-pic
+              :size="36"
+              iconBackground="bg-primary"
+              :account="account"
+              :tooltip="false"
+            />
+            {{account}}
+        </div>
         <div class="q-gutter-md">
           <q-btn v-if="getIsMember" label="unregister" color="primary" @click="unregmember" :loading="is_unregging">
             <q-tooltip content-class="bg-secondary" :delay="500">
@@ -67,6 +76,7 @@
         v-if="account == getAccountName"
         :icon="view == 'header' ? 'mdi-dots-vertical' : 'mdi-close'"
         flat
+        round
         dense
         class="absolute-top-right q-ma-md"
         @click="changeView"

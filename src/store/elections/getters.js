@@ -18,7 +18,7 @@ export function getCandidates (state) {
 export function getIsCandidate (state, getters, rootState, rootGetters) {
     let accountname = rootGetters["ual/getAccountName"];
     if(state.candidates && state.candidates.length && accountname){
-        let cand = state.candidates.find(c=>c.cand == accountname);
+        let cand = state.candidates.find(c=>c.cand == accountname && c.state != 0);
         return cand ? cand : false;
     }
     else{

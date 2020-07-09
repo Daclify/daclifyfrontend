@@ -28,7 +28,7 @@ export function updateCandidateTotalVotes (state, payload) {
 }
 
 export function addCandidate (state, payload) {
-    let cand_template = { cand: payload, total_votes: 0, is_active: 1, registered: new Date().toISOString() };
+    let cand_template = { cand: payload, total_votes: 0, state: 1, registered: new Date().toISOString() };
     if(state.candidates === false){
         state.candidates = [];
     }
@@ -36,10 +36,25 @@ export function addCandidate (state, payload) {
 
 }
 
+
+/*
+    enum candidate_state : uint8_t {
+      UNREGISTERED = 0,
+      ACTIVE = 1,
+      PAUSED = 2,
+      FIRED = 3
+    };
+*/
 export function togglePauseCampaign (state, payload) {
     let cand = state.candidates.find(c => c.cand == payload);
     if(cand){
-        cand.is_active = !cand.is_active;
+        if(cand.state == 1){
+            cand.state = 2;
+        }
+        else if(cand.state == 2){
+            cand.state = 1;
+        }
+        
     }
 }
 
