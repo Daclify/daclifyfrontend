@@ -6,8 +6,9 @@
       <div v-if="getIsMember">
         <q-tab v-if="getIsCandidate" label="my candidacy" name="manage candidacy">
           <transition enter-active-class="animated zoomIn" leave-active-class="animated zoomOut" appear>
-            <q-badge v-if="getIsCandidate.state==1" color="primary" floating key="active">active</q-badge>
-            <q-badge v-if="getIsCandidate.state==2" color="primary" floating key="paused">paused</q-badge>
+            <q-badge class="tab-badge-margin" v-if="getIsCandidate.state==1" color="positive" floating key="active">active</q-badge>
+            <q-badge class="tab-badge-margin" v-if="getIsCandidate.state==2" color="warning" floating key="paused">paused</q-badge>
+            <q-badge class="tab-badge-margin" v-if="getIsCandidate.state==3" color="negative" floating key="fired">fired</q-badge>
           </transition>
         </q-tab>
         <q-tab v-else label="register as candidate" name="register candidacy" />
@@ -111,3 +112,8 @@ export default {
 
 };
 </script>
+<style>
+.tab-badge-margin{
+  margin-top: -2px;
+}
+</style>
