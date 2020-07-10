@@ -263,7 +263,13 @@ export default {
         if (newVal =="members") {
           console.log(`/members/${this.$route.params.groupname}/dashboard`)
           if (this.$route.path.split('/')[1] === 'members') return
-          this.$router.push(`/members/${this.$route.params.groupname}/dashboard`).catch(err => {});
+          if(this.getAccountName){
+            this.$router.push(`/members/${this.$route.params.groupname}/profile/${this.getAccountName}`).catch(err => {});
+          }
+          else{
+            this.$router.push(`/members/${this.$route.params.groupname}/elections`).catch(err => {});
+          }
+          
           notifyInfo({message: `you switched to members menu.`})
         } else {
           //this.$store.dispatch('user/loggedOutRoutine');

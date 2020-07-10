@@ -1,14 +1,14 @@
 <template>
       <q-list class="primary-hover-list" :class="$q.dark.isActive? `bg-dark`:`bg-grey-3`"  :separator="!$q.dark.isActive">
 
-        <q-item v-if="getIsMember" clickable :to="`/members/${getActiveGroup}/dashboard`">
+        <!-- <q-item v-if="getIsMember" clickable :to="`/members/${getActiveGroup}/dashboard`">
           <q-item-section avatar>
             <q-icon name="mdi-view-dashboard" />
           </q-item-section>
           <q-item-section>
             <q-item-label>Dashboard</q-item-label>
           </q-item-section>
-        </q-item>
+        </q-item> -->
 
         <q-item  v-if="getIsMember" clickable :to="`/members/${getActiveGroup}/profile/${getAccountName}`">
           <q-item-section avatar>
