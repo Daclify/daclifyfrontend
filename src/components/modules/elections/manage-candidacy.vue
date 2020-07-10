@@ -25,15 +25,18 @@
             </q-item-section>
           </q-item>
 
-          <q-item v-if="getElectionsConfig && Number(getElectionsConfig.max_pay.quantity)">
+          <q-item v-if="getElectionsConfig && !!parseFloat(getElectionsConfig.max_pay.quantity)">
             <q-item-section>
               <q-item-label>My pay</q-item-label>
               <q-item-label caption >{{getIsCandidate.pay.quantity}}</q-item-label>
             </q-item-section>
           </q-item>
-
         </div>
-
+        <div>
+         <update-pay />
+        </div>
+        <!-- {{getElectionsConfig.max_pay.quantity}}
+        {{getElectionsConfig}} -->
         <div class="row justify-end q-mt-md q-pb-xs">
           <!-- <q-btn label="update pay" color="primary" @click="" :loading="is_unregistering"/> -->
           <q-btn :label="getIsCandidate.state==1 ? 'pause campaign' : 'resume campaign'" color="primary" @click="pauseCampaign" :loading="is_pausing" class="q-ml-md"/>
@@ -48,18 +51,19 @@
 
 <script>
 import { mapGetters } from "vuex";
-import dateString from "components/date-string"
+import dateString from "components/date-string";
+import updatePay from "components/modules/elections/update-pay"
 
 export default {
   name: "manageCandidacy",
   components: {
-    dateString
+    dateString,
+    updatePay
   },
   data() {
     return {
       is_pausing: false,
-      is_unregistering: false,
-      quantity: ""
+      is_unregistering: false
     };
   },
   computed: {
@@ -69,7 +73,6 @@ export default {
       getUserStakes: "elections/getUserStakes",
       getElectionsContract: "elections/getElectionsContract",
       getcandidateStakeConfig: "elections/getcandidateStakeConfig",
-      getIsCandidate: "elections/getIsCandidate",
       getUserCandidateStake: "elections/getUserCandidateStake",
       getElectionsConfig: "elections/getElectionsConfig"
 

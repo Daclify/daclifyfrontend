@@ -85,7 +85,7 @@ export default {
       }
       else{
         this.$emit("error");
-        return false;
+   
       }
       this.is_transacting = false;
     }

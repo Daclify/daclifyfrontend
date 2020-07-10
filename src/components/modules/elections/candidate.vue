@@ -30,7 +30,7 @@
           </q-item-section>
 
           <q-item-section side>
-            <div class="row items-center">
+            <div class="row items-center" v-if="getElectionsConfig">
               <q-checkbox :class="{'invisible': !(getElectionsConfig.allow_self_vote || getAccountName != candidate.cand)}" :value="candidate.vote" @input="updateVote" />
             </div>
           </q-item-section>

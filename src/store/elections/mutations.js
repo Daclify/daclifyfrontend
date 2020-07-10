@@ -27,6 +27,12 @@ export function updateCandidateTotalVotes (state, payload) {
     cand.total_votes = cand.total_votes+payload.delta
 }
 
+export function updateCandidatePay (state, payload) {
+
+    let cand = state.candidates.find(c => c.cand == payload.cand);
+    cand.pay= payload.new_pay
+}
+
 export function addCandidate (state, payload) {
     let cand_template = { cand: payload, total_votes: 0, state: 1, registered: new Date().toISOString() };
     if(state.candidates === false){
