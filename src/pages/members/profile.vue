@@ -292,6 +292,7 @@ export default {
 
           this.account = newVal;
           this.profile_data = await this.$store.dispatch("group/fetchProfile",this.account);
+          this.active_tab= "textview";
           this.getUserVotes();
           //console.log(this.profile_data)
         } else {
