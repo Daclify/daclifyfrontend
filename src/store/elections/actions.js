@@ -109,7 +109,11 @@ export async function fetchUserStakes ({ commit, getters, rootGetters }, payload
           return r;
       })
       console.log(`fetched stakes from ${user}`, res.rows );
-      commit('setUserStakes', r);
+      if(user == rootGetters["ual/getAccountName"] ){
+        commit('setUserStakes', r);
+      }
+      return r;
+      
 
     }
 }

@@ -53,8 +53,10 @@
 
           </q-card-section>
           <q-separator />
-          <q-card-section class="row">
+          <q-card-section class="row justify-between">
             <date-string :date="candidate.registered" prepend="Candidate since:"/>
+            <div><b>Requested pay: </b>{{candidate.pay.quantity}}</div>
+            <div><b>Staked: </b>{{candidate_stake.quantity}}</div>
           </q-card-section>
 
       <!-- {{getElectionsConfig}} -->
@@ -90,7 +92,8 @@ export default {
   data() {
     return {
       profile_data: false,
-      is_profile_data_loading: false
+      is_profile_data_loading: false,
+      candidate_stake: false
     };
   },
   computed: {
@@ -124,6 +127,11 @@ export default {
       this.is_profile_data_loading = true;
       this.profile_data = await this.$store.dispatch("group/fetchProfile", this.candidate.cand);
       this.is_profile_data_loading = false;
+
+      if(!this.candidate_stake){
+        this.candidate_stake = (await this.$store.dispatch("elections/fetchUserStakes", {user: this.candidate.cand}))[0];
+      }
+      
     }
   },
   watch: {}
