@@ -65,7 +65,7 @@ export default {
     isValidUrl,
     isHttps,
     load_new_avatar(n) {
-      this.new_avatar = n;
+      this.new_avatar = n.trim();
     },
     async update_avatar(){
       this.is_transacting = true;

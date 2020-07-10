@@ -119,7 +119,7 @@
       <!-- <pre>{{profile_data.gallery}}</pre> -->
     </div>
     <new-image
-    class="q-mt-md"
+      class="q-mt-md"
       v-if="getAccountName == profile_data.account"
       @newImage="addImage"
     />
@@ -166,7 +166,7 @@ export default {
   methods: {
     isYouTubeUrl,
     addImage(e) {
-      let img = { url: e };
+      let img = { url: e.trim() };
       this.profile_data.gallery.push(img);
     },
     removeImage(i) {

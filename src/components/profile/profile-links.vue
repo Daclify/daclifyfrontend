@@ -20,7 +20,7 @@
     </div>
 
     <q-input
-      v-model="newLink"
+      v-model.trim="newLink"
       v-if="getAccountName == profile_data.account"
       outlined
       class="q-mt-md"

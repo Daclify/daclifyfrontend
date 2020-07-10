@@ -3,6 +3,7 @@ import {getLogoForToken} from "../../imports/tokens.js";
 import {notifyError, notifySuccess} from '../../imports/notifications.js';
 import { colors } from 'quasar';
 import profile_template from "../../statics/profile_template.json"
+// import {notifyError} from '../../../imports/notifications.js';
 // destructuring to keep only what is needed
 const { setBrand } = colors;
 
@@ -331,13 +332,18 @@ export async function fetchProfile ({ state, commit, rootState, rootGetters }, a
   try {
       res.data.forEach(entry =>{
         if(entry.key != "text"){
+          entry.value = entry.value.replace(/[\t\n\r]/gm,'');
+          console.log(entry.value)
           data[entry.key] = JSON.parse(entry.value);
         }
         else{
           data[entry.key] = entry.value;
         }  
       })
-  } catch(e) {alert(e); }
+  } catch(e) {
+    notifyError({message : `This profile contains invalid data.` });
+    console.log(e);
+   }
   console.log(`fetched profile for ${accountname}`, data); 
   data = Object.assign(JSON.parse(template), data);
   commit('addProfile', data);

@@ -44,6 +44,13 @@ export function delProfile(state, payload){
     }
 }
 
+export function updateProfileTimestamp(state, payload){
+    let p = state.profiles.find(p=> p.account == payload.account);
+    if(p){
+        p.last_update = payload.timestamp;
+    }
+}
+
 export function setMyOldProfile(state, payload){
     //{account: this.getAccountName, profile: this.profile}
         state.myOldProfile = payload

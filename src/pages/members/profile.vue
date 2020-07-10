@@ -270,6 +270,8 @@ export default {
       });
       if (res && res.transactionId && res.status == "executed") {
         //this.$store.commit('group/updateAvatar', {account: this.getAccountName, img_url: this.new_avatar});
+        
+        this.$store.commit("group/updateProfileTimestamp", {account:this.getAccountName,timestamp:res.transaction.processed.block_time});
         this.$store.commit("group/setMyOldProfile",JSON.parse(JSON.stringify(this.profile_data)) );
       } else {
         //return false;

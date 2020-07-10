@@ -58,7 +58,7 @@ export default {
     isValidUrl,
     setNewImage(v){
       if(!v) this.image_loaded = false;
-      this.newImage = v
+      this.newImage = v.trim();
     }
 
   }
