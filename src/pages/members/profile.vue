@@ -4,10 +4,10 @@
       <div class="col-xs-12">
         <profile-header :account="account"/>
       </div>
-      <div class="col-xs-12" v-if="getElectionsContract">
-        <q-card>
-          {{votedFor}}
-        </q-card>
+      <div class="col-xs-12" v-if="getElectionsContract && userVotes">
+
+          <display-votes :votes="userVotes"/>
+
       </div>
       <div class="col-xs-12">
         <!-- {{isProfileChanged}} -->
@@ -61,7 +61,7 @@
                   "
                 />
               </q-tab>
-              <q-tab
+              <!-- <q-tab
                 :label="`Files (${profile_data.files.length})`"
                 name="files"
               >
@@ -72,6 +72,12 @@
                       isProfileChanged.find(ipc => ipc.path == 'files')
                   "
                 />
+              </q-tab> -->
+              <q-tab
+                v-if="mutated_load_my_payments"
+                label="my payments"
+                name="mypayments"
+              >
               </q-tab>
               <!-- <q-btn class="absolute-right" icon="check" /> -->
               <div
@@ -128,6 +134,9 @@
                   :profile_data="profile_data"
                 />
               </q-tab-panel>
+              <q-tab-panel name="mypayments" class="overflow-hidden">
+                <my-payments :payments="my_payments" />
+              </q-tab-panel>
             </q-tab-panels>
 
             <div class="row justify-between items-center">
@@ -163,6 +172,10 @@ import profileLinks from "components/profile/profile-links";
 import profileFiles from "components/profile/profile-files";
 import profileGallery from "components/profile/profile-gallery";
 import textEdit from "components/profile/text-edit";
+
+import myPayments from "components/modules/payroll/my-payments";
+import displayVotes from "components/modules/elections/display-votes";
+
 import dateString from "components/date-string";
 import { diff } from "deep-diff";
 
@@ -179,6 +192,9 @@ export default {
     profileGallery,
     textEdit,
     dateString,
+
+    myPayments,
+    displayVotes,
     
     componentLoader
     // externalComponent
@@ -191,7 +207,8 @@ export default {
       
       active_tab: "textview",
       is_transacting: false,
-      votedFor: []
+      userVotes: [],
+      my_payments: []
     };
   },
   computed: {
@@ -200,7 +217,9 @@ export default {
       getActiveGroup: "group/getActiveGroup",
       getIsCustodian: "group/getIsCustodian",
       getMyOldProfile: "group/getMyOldProfile",
-      getElectionsContract: "elections/getElectionsContract"
+      getElectionsContract: "elections/getElectionsContract",
+      getModuleByName: "group/getModuleByName"
+      
       // getActiveGroupConfig: "group/getActiveGroupConfig",
       // getCoreConfig: "group/getCoreConfig"
     }),
@@ -208,8 +227,12 @@ export default {
       if(this.getMyOldProfile && this.profile_data && this.profile_data.account == this.getMyOldProfile.account){
         return diff(this.getMyOldProfile, this.profile_data);
       }
-      
+    },
+    mutated_load_my_payments(){
+      let payroll = this.getModuleByName("payroll");
+      return (this.getAccountName == this.account &&  payroll)
     }
+
   },
   methods: {
     async updateProfileDataKey() {
@@ -249,9 +272,8 @@ export default {
     },
     async getUserVotes(){
       if(this.getElectionsContract){
-        this.votedFor = await this.$store.dispatch('elections/fetchUserVotes', {voter:this.account} );
+        this.userVotes = await this.$store.dispatch('elections/fetchUserVotes', {voter:this.account} );
       }
-      
     }
   },
 
@@ -272,14 +294,15 @@ export default {
         }
       }
     },
-    // getAccountName:{
-    //   immediate: true,
-    //   handler(newVal, oldVal){
-    //     if(this.account == this.getAccountName && this.profile_data){
-    //       this.$store.commit("group/setMyOldProfile", JSON.parse(JSON.stringify(this.profile_data)))
-    //     }
-    //   }
-    // }
+    mutated_load_my_payments:{
+      immediate: true,
+      handler: async function(newV, oldV){
+        if(newV && newV!= oldV){
+          this.my_payments = await this.$store.dispatch("payroll/fetchUserPayments", {contract: this.getModuleByName("payroll").slave_permission.actor, account: this.account});
+        }
+      }
+    }
+
   }
 };
 </script>
