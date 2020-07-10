@@ -23,10 +23,14 @@
             >
               <q-tab
                 v-if="account == getAccountName"
-                label="(Edit)"
                 class="text-grey"
                 name="text"
+                @mouseover="edit_tab_show=true" @mouseout="edit_tab_show=false"
               >
+                <div >
+                <q-icon name="edit" class="q-mr-xs"/>
+                <span v-show="edit_tab_show" key="t">edit</span>
+                </div>
               </q-tab>
               <q-tab :label="`Profile`" name="textview">
                 <q-icon
@@ -204,6 +208,8 @@ export default {
     return {
       profile_data: null,
       account: null,
+
+      edit_tab_show: false,
       
       active_tab: "textview",
       is_transacting: false,
