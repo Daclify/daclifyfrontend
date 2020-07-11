@@ -292,9 +292,14 @@ export default {
           break;
         case "exec":
           action.data.executer = this.getAccountName;
-          (await this.push(action))
-            ? this.$store.commit("group/deleteProposalById", this.proposal.id)
-            : null;
+          let res = await this.push(action);
+          if(res){
+            this.$store.commit("group/deleteProposalById", this.proposal.id);
+            setTimeout(()=>{
+              this.$store.dispatch("group/loadGroupRoutine", {groupname: this.getActiveGroup})
+            }, 2000);
+          }
+
           break;
         default:
           break;
