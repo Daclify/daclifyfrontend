@@ -50,7 +50,7 @@
         </div>
       </div>
     </div>
-    <div class="row justify-between q-mt-md">
+    <div class="row justify-between full-width items-center q-pb-xs">
       <threshold-badge  label :contract="fields.contract" :action_name="fields.name"/>
       <q-btn
         icon="mdi-plus"

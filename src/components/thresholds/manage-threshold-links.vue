@@ -1,9 +1,11 @@
 <template>
   <div class="">
-    {{ getThresholdLinksWithFilter }}
+    <!-- {{ getThresholdLinksWithFilter }} -->
     <q-toolbar class="bg-primary text-white shadow-2">
       <q-toolbar-title :shrink="true">
-        <span>Threshold Action Links</span>
+        <span v-if="add_threshold_link">Add Threshold Link</span>
+        <span v-else>Threshold Action Links</span>
+
       </q-toolbar-title>
       <q-space />
       <q-btn
@@ -58,7 +60,7 @@
         <!-- <q-btn icon="close"  round dense  class="q-ma-md " @click="add_payment_view=false"/> -->
         <action-proposer>
           <template slot-scope="scope">
-            <!-- <add-payment @propose="scope.propose" @addtobucket="scope.addtobucket" :payroll="getActivePayRoll" :currentbalance="active_payroll_balance"/> -->
+            <add-threshold-link @propose="scope.propose" @addtobucket="scope.addtobucket" />
           </template>
         </action-proposer>
       </div>
@@ -71,10 +73,12 @@
 <script>
 import { mapGetters } from "vuex";
 import actionProposer from "components/actions/action-proposer";
+import addThresholdLink from 'components/thresholds/add-threshold-link';
 export default {
   name: "manageThresholds",
   components: {
-    actionProposer
+    actionProposer,
+    addThresholdLink
   },
   data() {
     return {

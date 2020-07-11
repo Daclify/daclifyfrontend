@@ -4,7 +4,7 @@
     <q-badge color="secondary" style="cursor:help">
       {{THRESHOLD.threshold_name}}
       <q-tooltip content-class="bg-secondary" :delay="300">
-        Requires {{THRESHOLD.threshold}} approval votes
+        {{contract}}::{{action_name}} requires {{THRESHOLD.threshold}} approval votes
       </q-tooltip>
     </q-badge>
   </div>

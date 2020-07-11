@@ -1,9 +1,10 @@
 <template>
   <div class="">
-    {{getThresholdsWithFilter}}
+    <!-- {{getThresholdsWithFilter}} -->
     <q-toolbar class="bg-primary text-white shadow-2">
       <q-toolbar-title :shrink="true">
-        <span>Thresholds</span>
+        <span v-if="add_threshold_view">Add new threshold</span>
+        <span v-else>Thresholds</span>
       </q-toolbar-title>
       <q-space />
       <q-btn
@@ -42,9 +43,17 @@
               <q-badge>{{ threshold.threshold_name }}</q-badge>
             </q-item-section>
             <q-item-section>
-              <q-item-label caption
-                >Required votes: {{ threshold.threshold }}</q-item-label
-              >
+              <q-item-label caption>
+                Required votes: {{ threshold.threshold }}
+              </q-item-label>
+            </q-item-section>
+            <q-item-section side v-if="threshold.threshold_name=='default'">
+              <q-badge color="secondary">
+                dynamic
+                <q-tooltip content-class="bg-primary" :delay="500">
+                  dynamic thresholds update automatically in function of the number of active custodians
+                </q-tooltip>
+              </q-badge>
             </q-item-section>
           </q-item>
         </q-list>
@@ -58,7 +67,7 @@
         <!-- <q-btn icon="close"  round dense  class="q-ma-md " @click="add_payment_view=false"/> -->
         <action-proposer>
           <template slot-scope="scope">
-            <!-- <add-payment @propose="scope.propose" @addtobucket="scope.addtobucket" :payroll="getActivePayRoll" :currentbalance="active_payroll_balance"/> -->
+            <add-threshold @propose="scope.propose" @addtobucket="scope.addtobucket" />
           </template>
         </action-proposer>
       </div>
@@ -71,10 +80,12 @@
 <script>
 import { mapGetters } from "vuex";
 import actionProposer from "components/actions/action-proposer";
+import addThreshold from "components/thresholds/add-threshold";
 export default {
   name: "manageThresholds",
   components: {
-    actionProposer
+    actionProposer,
+    addThreshold
   },
   data() {
     return {
