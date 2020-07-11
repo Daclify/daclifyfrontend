@@ -45,10 +45,10 @@
       </q-input>
     </div>
 
-    <div class="col-xs-12 col-sm-6">
+    <div class="col-xs-12 col-sm-6" v-if="is_existing_threshold">
       <transition enter-active-class="animated zoomIn" leave-active-class="animated zoomOut" mode="out-in" tag="div" >
       <q-toggle
-        v-if="is_existing_threshold"
+        
         v-model="action.data.remove"
         left-label
         label="Delete this threshold"

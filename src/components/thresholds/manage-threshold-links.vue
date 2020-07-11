@@ -40,13 +40,15 @@
             :key="link.contract + link.action_name"
             clickable
           >
+            <q-item-section side>
+              <q-item-label>
+                <q-badge>{{ link.contract }}::{{ link.action_name }}</q-badge>
+              </q-item-label>
+            </q-item-section>
             <q-item-section>
-              <q-item-label
-                >{{ link.contract }} > {{ link.action_name }}</q-item-label
-              >
-              <q-item-label caption
-                >Threshold: {{ link.threshold_name }}</q-item-label
-              >
+              <q-item-label caption>
+                Threshold: {{ link.threshold_name }}
+              </q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
