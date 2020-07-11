@@ -66,7 +66,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import thresholdBadge from "components/threshold-badge";
+import thresholdBadge from "components/thresholds/threshold-badge";
 import {
   isValidAccountName
 } from "../../imports/validators";

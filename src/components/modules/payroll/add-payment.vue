@@ -98,7 +98,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import thresholdBadge from "components/threshold-badge";
+import thresholdBadge from "components/thresholds/threshold-badge";
 import proposeBucketBtn from "components/actions/propose-bucket-btn";
 import profilePic from "components/profile-pic";
 import pickChainDate from "components/form/pick-chain-date";

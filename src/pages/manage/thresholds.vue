@@ -1,15 +1,17 @@
 <template>
   <q-page padding class="constrain-page-width">
-    <page-header title="Thresholds"/>
-    <q-list>
-      <q-item v-for="threshold in getThresholdsWithFilter" :key="threshold.threshold_name">
-        <q-item-section>
-          <q-item-label>{{threshold.threshold_name}}</q-item-label>
-          <q-item-label caption>Required votes: {{threshold.threshold}}</q-item-label>
-        </q-item-section>
-      </q-item>
-    </q-list>
-    <page-header title="Threshold Links" class="q-mt-xl"/>
+
+    <manage-thresholds />
+
+
+
+    <manage-threshold-links />
+
+
+
+
+
+
     <q-list>
       <q-item v-for="link in getThresholdLinksWithFilter" :key="link.contract+link.action_name">
         <q-item-section>
@@ -25,7 +27,11 @@
 
 <script>
 import { mapGetters } from "vuex";
-import thresholdManager from 'components/threshold-manager';
+
+
+import manageThresholds from 'components/thresholds/manage-thresholds';
+import manageThresholdLinks from 'components/thresholds/manage-threshold-links';
+
 import pageHeader from "components/page-header";
 
 
@@ -33,7 +39,8 @@ export default {
   name: 'groupThresholds',
   components:{
     pageHeader,
-    thresholdManager
+    manageThresholds,
+    manageThresholdLinks
 
   },
   data () {
@@ -50,9 +57,7 @@ export default {
       //getActiveGroupConfig: "group/getActiveGroupConfig",
       getThresholdLinks: "group/getThresholdLinks"
     }),
-    getThresholdsWithFilter(){
-      return this.getThresholds;
-    },
+
     getThresholdLinksWithFilter(){
       return this.getThresholdLinks;
     }

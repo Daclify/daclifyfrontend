@@ -191,7 +191,7 @@ import { mapGetters } from "vuex";
 import draggable from 'vuedraggable';
 import numberPopAnimation from 'components/number-pop-animation';
 import authorizationDisplay from 'components/authorization-display';
-import thresholdBadge from 'components/threshold-badge';
+import thresholdBadge from 'components/thresholds/threshold-badge';
 import bucketSvg from 'components/proposer/bucket-svg';
 import { saveAs } from "file-saver";
 const prettyHtml = require('json-pretty-html').default;

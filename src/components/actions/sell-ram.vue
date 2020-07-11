@@ -36,7 +36,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import thresholdBadge from "components/threshold-badge";
+import thresholdBadge from "components/thresholds/threshold-badge";
 import proposeBucketBtn from "components/actions/propose-bucket-btn";
 import {
   isValidAccountName,
