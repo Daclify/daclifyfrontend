@@ -3,7 +3,7 @@
     <!-- {{getThresholdsWithFilter}} -->
     <q-toolbar class="bg-primary text-white shadow-2">
       <q-toolbar-title :shrink="true">
-        <span v-if="add_threshold_view">Add new threshold</span>
+        <span v-if="add_threshold_view">Manage Thresholds</span>
         <span v-else>Thresholds</span>
       </q-toolbar-title>
       <q-space />
@@ -15,7 +15,7 @@
         @click="add_threshold_view = !add_threshold_view"
       >
         <q-tooltip content-class="bg-secondary" :delay="500">
-          <span v-if="!add_threshold_view">Add threshold</span>
+          <span v-if="!add_threshold_view">manage thresholds</span>
           <span v-else>Go back to thresholds</span>
         </q-tooltip>
       </q-btn>

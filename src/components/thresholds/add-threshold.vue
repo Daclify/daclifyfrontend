@@ -12,12 +12,16 @@
         maxlength="12"
         :rules="[
           val => !!val || '* Required',
-          isValidAccountName
+          isValidAccountName,
+          val => val!='default' || 'can\'t update the default threshold',
           ]"
       >
-        <!-- <template v-slot:prepend>
-            xxx
-        </template> -->
+        <template v-slot:hint>
+            <div class="text-warning row items-center" v-if="is_existing_threshold">
+              <q-icon name="mdi-alert" class="q-mr-xs" />
+              <span>Update existing threshold (current: {{is_existing_threshold.threshold}})</span>
+            </div>
+        </template>
 
       </q-input>
     </div>
@@ -38,22 +42,25 @@
           val => val >= 0 || 'Must be greater then zero'
           ]"
       >
-        <!-- <template v-slot:append>
-          xxxx
-        </template>
-        <template  v-slot:hint>
-          <transition  enter-active-class="animated zoomIn" leave-active-class="animated zoomOut"  tag="div" >
-            xxx
-          </transition>
-        </template> -->
       </q-input>
+    </div>
+
+    <div class="col-xs-12 col-sm-6">
+      <transition enter-active-class="animated zoomIn" leave-active-class="animated zoomOut" mode="out-in" tag="div" >
+      <q-toggle
+        v-if="is_existing_threshold"
+        v-model="action.data.remove"
+        left-label
+        label="Delete this threshold"
+      />
+      </transition>
     </div>
 
 
 <!-- {{recurrence_delay}} -->
     <div class="row justify-between full-width items-center" >
       <threshold-badge  label :contract="action.account" :action_name="action.name"/>
-      <propose-bucket-btn @click-propose="emitPropose" @click-bucket="emitBucket" label="Add Threshold" :disabled="false" />
+      <propose-bucket-btn @click-propose="emitPropose" @click-bucket="emitBucket" :label="is_existing_threshold?'update threshold': 'Add Threshold'" :disabled="false" />
     </div>
     <!-- <pre>{{action}}</pre> -->
   </div>
@@ -97,9 +104,14 @@ export default {
   computed: {
     ...mapGetters({
       getActiveGroup: 'group/getActiveGroup',
-      getGroupWallet: "group/getGroupWallet"
+      getGroupWallet: "group/getGroupWallet",
+      getThresholds: "group/getThresholds",
 
-    })
+    }),
+    is_existing_threshold(){
+      if(this.action.data.threshold_name=="default") return false;
+      return this.getThresholds.find(t=> t.threshold_name == this.action.data.threshold_name);
+    }
   },
   methods: {
     isValidAccountName,
@@ -107,7 +119,10 @@ export default {
 
     emitPropose(){
       this.$refs.thresholdname.validate();
-      this.$refs.threshold.validate();
+      if(!this.action.data.remove){
+        this.$refs.threshold.validate();
+      }
+
       if(this.$refs.thresholdname.hasError || this.$refs.threshold.hasError){
         return;
       }
@@ -115,6 +130,16 @@ export default {
 
       let title = `Add new threshold`;
       let description = `Add new threshold "${action.data.threshold_name}" with required votes ${action.data.threshold}`;
+
+      if(this.is_existing_threshold && !action.data.remove){
+        title = "Update threshold"
+        description = `Update number of required approvals from threshold "${action.data.threshold_name}" from ${this.is_existing_threshold.threshold} to ${action.data.threshold}`;
+      }
+      else if(this.is_existing_threshold && action.data.remove){
+        action.data.threshold = 0
+        title = "Delete threshold"
+        description = `Delete existing threshold "${action.data.threshold_name}"`;
+      }
 
       const payload = {
         actions: [action],
