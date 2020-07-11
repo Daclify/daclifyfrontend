@@ -48,11 +48,13 @@
       </q-tab-panels>
     </q-card>
 
-    <div class="q-mt-md">
+    <!-- <div class="q-mt-md">
       <q-card class="primary-hover-list">
         <core-version-manager />
       </q-card>
-    </div>
+    </div> -->
+
+    <manage-modules class="q-mt-md" />
 
     <!-- {{ getNewCoreConfig }} -->
   </q-page>
@@ -69,6 +71,8 @@ import configUpdater from "components/config/config-updater";
 
 import coreVersionManager from "components/core-version-manager";
 
+import manageModules from "components/modules/manage-modules"
+
 
 
 // const kitten = window.httpVueLoader('http://localhost:8080/statics/test_component.vue');
@@ -81,7 +85,8 @@ export default {
     configEditor,
     configUpdater,
     childAccountSelector,
-    coreVersionManager
+    coreVersionManager,
+    manageModules
   },
   data() {
     return {

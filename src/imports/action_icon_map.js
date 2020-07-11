@@ -49,6 +49,10 @@ export const action_icon_map = {
       name: "mdi-account-cash",
       size: "30px"
     },
+    linkmodule:{
+      name: "mdi-view-module",
+      size: "30px"
+    },
     
     DEFAULT: {
       name: "settings",

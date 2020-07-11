@@ -1,23 +1,22 @@
 <template>
   <div class="">
-    <!-- {{ getThresholdLinksWithFilter }} -->
+    {{getModules}}
     <q-toolbar class="bg-primary text-white shadow-2">
       <q-toolbar-title :shrink="true">
-        <span v-if="add_threshold_link">Add Threshold Link</span>
-        <span v-else>Threshold Action Links</span>
-
+        <span v-if="add_module_view">Manage Modules</span>
+        <span v-else>Modules</span>
       </q-toolbar-title>
       <q-space />
       <q-btn
         round
         dense
-        :icon="add_threshold_link ? 'mdi-minus' : 'mdi-plus'"
+        :icon="add_module_view ? 'mdi-minus' : 'mdi-plus'"
         color="secondary"
-        @click="add_threshold_link = !add_threshold_link"
+        @click="add_module_view = !add_module_view"
       >
         <q-tooltip content-class="bg-secondary" :delay="500">
-          <span v-if="!add_threshold_link">Add threshold link</span>
-          <span v-else>Go back to threshold links</span>
+          <span v-if="!add_module_view">manage thresholds</span>
+          <span v-else>Go back to thresholds</span>
         </q-tooltip>
       </q-btn>
     </q-toolbar>
@@ -27,34 +26,33 @@
       mode="out-in"
       tag="div"
     >
-      <div v-if="!add_threshold_link" key="thresholds">
+      <div v-if="!add_module_view" key="thresholds">
         <q-list
-          v-if="getThresholdLinksWithFilter.length"
+          v-if="getModules.length"
           class="primary-hover-list"
           bordered
           separator
           striped
         >
           <q-item
-            v-for="link in getThresholdLinksWithFilter"
-            :key="link.contract + link.action_name"
+            v-for="module in getModules"
+            :key="module.module_name"
             clickable
           >
             <q-item-section side>
-              <q-item-label>
-                <q-badge>{{ link.contract }}::<b>{{ link.action_name }}</b></q-badge>
-              </q-item-label>
+              <q-badge>{{ module.module_name }}</q-badge>
             </q-item-section>
             <q-item-section>
               <q-item-label caption>
-                Threshold: {{ link.threshold_name }}
+                slave permission {{module.slave_permission}}
               </q-item-label>
             </q-item-section>
+
           </q-item>
         </q-list>
         <q-list v-else bordered separator striped>
           <q-item>
-            <q-item-label caption>All actions require the default threshold</q-item-label>
+            <q-item-label caption>No modules</q-item-label>
           </q-item>
         </q-list>
       </div>
@@ -62,7 +60,7 @@
         <!-- <q-btn icon="close"  round dense  class="q-ma-md " @click="add_payment_view=false"/> -->
         <action-proposer>
           <template slot-scope="scope">
-            <add-threshold-link @propose="scope.propose" @addtobucket="scope.addtobucket" />
+            <link-module @propose="scope.propose" @addtobucket="scope.addtobucket" />
           </template>
         </action-proposer>
       </div>
@@ -75,28 +73,29 @@
 <script>
 import { mapGetters } from "vuex";
 import actionProposer from "components/actions/action-proposer";
-import addThresholdLink from 'components/thresholds/add-threshold-link';
+import linkModule from "components/modules/link-module";
+
 export default {
-  name: "manageThresholds",
+  name: "manageModules",
   components: {
     actionProposer,
-    addThresholdLink
+    linkModule
+  
   },
   data() {
     return {
-      add_threshold_link: false
+      add_module_view: false
     };
   },
   computed: {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
-      getThresholds: "group/getThresholds",
+      getModules: "group/getModules",
       getActiveGroup: "group/getActiveGroup",
-      getActiveGroupConfig: "group/getActiveGroupConfig",
-      getThresholdLinks: "group/getThresholdLinks"
+
     }),
-    getThresholdLinksWithFilter() {
-      return this.getThresholdLinks;
+    getThresholdsWithFilter() {
+      return this.getThresholds;
     }
   },
   methods: {}
