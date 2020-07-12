@@ -70,7 +70,11 @@
     </div>
 
     <div class="col-xs-12 col-sm-6">
-
+      <q-toggle v-model="action.data.has_contract" label="has contract">
+        <q-tooltip content-class="bg-primary" :delay="500">
+          Uncheck if the account doesn't have a contract installed.
+        </q-tooltip>
+      </q-toggle>
     </div>
 
 
@@ -113,6 +117,7 @@ export default {
         data: {
           module_name:"",
           slave_permission: {actor:"", permission:""},
+          has_contract: true
         }
       },
 

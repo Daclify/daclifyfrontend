@@ -9,6 +9,7 @@
         outlined
         v-model="model_accountname"
         use-input
+        emit-value
         :hide-selected="true"
         fill-input
         :input-debounce="200"
@@ -32,13 +33,31 @@
         <template v-slot:prepend>
           <q-icon name="search"/>
         </template>
+        <template v-slot:option="scope">
+          <q-item
+            v-bind="scope.itemProps"
+            v-on="scope.itemEvents"
+          >
+            <q-item-section>
+              <q-item-label v-html="scope.opt.label" />
+              <q-item-label caption>{{ scope.opt.account }}</q-item-label>
+            </q-item-section>
+            <!-- <q-item-section side v-if="scope.opt.warning">
+              <q-icon name="mdi-alert" color="warning" >
+                <q-tooltip content-class="bg-secondary" :delay="500">
+                  Threshold exceeds number of custodians {{getNumberCustodians}}
+                </q-tooltip>
+              </q-icon>
+            </q-item-section> -->
+          </q-item>
+        </template>
       </q-select>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-const append_accounts=['eosio.token', 'eosio.msig'];
+const append_accounts=[{label:"eosio.token", value:"eosio.token"}, {label:"eosio.msig", value:"eosio.msig"}];
 export default {
   name: 'findAccount',
   props:{
@@ -78,9 +97,14 @@ export default {
   methods:{
     setDefaultOptions(){
       this.fetchedAccountNames = [
-        this.getAppConfig.groups_contract,
-        this.$store.state.group.activeGroup, 
-        ...this.getModules.map(m=> m.slave_permission.actor)
+        {label:"Hub contract", account:this.getAppConfig.groups_contract, value:this.getAppConfig.groups_contract},
+        {label:"Core contract",account:this.$store.state.group.activeGroup, value:this.$store.state.group.activeGroup},
+
+        ...this.getModules.map(m=> {
+          if(m.has_contract){
+            return {label: 'Module '+m.module_name, account: m.slave_permission.actor, value: m.slave_permission.actor}
+          }
+        })
         
       ]
     },
@@ -94,7 +118,7 @@ export default {
         limit: 6
       }).catch(e => false);
       if(res){
-        res = res.rows.map(x => x.scope);
+        res = res.rows.map(x => {return {label:x.scope, value: x.scope} } );
         res = res.concat(append_accounts);
         return res;
       }
@@ -118,7 +142,7 @@ export default {
           return;
         };
         let accs = await this.fetchAccounts(val)
-        this.fetchedAccountNames = accs.filter(v => v.startsWith(val));
+        this.fetchedAccountNames = accs.filter(v => v.value.startsWith(val));
         // update();
       })
     }
