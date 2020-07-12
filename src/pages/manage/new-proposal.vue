@@ -23,12 +23,13 @@
     >
       <q-tab-panel name="action_selection" class="no-padding overflow-hidden " >
         <find-account v-model="selected_contract" />
-        <list-actions v-if="selected_contract"  :action_name="selected_action_name" :contract="selected_contract" @action-select="showActionFields" class="q-mt-md" />
+        <list-actions v-if="selected_contract"  ref="listactions" :action_name="selected_action_name" :contract="selected_contract" @action-select="showActionFields" class="q-mt-md" />
 
       </q-tab-panel>
       <q-tab-panel name="action_fields" class="no-padding overflow-hidden">
-        <q-btn icon="close" round flat  class="absolute-top-right" color="primary" @click="advanced_slide='action_selection'"/>
-        <action-fields :fields="active_action_fields"/>
+        <q-btn icon="close" round flat  class="absolute-top-right" color="primary" @click="goBackToActionSelection"/>
+        <!-- {{active_action_fields}} -->
+        <action-fields :fields="active_action_fields" />
       </q-tab-panel>
     </q-tab-panels>
   </q-page>
@@ -72,17 +73,50 @@ export default {
     })
   },
   methods: {
+    goBackToActionSelection(){
+      let uri = window.location.search.substring(1); 
+      let params = new URLSearchParams(uri);
+      params.delete("action");
+      window.history.replaceState({}, '', `${location.pathname}?${params}`);
+      this.selected_action_name="";
+      this.advanced_slide='action_selection';
+    },
     showActionFields(e){
-      console.log(e);
+
       e.contract = this.selected_contract;
       e.fields = e.fields.map(f =>{
         f.value = '';
         return f;
       })
       this.active_action_fields = e;
+      let uri = window.location.search.substring(1); 
+      let params = new URLSearchParams(uri);
+      this.active_action_fields.fields.forEach(f =>{
+        f.value=params.get(f.name)||"";
+      })
       this.advanced_slide ="action_fields"
       
     }
+  },
+  created(){
+        let uri = window.location.search.substring(1); 
+        let params = new URLSearchParams(uri);
+        for (const [key, value] of params) {
+          switch (key) {
+            case "contract":
+              this.selected_contract=value;
+              break;
+            case "action":
+              this.selected_action_name=value;
+              this.$refs //.listactions.handleActionClick({icon:"", name:value,type:value})
+              break;
+          }
+          console.log(key, value)
+        }
+        //window.history.replaceState({}, '', `${location.pathname}?${params}`);
+        
+        
+        // console.log(params.get("var_name"));
   }
 };
 </script>

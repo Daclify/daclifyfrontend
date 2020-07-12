@@ -131,13 +131,14 @@ export default {
       if (struct) {
         return struct;
       } else {
-        alert(`truct not found for ${action.name}`);
+        alert(`struct not found for ${action.name}`);
       }
     },
     handleActionClick(action) {
       this.$emit("action-select", this.getStructForAction(action));
     }
   },
+
   watch: {
     contract: {
       handler: function(newVal) {
@@ -150,24 +151,26 @@ export default {
     action_name: {
       handler: async function(newVal, oldVal) {
         if (newVal && newVal != oldVal) {
-          // await new Promise((resolve) => {
-          //   if (!this.is_loading) {
-          //     resolve()
-          //     return
-          //   }
-          //   const isloadingcheck = setInterval(() => {
-          //     if (!this.is_loading) {
-          //       clearInterval(isloadingcheck);
-          //       resolve();
-          //     }
-          //   }, 1)
-          // })
           this.filter = newVal;
-          // this.$emit("action-select", this.getStructForAction(this.getActionListWithFilter[0]));
-          
         }
       },
       immediate: true
+    },
+    abi_actions:{
+      immediate:false,
+      handler: function(newV,oldV){
+        if(newV!=oldV && newV.length){
+          let uri = window.location.search.substring(1); 
+          let params = new URLSearchParams(uri);
+          let a = params.get("action");
+          if(a){
+            let action = this.abi_actions.find(aa => aa.name == a);
+            if(action){
+              this.handleActionClick(action);
+            }
+          }
+        }
+      }
     }
   }
 };

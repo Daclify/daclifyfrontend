@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div >
     <div class="text-grey-7 text-h6 q-mb-md">
       <span>{{ fields.contract }}</span>
       <span class="text-primary q-mx-xs">></span>
       <span>{{ fields.name }}</span>
     </div>
-    <div class="row q-col-gutter-md">
+    <div class="row q-col-gutter-md" style="min-height:50px">
       <div
         v-for="field in action_fields.fields"
         :key="field.name"
