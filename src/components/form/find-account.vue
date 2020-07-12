@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 const append_accounts=['eosio.token', 'eosio.msig'];
 export default {
   name: 'findAccount',
@@ -46,14 +47,43 @@ export default {
       type: String
     }
   },
+  computed: {
+    ...mapGetters({
+      getModules: "group/getModules",
+      getAppConfig: "app/getAppConfig"
+
+    })
+  },
   data () {
     return {
-      model_accountname:this.value,
-      fetchedAccountNames: [this.$store.state.group.activeGroup, ...this.$store.state.group.modules.map(m=> m.slave_permission.actor)]
+      model_accountname:"",
+      fetchedAccountNames: []
+    }
+  },
+  mounted(){
+    this.model_accountname = this.value;
+    
+  },
+  watch:{
+    getModules:{
+      immediate:true,
+      handler:function(newV, oldV){
+        if(this.getModules){
+          this.setDefaultOptions();
+        }
+      }
     }
   },
 
   methods:{
+    setDefaultOptions(){
+      this.fetchedAccountNames = [
+        this.getAppConfig.groups_contract,
+        this.$store.state.group.activeGroup, 
+        ...this.getModules.map(m=> m.slave_permission.actor)
+        
+      ]
+    },
     async fetchAccounts(acc){
       let res = await this.$eos.rpc.get_table_by_scope({
         json: true,
@@ -76,7 +106,7 @@ export default {
     deleteInput(){
       this.model_accountname='';
       this.$emit('input', '');
-      this.fetchedAccountNames = [this.$store.state.group.activeGroup, ...this.$store.state.group.modules.map(m=> m.slave_permission.actor)];
+      this.setDefaultOptions();
     },
 
     async filterFn (val, update, abort) {

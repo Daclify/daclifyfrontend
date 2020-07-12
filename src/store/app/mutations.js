@@ -10,8 +10,8 @@ export function setComponentRegistry(state, payload){
     state.componentRegistry = payload;
 }
 
-export function setVersioning(state, payload){
-    state.versioning = Object.assign(state.versioning, payload);
+export function setModuleRegistry(state, payload){
+    state.moduleRegistry = Object.assign(state.moduleRegistry, payload);
 }
 
 export function setRamPricePerByte(state, payload){

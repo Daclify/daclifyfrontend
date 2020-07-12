@@ -15,8 +15,8 @@
         @click="add_module_view = !add_module_view"
       >
         <q-tooltip content-class="bg-secondary" :delay="500">
-          <span v-if="!add_module_view">manage thresholds</span>
-          <span v-else>Go back to thresholds</span>
+          <span v-if="!add_module_view">manage modules</span>
+          <span v-else>Go back to modules</span>
         </q-tooltip>
       </q-btn>
     </q-toolbar>
@@ -26,16 +26,16 @@
       mode="out-in"
       tag="div"
     >
-      <div v-if="!add_module_view" key="thresholds">
+      <div v-if="!add_module_view" key="modules">
         <q-list
-          v-if="getModules.length"
+          v-if="getModulesWithFilter.length"
           class="primary-hover-list"
           bordered
           separator
           striped
         >
           <q-item
-            v-for="module in getModules"
+            v-for="module in getModulesWithFilter"
             :key="module.module_name"
             clickable
           >
@@ -66,7 +66,7 @@
       </div>
     </transition>
 
-    <!-- {{getThresholds}} -->
+
   </div>
 </template>
 
@@ -94,8 +94,8 @@ export default {
       getActiveGroup: "group/getActiveGroup",
 
     }),
-    getThresholdsWithFilter() {
-      return this.getThresholds;
+    getModulesWithFilter() {
+      return this.getModules;
     }
   },
   methods: {}

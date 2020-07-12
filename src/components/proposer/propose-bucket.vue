@@ -86,8 +86,8 @@
                     enter-active-class="animated zoomIn"
                     leave-active-class="animated zoomOut"
                   >
-
-                    <q-item v-for="(action,i) in getActionBucket" :key="action.unique_id" clickable class="cursor-default" style="border-bottom:1px solid grey">
+                    <bucket-item  v-for="(action,i) in getActionBucket" :key="action.unique_id" :action="action" :i="i"/>
+                    <!-- <q-item v-for="(action,i) in getActionBucket" :key="action.unique_id" clickable class="cursor-default" style="border-bottom:1px solid grey">
                       <q-item-section side >
                         <q-badge>
                           <div class="q-pa-xs drag_handle">{{i+1}}</div>
@@ -102,22 +102,22 @@
                       <q-item-label caption>{{action.data}}</q-item-label>
                       </q-item-section>
                       <q-item-section side >
-                        <div class="row">
-                          <authorization-display :authorization="action.authorization" class="text-caption text-grey-5"/>
+                        <div class="row items-center">
+                          <authorization-display :action="action" class="text-caption text-grey-5"/>
                           <threshold-badge :contract="action.account" :action_name="action.name" class="q-mr-sm"/>
                           <q-btn icon="remove" unelevated dense size="sm" color="negative"  @click="$store.commit('bucket/removeFromActionBucketByIndex', i)">
                             <q-tooltip :delay="400" content-class="bg-secondary">Delete</q-tooltip>
                           </q-btn>
                         </div>
                       </q-item-section>
-                    </q-item>
+                    </q-item> -->
                   </transition-group>
                 </draggable>
 
               </q-list>
               <!-- {{getActionBucket}} -->
               <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-                <div v-if="getActionBucket.length" class="row items-center justify-between q-pa-md ">
+                <div v-if="getActionBucket.length" class="row items-center justify-between q-pa-md bg-secondary">
                   <div class="row no-wrap q-pl-xs" v-if="getActionBucket.length > 1">
                     <q-icon name="mdi-subdirectory-arrow-left" color="primary" class="rotate-90" size="24px" />
                     <div class="text-caption text-grey-5 q-pt-sm q-pl-xs"><i>drag to order</i></div>
@@ -190,9 +190,10 @@ const {getBrand} = colors;
 import { mapGetters } from "vuex";
 import draggable from 'vuedraggable';
 import numberPopAnimation from 'components/number-pop-animation';
-import authorizationDisplay from 'components/authorization-display';
-import thresholdBadge from 'components/thresholds/threshold-badge';
+// import authorizationDisplay from 'components/proposer/authorization-display';
+// import thresholdBadge from 'components/thresholds/threshold-badge';
 import bucketSvg from 'components/proposer/bucket-svg';
+import bucketItem from 'components/proposer/bucket-item';
 import { saveAs } from "file-saver";
 const prettyHtml = require('json-pretty-html').default;
 // var html = prettyHtml(json, json.dimensions);
@@ -201,9 +202,10 @@ export default {
   components:{
     draggable,
     numberPopAnimation,
-    thresholdBadge,
-    authorizationDisplay,
-    bucketSvg
+    // thresholdBadge,
+    // authorizationDisplay,
+    bucketSvg,
+    bucketItem
   },
   data () {
     return {

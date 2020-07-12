@@ -6,7 +6,7 @@ export default {
   groups:false,
   componentRegistry: {},
   ramPricePerByte: 0,
-  versioning: {}
+  moduleRegistry: {}
 
 
 

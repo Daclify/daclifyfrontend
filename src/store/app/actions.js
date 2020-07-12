@@ -7,6 +7,8 @@ export async function initRoutine ({ dispatch }) {
 
     dispatch('fetchComponentRegistry');
 
+    dispatch('fetchModuleRegistry');
+
 
     // dispatch('fetchAllowedFeeTokens');
     // dispatch('fetchCronjobsByScope');
@@ -84,25 +86,40 @@ export async function fetchComponentRegistry ({ state, commit }) {
     }
 }
 
-export async function fetchVersioning ({ state, commit }, payload) {
-  let module_type = payload.scope || "core";
+export async function fetchModuleVersions ({ state, commit }, modulename) {
+  let module_type = modulename || "core";
   let res = await this._vm.$eos.rpc.get_table_rows({
     json: true,
     code: state.config.groups_contract,
     scope: module_type,
-    table: "versioning",
+    table: "versions",
     limit: -1
   });
-  if(res){
+  if(res && res.rows){
     console.log(`fetched versions for ${module_type}`,res.rows);
     let temp = {};
     temp[module_type] = res.rows;
-    commit('setVersioning', temp);
+    commit('setModuleRegistry', temp);
   }
   else{
-      console.log('fetching component registry failed');
+      console.log('fetching module from registry failed');
   }
+}
 
+export async function fetchModuleRegistry ({ state, commit }, payload) {
+
+  let res = await this._vm.$eos.rpc.get_table_by_scope({
+    json: true,
+    code: state.config.groups_contract,
+    table: "versions",
+    limit: -1
+  });
+  if(res){
+    console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',res)
+  }
+  else{
+      console.log('fetching module registry faild');
+  }
 }
 
 export async function fetchRamPricePerByte ({ state, commit }){

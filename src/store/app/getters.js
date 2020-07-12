@@ -29,15 +29,6 @@ export function getRamPricePerByte(state){
 }
 
 
-
-
-
-
-
-
-
-
-
 export function getAppConfig(state){
     return state.config;
 }
