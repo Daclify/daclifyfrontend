@@ -2,7 +2,7 @@
       <q-expansion-item>
         <template v-slot:header>
           <q-item-section avatar>
-            <profile-pic :size="42" icon="" iconColor="positive" :account="payment.receiver"  />
+            <profile-pic :size="42" icon="mdi-transfer-left" iconColor="primary" :account="payment.receiver"  />
           </q-item-section>
 
           <q-item-section>

@@ -60,7 +60,7 @@
                 <q-icon name="mdi-account-plus" size="25px" color="primary" />
             </q-item-section>
             <q-item-section>
-              <q-item-label class="text-weight-light">Joined</q-item-label>
+              <q-item-label class="text-weight-light">Custodian Since</q-item-label>
               <q-item-label caption><date-string :date="custodian.joined" /></q-item-label>
             </q-item-section>
           </q-item>
