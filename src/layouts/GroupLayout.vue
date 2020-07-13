@@ -62,11 +62,11 @@
             <q-icon name="mdi-account-group" color="primary" style="margin-top:-4px"/>
           </q-item-section>
           <q-item-section>
-            <q-item-label class="text-primary text-uppercase" style="margin-left:-26px">{{ getActiveGroup }}</q-item-label>
+            <q-item-label class="text-primary text-uppercase" style="margin-left:-29px">{{ getActiveGroup }}</q-item-label>
           </q-item-section>
           <q-item-section side>
             <q-item-label>
-              <span class="text-capitalize">{{menu_mode}}</span>
+              <span class="text-capitalize">{{menu_mode}} <q-icon name="mdi-export" /></span>
             </q-item-label>
           </q-item-section>
         </q-item>
