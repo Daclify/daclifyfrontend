@@ -19,6 +19,16 @@
           </q-item-section>
         </q-item>
 
+        <q-item v-if="getModuleByName('elections')" clickable :to="`/members/${getActiveGroup}/elections`">
+          <q-item-section avatar>
+            <q-icon name="mdi-vote" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Elections</q-item-label>
+            <!-- <q-item-label caption>mining stats</q-item-label> -->
+          </q-item-section>
+        </q-item>
+
         <q-item v-if="!getIsMember" clickable :to="`/members/${getActiveGroup}/register`">
           <q-item-section avatar>
             <q-icon name="mdi-account-plus" />
@@ -37,15 +47,7 @@
           </q-item-section>
         </q-item>
 
-        <q-item v-if="getModuleByName('elections')" clickable :to="`/members/${getActiveGroup}/elections`">
-          <q-item-section avatar>
-            <q-icon name="mdi-vote" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Elections</q-item-label>
-            <!-- <q-item-label caption>mining stats</q-item-label> -->
-          </q-item-section>
-        </q-item>
+
 
     
       </q-list>
