@@ -1,6 +1,8 @@
 <template>
   <div>
-    <q-card class="q-mb-md" v-intersection="onIntersection" >
+    <q-card class="q-mb-md" 
+    v-intersection="vote_intersection" 
+    >
       <q-card-section class="column justify-between" style="min-height:150px">
         
         <transition-group
@@ -40,7 +42,7 @@
     </q-card>
 
   <transition tag="div" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-    <div v-if="show_fixed_votes" class="my-votes-fixed rounded-borders-bottom row items-center bg-primary q-pl-xs q-pr-md q-py-sm">
+    <div v-if="show_fixed_votes && timedelay" class="my-votes-fixed rounded-borders-bottom row items-center bg-primary q-pl-xs q-pr-md q-py-sm">
       <q-btn label="vote" icon="mdi-vote" class="q-mr-lg" color="secondary" :class="didVotesChange ? 'pulse' :''" :loading="getIsTransacting" @click="castNewVotes" :disabled="!didVotesChange"/>
       
         <transition-group
@@ -71,7 +73,14 @@ export default {
   },
   data() {
     return {
-      show_fixed_votes: false
+      show_fixed_votes: false,
+      timedelay:false,
+      vote_intersection:{
+        handler: this.onIntersection,
+        cfg: {
+          root: null,
+        }
+      }
     };
   },
   computed: {
@@ -145,6 +154,11 @@ export default {
       this.getCandidates.find(c => c.cand == vote && c.vote===true).vote= false;
       this.$store.commit("elections/updateCandidateTotalVotes",{cand: vote, delta:-1});
     }
+  },
+  mounted(){
+    setTimeout(()=>{
+      this.timedelay=true;
+    },500)
   },
 
   watch: {

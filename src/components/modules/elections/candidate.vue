@@ -1,7 +1,7 @@
 <template>
   <div class="q-mt-md">
     <q-card class="candidate" :class="{'candidate-selected': candidate.vote}">
-      <q-expansion-item class="primary-hover-list" @show="fetchProfileData">
+      <q-expansion-item class="primary-hover-list" @show="fetchProfileData" group="candidate">
         <template v-slot:header>
           <q-item-section avatar>
             <profile-pic :size="60" :account="candidate.cand" :icon="getIsCustodian(candidate.cand) ? 'mdi-star' : ''"/>

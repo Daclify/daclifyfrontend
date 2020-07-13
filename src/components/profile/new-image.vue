@@ -8,7 +8,7 @@
       bottom-slots
       hint=""
       @input ="setNewImage"
-      placeholder="add new image"
+      placeholder="new image url"
     >
       <template v-slot:prepend>
         <div>
