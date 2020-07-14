@@ -77,6 +77,7 @@ export default {
       getAccountName: "ual/getAccountName",
       getIsCustodian: "group/getIsCustodian",
       getThresholdByName: "group/getThresholdByName",
+      getThresholds: "group/getThresholds",
       getIsTransacting: "ual/getIsTransacting"
     }),
 
@@ -86,7 +87,7 @@ export default {
       }
     },
     getIsExecutable() {
-      if (this.proposal && this.proposal.approvals && this.getAccountName) {
+      if (this.proposal && this.proposal.approvals && this.getAccountName && this.getThresholds.length) {
         const required_threshold_value = this.getThresholdByName(
           this.proposal.required_threshold
         ).threshold;
