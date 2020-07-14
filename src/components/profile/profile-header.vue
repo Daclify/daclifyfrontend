@@ -133,7 +133,7 @@ export default {
       };
       this.is_unregging = true;
       let res = await this.$store.dispatch("ual/transact", { actions: [action], disable_signing_overlay: true  });
-      if(res && res.transactionId && res.status == "executed"){
+      if(res && res.trxid){
         this.$store.commit('user/setIsMember', false);
       }
       this.is_unregging = false;
@@ -150,7 +150,7 @@ export default {
       };
       this.is_clearing_profile = true;
       let res = await this.$store.dispatch("ual/transact", { actions: [action], disable_signing_overlay: true  });
-      if(res && res.transactionId && res.status == "executed"){
+      if(res && res.trxid){
         this.$store.commit('user/delProfile', this.getAccountName);
       }
       this.is_clearing_profile = false;

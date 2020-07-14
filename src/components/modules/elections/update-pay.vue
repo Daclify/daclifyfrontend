@@ -69,7 +69,7 @@ export default {
         }
       };
       let res = await this.$store.dispatch("ual/transact", { actions: [action], disable_signing_overlay: true });
-      if(res && res.transactionId && res.status == "executed"){
+      if(res && res.trxid){
         this.$store.commit('elections/updateCandidatePay', {cand: this.getAccountName, new_pay: action.data.new_pay});
       }
       else{

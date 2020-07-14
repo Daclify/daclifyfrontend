@@ -311,7 +311,7 @@ export default {
         actions: [action],
         disable_signing_overlay: true
       });
-      if (res && res.transactionId && res.status == "executed") {
+      if (res && res.trxid) {
         this.is_signing = false;
         return true;
       } else {

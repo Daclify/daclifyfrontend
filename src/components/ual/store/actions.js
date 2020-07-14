@@ -139,7 +139,27 @@ export async function transact({ state, dispatch, commit }, payload) {
     }
     commit('setIsTransacting', false);
     console.log(res);
-    return res;
+
+    let authenticator_name = state.activeAuthenticator.getStyle().text
+    console.log();
+    let receipt = {};
+
+    if(authenticator_name == "Scatter"){
+      console.log("signed with Scatter");
+      receipt.block_time = res.transaction.processed.block_time;
+      receipt.trxid = res.transactionId
+    }
+    else if(authenticator_name == "Anchor"){
+      console.log("signed with Anchor");
+      receipt.block_time = res.transaction.processed.block_time;
+      receipt.trxid = res.transaction.processed.id;
+    }
+    else{
+      console.log("signed with unconfigured authenticater, please contact devs");
+      receipt.block_time = res.transaction.processed.block_time;
+      receipt.trxid = res.transaction.processed.id;  
+    }
+    return receipt;
   }catch(e){
     // console.log(e, e.cause);
     if(!disable_signing_overlay){

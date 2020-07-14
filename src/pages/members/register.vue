@@ -68,7 +68,7 @@ export default {
       };
       this.is_transacting = true;
       let res = await this.$store.dispatch("ual/transact", { actions: [action], disable_signing_overlay: true });
-      if(res && res.transactionId && res.status == "executed"){
+      if(res && res.trxid){
         this.$store.commit('user/setIsMember', true);
       }
       this.is_transacting = false;
@@ -84,7 +84,7 @@ export default {
       };
       this.is_transacting = true;
       let res = await this.$store.dispatch("ual/transact", { actions: [action], disable_signing_overlay: true  });
-      if(res && res.transactionId && res.status == "executed"){
+      if(res && res.trxid){
         this.$store.commit('user/setIsMember', false);
       }
       this.is_transacting = false;

@@ -33,8 +33,8 @@ export default {
         actions: [action],
         disable_signing_overlay: true
       });
-      if(res && res.transactionId && res.status == "executed"){
-        let block_time = res.transaction.processed.block_time.split('.')[0];
+      if(res && res.trxid){
+        let block_time = res.block_time.split('.')[0];
         this.$store.commit('group/setCustodianLastActive', {custodian: this.getAccountName, block_time: block_time});
       }
       else{

@@ -144,7 +144,7 @@ export default {
         actions: [open, transfer],
         disable_signing_overlay: true
       });
-      if (res && res.transactionId && res.status == "executed") {
+      if (res && res.trxid) {
         //dispatch('fetchHubDeposits', payload.accountname);
       } else {
       }
@@ -169,7 +169,7 @@ export default {
         actions: [withdraw],
         disable_signing_overlay: true
       });
-      if (res && res.transactionId && res.status == "executed") {
+      if (res && res.trxid) {
         //dispatch('fetchHubDeposits', payload.accountname);
       } else {
       }

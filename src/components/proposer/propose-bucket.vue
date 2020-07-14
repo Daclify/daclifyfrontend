@@ -261,7 +261,7 @@ export default {
         title: this.propose_title
       });
 
-      if(res && res.transactionId && res.status == "executed"){
+      if(res && res.trxid){
         this.$store.commit('bucket/setActionBucket', []);
         this.bucket_view ="trx_success";
       }

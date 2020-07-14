@@ -90,7 +90,7 @@ export default {
       }
       let actions = [unreg];
       let res = await this.$store.dispatch("ual/transact", { actions: actions, disable_signing_overlay: true });
-      if(res && res.transactionId && res.status == "executed"){
+      if(res && res.trxid){
         this.$store.commit("elections/removeCandidate", this.getAccountName);
         this.$emit("navigate", "register candidacy");
       }
@@ -110,7 +110,7 @@ export default {
 
       let actions = [pausecampaig];
       let res = await this.$store.dispatch("ual/transact", { actions: actions, disable_signing_overlay: true });
-      if(res && res.transactionId && res.status == "executed"){
+      if(res && res.trxid){
         this.$store.commit("elections/togglePauseCampaign", this.getAccountName);
       }
       this.is_pausing=false;

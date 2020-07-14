@@ -84,7 +84,7 @@ export default {
       actions.push(register);
 
       let res = await this.$store.dispatch("ual/transact", { actions: actions, disable_signing_overlay: true });
-      if(res && res.transactionId && res.status == "executed"){
+      if(res && res.trxid){
         console.log("add candidate")
         this.$store.commit('elections/addCandidate', this.getAccountName);
         this.$emit("navigate", "manage candidacy");

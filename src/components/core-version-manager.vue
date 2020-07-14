@@ -179,7 +179,7 @@ export default {
 
 
       let res = await this.$store.dispatch("ual/transact", {actions: [system_propose_action, group_propose_action], disable_signing_overlay: true });
-      if(res && res.transactionId && res.status == "executed"){
+      if(res && res.trxid){
         setTimeout(()=>{
           this.$store.dispatch('group/fetchProposals', {groupname: this.getActiveGroup, scope: this.getActiveGroup});
         },1500);
