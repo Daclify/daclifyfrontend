@@ -154,6 +154,11 @@ export async function transact({ state, dispatch, commit }, payload) {
       receipt.block_time = res.transaction.processed.block_time;
       receipt.trxid = res.transaction.processed.id;
     }
+    else{
+      console.log("signed with unconfigured authenticater, please contact devs");
+      receipt.block_time = res.transaction.processed.block_time;
+      receipt.trxid = res.transaction.processed.id;  
+    }
     return receipt;
   }catch(e){
     // console.log(e, e.cause);
