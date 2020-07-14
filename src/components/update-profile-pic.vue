@@ -79,7 +79,7 @@ export default {
         }
       };
       let res = await this.$store.dispatch("ual/transact", { actions: [action], disable_signing_overlay: true });
-      if(res && res.transactionId && res.status == "executed"){
+      if(res && res.trxid){
         this.$store.commit('group/updateAvatar', {account: this.getAccountName, img_url: this.new_avatar});
         this.$emit("updated");
       }

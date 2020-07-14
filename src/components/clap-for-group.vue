@@ -112,7 +112,7 @@ export default {
       //check which actions are needed transfer? open? 
 
       let res = await this.$store.dispatch("ual/transact", { actions: [action], disable_signing_overlay: true });
-      if(res && res.transactionId && res.status == "executed"){
+      if(res && res.trxid){
         this.$store.commit('group/setClaps', this.getActiveGroupConfig.claps+this.clap_amount);
         this.clap_modal = false;
         this.clap_amount = 5000;

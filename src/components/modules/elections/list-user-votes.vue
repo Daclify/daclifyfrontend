@@ -136,7 +136,7 @@ export default {
         }
       };
       let res = await this.$store.dispatch("ual/transact", { actions: [action], disable_signing_overlay: true });
-      if(res && res.transactionId && res.status == "executed"){
+      if(res && res.trxid){
         setTimeout(()=>{
           this.$store.dispatch("elections/fetchUserVotes",{voter:this.getAccountName});
         },1000);

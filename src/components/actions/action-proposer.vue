@@ -95,7 +95,7 @@ export default {
       try{
         let res = await this.$store.dispatch("group/propose", e_payload);
 
-        if(res && res.transactionId && res.status == "executed"){
+        if(res && res.trxid){
           this.propose_state_tab ="trx_success";
           this.back_to_first_tab();
         }

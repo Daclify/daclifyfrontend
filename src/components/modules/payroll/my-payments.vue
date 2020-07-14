@@ -63,7 +63,7 @@ export default {
 
       //check which actions are needed transfer? open? 
       let res = await this.$store.dispatch("ual/transact", { actions: [action], disable_signing_overlay: true });
-      if(res && res.transactionId && res.status == "executed"){
+      if(res && res.trxid){
         let i=this.payments.findIndex(p => p.pay_id==id);
         this.payments.splice(i,1);
       }

@@ -337,7 +337,7 @@ export default {
         disable_signing_overlay: true
       });
       setTimeout(()=>{this.$store.dispatch("user/fetchHubDeposits", this.getAccountName)}, 2000);
-      if (res && res.transactionId && res.status == "executed") {
+      if (res && res.trxid) {
         this.step = "request_activation";
       } else {
         this.step = "create_account"
@@ -384,7 +384,7 @@ export default {
         disable_signing_overlay: true
       });
       setTimeout(()=>{this.$store.dispatch("user/fetchHubDeposits", this.getAccountName)}, 1000);
-      if (res && res.transactionId && res.status == "executed") {
+      if (res && res.trxid) {
         this.step = "group_created";
         return true;
       } else {

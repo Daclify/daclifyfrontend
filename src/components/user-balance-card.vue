@@ -101,7 +101,7 @@ export default {
       }
 
       let res = await this.$store.dispatch("ual/transact", { actions: [action], disable_signing_overlay: true });
-      if(res && res.transactionId && res.status == "executed"){
+      if(res && res.trxid){
         this.withdraw_dialog =false;
         setTimeout(()=>{
           this.$emit("updatebalance");

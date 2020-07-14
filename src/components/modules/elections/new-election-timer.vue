@@ -91,7 +91,7 @@ export default {
         }
       };
       let res = await this.$store.dispatch("ual/transact", { actions: [action], disable_signing_overlay: true });
-      if(res && res.transactionId && res.status == "executed"){
+      if(res && res.trxid){
         setTimeout(()=>{
           this.$store.dispatch("group/loadGroupRoutine", {groupname: this.getActiveGroup});
           this.$store.dispatch("elections/loadElectionsRoutine", this.getElectionsContract);

@@ -408,9 +408,9 @@ export async function propose({ state, rootState, dispatch, commit }, payload) {
 
   let res = await dispatch('ual/transact', propose_payload, {root:true});
   
-  if(res && res.transactionId && res.status == "executed"){
+  if(res && res.trxid){
 
-    let block_time = res.transaction.processed.block_time.split('.')[0];
+    let block_time = res.block_time.split('.')[0];
     commit('setCustodianLastActive', {custodian: rootState.ual.accountName, block_time: block_time});
     /*
     try{
