@@ -51,13 +51,30 @@
       </q-input>
     </div>
 
-    <div class="col-xs-12 col-sm-6">
-    
-      <pick-chain-date v-model="action.data.due_date" label="due date" />
 
+
+    <div class="col-xs-12 col-sm-6">
+  
+      <pick-chain-date v-model="action.data.due_date" label="due date" />
     </div>
 
     <div class="col-xs-12 col-sm-6">
+      <q-input
+        ref="memo"
+        v-model="action.data.memo"
+        label="memo"
+        outlined
+        bottom-slots
+        placeholder="optional memo"
+        no-error-icon
+        :rules="[
+
+          ]"
+      >
+      </q-input>
+    </div>
+
+    <div class="col-xs-12 col-sm-6" >
       <span class="q-mr-md"> 
         <q-toggle label="Recurrent Payment" v-model="is_recurrent_payment" />
         <q-icon v-if="is_recurrent_payment" name="mdi-check" color="positive" size="24px" />
@@ -135,6 +152,7 @@ export default {
           payroll_tag: this.payroll.payroll_tag,
           receiver: "",
           amount: "",
+          memo:"",
           due_date:"",
           repeat:1,
           recurrence_sec:0,

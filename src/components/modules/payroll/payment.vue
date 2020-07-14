@@ -10,6 +10,11 @@
             <q-item-label caption>ID {{payment.pay_id}}</q-item-label>
           </q-item-section>
 
+          <q-item-section v-if="payment.memo">
+            <q-item-label class="text-capitalize">memo</q-item-label>
+            <q-item-label caption>{{payment.memo}}</q-item-label>
+          </q-item-section>
+
           <q-item-section v-if="convert_recurrence_sec(payment.recurrence_sec)">
             <span><q-badge >{{convert_recurrence_sec(payment.recurrence_sec)}}</q-badge></span>
           </q-item-section>
