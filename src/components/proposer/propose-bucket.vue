@@ -119,7 +119,7 @@
                   :no-abbreviation="false"
                 >
                 </q-markdown>
-                <q-input v-else label="Description" v-model="propose_description" type="textarea" outlined />
+                <q-input v-else label="Description" placeholder="markdown supported" v-model="propose_description" type="textarea" outlined />
               </div>
               <div class="row items-center justify-between">
                 <q-btn flat label="back" @click="bucket_view='bucket_list'" color="primary" size="md"/>
