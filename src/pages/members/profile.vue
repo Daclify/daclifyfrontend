@@ -141,12 +141,12 @@
                 />
               </q-tab-panel>
               <q-tab-panel name="mypayments" class="overflow-hidden no-padding">
-                <my-payments :payments="my_payments"  class="q-my-md"/>
+                <my-payments :payments="my_payments"  class="q-mt-md"/>
               </q-tab-panel>
             </q-tab-panels>
 
-            <q-separator />
-            <div class="row justify-between items-center q-mt-md">
+            <q-separator class="q-my-md" />
+            <div class="row justify-between items-center ">
               <div v-if="profile_data" class="text-caption text-grey">
                 <date-string
                   prepend="Updated:"
