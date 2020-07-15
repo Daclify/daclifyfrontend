@@ -1,6 +1,6 @@
 <template>
 
-      <q-expansion-item clickable v-if="payment">
+      <q-expansion-item clickable v-if="payment && show">
         <template v-slot:header>
 
           <q-item-section side >
@@ -48,7 +48,8 @@ export default {
   },
   data () {
     return {
-      is_claiming: false
+      is_claiming: false,
+      show: true
 
     }
   },
@@ -67,8 +68,10 @@ export default {
       //check which actions are needed transfer? open? 
       let res = await this.$store.dispatch("ual/transact", { actions: [action], disable_signing_overlay: true });
       if(res && res.trxid){
-        let i=this.payments.findIndex(p => p.pay_id==id);
-        this.payments.splice(i,1);
+        this.show = false;
+        setTimeout(()=>{
+          this.$store.dispatch("payroll/fetchUserPayments", {contract: this.getModuleByName("payroll").slave_permission.actor, account: this.getAccountName})
+        },2000);
       }
       else{
         

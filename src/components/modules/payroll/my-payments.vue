@@ -2,6 +2,11 @@
   <div>
     <q-list class="primary-hover-list no-padding" separator bordered>
       <my-payment v-for="payment in payments" :key="payment.pay_id" :payment="payment"/>
+      <q-item>
+        <q-item-section v-if="!payments.length">
+          <q-item-label>No payments</q-item-label>
+        </q-item-section>
+      </q-item>
     </q-list>
     <!-- {{payments}} -->
   </div>
@@ -34,34 +39,12 @@ export default {
   },
   data () {
     return {
-      is_claiming: false
+
 
     }
   },
-  methods:{
-    async claimPayment(id){
-      this.is_claiming = true;
+  methods:{}
 
-      let action = {
-        account: this.getModuleByName("payroll").slave_permission.actor,
-        name: "pay",
-        data: {
-          pay_id: id,
-        }
-      }
-
-      //check which actions are needed transfer? open? 
-      let res = await this.$store.dispatch("ual/transact", { actions: [action], disable_signing_overlay: true });
-      if(res && res.trxid){
-        let i=this.payments.findIndex(p => p.pay_id==id);
-        this.payments.splice(i,1);
-      }
-      else{
-        
-      }
-      this.is_claiming = false;
-    }
-  },
 
 }
 </script>
