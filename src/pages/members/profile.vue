@@ -113,48 +113,46 @@
               animated
               transition-prev="fade"
               transition-next="fade"
+              
             >
-              <q-tab-panel name="text" class="overflow-hidden">
+              <q-tab-panel name="text" class="overflow-hidden no-padding">
                 <text-edit :account="account" :profile_data="profile_data" />
               </q-tab-panel>
-              <q-tab-panel name="textview" class="overflow-hidden">
-                <profile-text :account="account" :profile_data="profile_data" />
+              <q-tab-panel name="textview" class="overflow-hidden no-padding">
+                <profile-text :account="account" :profile_data="profile_data" class="q-mt-md" />
               </q-tab-panel>
-              <q-tab-panel name="links" class="overflow-hidden">
+              <q-tab-panel name="links" class="overflow-hidden no-padding">
                 <profile-links
                   :account="account"
                   :profile_data="profile_data"
+                  class="q-mt-md"
                 />
               </q-tab-panel>
-              <q-tab-panel name="files" class="overflow-hidden">
+              <q-tab-panel name="files" class="overflow-hidden no-padding">
                 <profile-files
                   :account="account"
                   :profile_data="profile_data"
                 />
               </q-tab-panel>
-              <q-tab-panel name="gallery" class="overflow-hidden">
+              <q-tab-panel name="gallery" class="overflow-hidden no-padding">
                 <profile-gallery
                   :account="account"
                   :profile_data="profile_data"
                 />
               </q-tab-panel>
-              <q-tab-panel name="mypayments" class="overflow-hidden">
-                <my-payments :payments="my_payments" />
+              <q-tab-panel name="mypayments" class="overflow-hidden no-padding">
+                <my-payments :payments="my_payments"  class="q-my-md"/>
               </q-tab-panel>
             </q-tab-panels>
 
-            <div class="row justify-between items-center">
+            <q-separator />
+            <div class="row justify-between items-center q-mt-md">
               <div v-if="profile_data" class="text-caption text-grey">
                 <date-string
                   prepend="Updated:"
                   :date="profile_data.last_update"
                 />
               </div>
-              <!-- <div v-if="profile_data && profile_data.account==getAccountName && active_tab != 'textview'" class="text-caption">
-          <transition enter-active-class="animated zoomIn" leave-active-class="animated zoomOut">
-            <q-btn  v-if="isProfileChanged" label="update" class="pulse" color="primary" @click="updateProfileDataKey" :loading="is_transacting"/>
-          </transition>
-        </div> -->
             </div>
             <!-- {{profile_data}} -->
           </q-card-section>

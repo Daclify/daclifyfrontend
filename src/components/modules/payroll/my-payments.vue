@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-list class="primary-hover-list" separator bordered>
+    <q-list class="primary-hover-list no-padding" separator bordered>
       <my-payment v-for="payment in payments" :key="payment.pay_id" :payment="payment"/>
     </q-list>
     <!-- {{payments}} -->
