@@ -4,7 +4,7 @@
       <!-- <pre>{{getImAliveStats}}</pre> -->
       <q-item>
         <q-item-section avatar>
-          <profile-pic :size="60"  :account="custodian.account"/> <!--  icon="mdi-star" iconColor="primary" -->
+          <profile-pic :size="60"  :account="custodian.account" class="shadow-3"/> <!--  icon="mdi-star" iconColor="primary" -->
         </q-item-section>
 
         <q-item-section>

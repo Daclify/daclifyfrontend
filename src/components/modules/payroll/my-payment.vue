@@ -1,26 +1,37 @@
 <template>
-  <div>
-    <q-list class="primary-hover-list" separator bordered>
-      <my-payment v-for="payment in payments" :key="payment.pay_id" :payment="payment"/>
-    </q-list>
+
+      <q-expansion-item clickable v-if="payment">
+        <template v-slot:header>
+          <q-item-section >
+            <q-item-label>{{payment.payroll_tag}}</q-item-label>
+            <q-item-label caption>{{payment.pay_id}}</q-item-label>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label caption>{{payment.memo}}</q-item-label>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label caption>{{payment.amount}}</q-item-label>
+          </q-item-section>
+          <q-item-section side>
+            <q-btn label="claim" @click="claimPayment(payment.pay_id)" color="primary" :loading="is_claiming"></q-btn>
+          </q-item-section>
+        </template>
+        <q-separator />
+        <payment-details :payment="payment"/>
+      </q-expansion-item>
     <!-- {{payments}} -->
-  </div>
 </template>
 
 <script>
-import myPayment from "components/modules/payroll/my-payment";
+import paymentDetails from "components/modules/payroll/payment-details";
 import { mapGetters } from "vuex";
 export default {
-  name: 'myPayments',
+  name: 'myPayment',
   props:{
-    payments:{
-      type: Array,
-      default: ()=>[]
-    }
+    payment:{}
   },
   components:{
-
-    myPayment
+    paymentDetails
   },
   computed: {
     ...mapGetters({
