@@ -2,16 +2,19 @@
 
       <q-expansion-item clickable v-if="payment">
         <template v-slot:header>
-          <q-item-section >
+
+          <q-item-section side >
             <q-item-label>{{payment.payroll_tag}}</q-item-label>
-            <q-item-label caption>{{payment.pay_id}}</q-item-label>
+            <q-item-label caption><q-badge>{{payment.pay_id}}</q-badge></q-item-label>
           </q-item-section>
+
           <q-item-section>
+          <div class="row justify-between">
             <q-item-label caption>{{payment.memo}}</q-item-label>
-          </q-item-section>
-          <q-item-section>
             <q-item-label caption>{{payment.amount}}</q-item-label>
+          </div>
           </q-item-section>
+
           <q-item-section side>
             <q-btn label="claim" @click="claimPayment(payment.pay_id)" color="primary" :loading="is_claiming"></q-btn>
           </q-item-section>
