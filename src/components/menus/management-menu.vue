@@ -87,6 +87,16 @@
           </q-item-section>
         </q-item>
 
+        <q-item clickable :to="`/manage/${getActiveGroup}/files`">
+          <q-item-section avatar>
+            <q-icon name="mdi-file-document"/>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Files</q-item-label>
+            <!-- <q-item-label caption>mining stats</q-item-label> -->
+          </q-item-section>
+        </q-item>
+
         <q-item clickable :to="`/manage/${getActiveGroup}/resources`">
           <q-item-section avatar>
             <q-icon name="mdi-alpha-r-circle" />

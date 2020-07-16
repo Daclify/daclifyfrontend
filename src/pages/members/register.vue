@@ -69,7 +69,7 @@ export default {
       this.is_transacting = true;
       let res = await this.$store.dispatch("ual/transact", { actions: [action], disable_signing_overlay: true });
       if(res && res.trxid){
-        this.$store.commit('user/setIsMember', true);
+        this.$store.commit('user/setIsMember', {account:this.getAccountName, member_since:res.block_time, agreed_userterms_version:0});
       }
       this.is_transacting = false;
 

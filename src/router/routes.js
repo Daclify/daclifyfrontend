@@ -36,6 +36,7 @@ const routes = [
       { path: 'modules', component: () => import('pages/manage/modules.vue') },
       { path: 'payroll', component: () => import('pages/manage/payroll.vue') },
       { path: 'members', component: () => import('pages/manage/members.vue') },
+      { path: 'files', component: () => import('pages/manage/files.vue') },
     ]
   },
 

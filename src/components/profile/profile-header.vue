@@ -31,10 +31,11 @@
             <q-item-label  caption>
               <span v-if="getIsCustodian(account)">Custodian</span>
               <!-- <span v-if="getIsMember">Member</span> -->
-            </q-item-label
-            >
+            </q-item-label>
+            
           </q-item-section>
         </q-item>
+        
         <transition
           appear
           enter-active-class="animated fadeInDown"
@@ -45,6 +46,10 @@
             @updated="edit_avatar = false"
           />
         </transition>
+        <div class="row justify-end">
+          <date-string v-if="getIsMember" prepend="Member since:" :date="getIsMember.member_since" />
+          <div v-else>Not yet a member</div>
+        </div>
       </q-card-section>
 
       <q-card-section v-if="view == 'more'" key="more">
@@ -68,6 +73,26 @@
               Clear all profile data inclusive avatar. This requires a page reload.
             </q-tooltip>
           </q-btn>
+
+          <q-btn-dropdown
+            v-if="getIsMember"
+            color="primary"
+            :label="`Agreed userterms v`+getIsMember.agreed_userterms_version"
+            :split="true"
+            v-model="userterms_dropdown_open"
+            @click="userterms_dropdown_open=true"
+            :loading="is_signing_terms"
+          >
+            <q-list class="primary-hover-list">
+              <q-item  clickable v-close-popup  @click="signuserterms(false)">
+                <q-item-section>
+                  <q-item-label>Disagree</q-item-label>
+                  <q-item-label caption>sign disagreement</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+
         </div>
       </q-card-section>
     </transition>
@@ -89,6 +114,7 @@
 import { mapGetters } from "vuex";
 import profilePic from "components/profile-pic";
 import updateProfilePic from "components/update-profile-pic";
+import dateString from "components/date-string";
 export default {
   name: "profileHeader",
   props: {
@@ -96,14 +122,17 @@ export default {
   },
   components: {
     profilePic,
-    updateProfilePic
+    updateProfilePic,
+    dateString
   },
   data() {
     return {
       edit_avatar: false,
       view: "header",
       is_unregging: false,
-      is_clearing_profile: false
+      is_clearing_profile: false,
+      userterms_dropdown_open: false,
+      is_signing_terms: false
     };
   },
   computed: {
@@ -154,6 +183,24 @@ export default {
         this.$store.commit('user/delProfile', this.getAccountName);
       }
       this.is_clearing_profile = false;
+
+
+    },
+    async signuserterms(agreed=true){
+      let action = {
+        account: this.getActiveGroup,
+        name: "signuserterm",
+        data: {
+          member: this.getAccountName,
+          agree_terms: agreed
+        }
+      };
+      this.is_signing_terms = true;
+      let res = await this.$store.dispatch("ual/transact", { actions: [action], disable_signing_overlay: true  });
+      if(res && res.trxid){
+        this.$store.commit('user/delProfile', this.getAccountName);
+      }
+      this.is_signing_terms = false;
 
 
     }

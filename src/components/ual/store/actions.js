@@ -147,17 +147,20 @@ export async function transact({ state, dispatch, commit }, payload) {
     if(authenticator_name == "Scatter"){
       console.log("signed with Scatter");
       receipt.block_time = res.transaction.processed.block_time;
-      receipt.trxid = res.transactionId
+      receipt.trxid = res.transactionId;
+      receipt.block_num = res.transaction.processed.block_num;
     }
     else if(authenticator_name == "Anchor"){
       console.log("signed with Anchor");
       receipt.block_time = res.transaction.processed.block_time;
       receipt.trxid = res.transaction.processed.id;
+      receipt.block_num = res.transaction.processed.block_num;
     }
     else{
       console.log("signed with unconfigured authenticater, please contact devs");
       receipt.block_time = res.transaction.processed.block_time;
-      receipt.trxid = res.transaction.processed.id;  
+      receipt.trxid = res.transaction.processed.id;
+      receipt.block_num = res.transaction.processed.block_num; 
     }
     return receipt;
   }catch(e){
