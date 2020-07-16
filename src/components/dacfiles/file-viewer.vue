@@ -33,6 +33,7 @@
 
 <script>
 import pageHeader from "components/page-header";
+import {get_content_from_trace} from "../../imports/helpers.js"; //get_content_from_trace(trxid, block_num, actionname, datakey )
 export default {
   name: "fileViewer",
   components:{
@@ -62,38 +63,16 @@ export default {
       this.content = "";
       this.error = false;
       this.is_loading = true;
-      let startblock = file.block_num;
-      let endblock = startblock+10;
 
-      let found = false;
+      let x = await get_content_from_trace(file.trx_id, file.block_num, "fileupload", "content" );
 
-      let block;
-      while( !found && startblock !=endblock && !this.error){
-        block = await this.$eos.rpc.get_block(startblock);
-        console.log(startblock)
-        console.log(block)
-        if(block && block.transactions.length){
-          let transaction = block.transactions.find(trx => trx.trx.id == file.trx_id);
-          if(transaction){
-            let data = transaction.trx.transaction.actions.find(a => a.name == "fileupload").data.content;
-            if(data !==undefined){
-              this.content = data;
-              found = true;
-            }
-            else{
-              this.error = true;
-            }
-          }
-          else{
-            startblock++;
-            continue;        
-          }
-        }
-        else{
-          startblock++;
-          continue;
-        }
+      if(!x.error){
+        this.content = x.content;
       }
+      else{
+        this.error = true;
+      }
+      console.log("receipt",file.block_num, "fetched",x.block_num);
       this.is_loading = false;
       
     }

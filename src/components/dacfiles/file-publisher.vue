@@ -59,7 +59,7 @@
       <threshold-badge v-if="publish_action.account" label :threshold="getLinkedThresholdForContractAction(publish_action.account, publish_action.name)"/>
       <div class="row justify-end items-center">
         <q-badge v-if="is_uploading" color="secondary" class="q-mr-xs">waiting for upload signature</q-badge>
-        <propose-bucket-btn @click-propose="emitPropose" @click-bucket="emitBucket" label="publish" :disabled="false"/>
+        <propose-bucket-btn @click-propose="emitPropose" @click-bucket="emitBucket" label="publish" :disabled="false" :loading="is_uploading"/>
       </div>
     </div>
 
@@ -75,6 +75,7 @@ import {
 import { mapGetters } from "vuex";
 import thresholdBadge from "components/thresholds/threshold-badge";
 import proposeBucketBtn from "components/actions/propose-bucket-btn";
+import {get_content_from_trace} from "../../imports/helpers.js"; //get_content_from_trace(trxid, block_num, actionname, datakey )
 
 export default {
   name: "filePublisher",
@@ -124,17 +125,21 @@ export default {
   methods: {
     isValidAccountName,
     async upload(){
-      this.$refs.filescope.validate()
-      if(this.$refs.filescope.hasError){
-        return;
-      }
+
       this.is_uploading= true;
       let res = await this.$store.dispatch("ual/transact", { actions: [this.upload_action], disable_signing_overlay: true });
       if(res && res.trxid){
-        console.log(res)
+        // console.log(res)
         this.publish_action.data.block_num = res.block_num;
         this.publish_action.data.trx_id = res.trxid;
         this.publish_action.data.file_scope = this.upload_action.data.file_scope;
+        await new Promise((resolve) => {setTimeout(resolve, 2000)});
+        let x = await get_content_from_trace(res.trxid, res.block_num, "fileupload", "content" );
+        console.log("receipt",res.block_num, "fetched",x.block_num);
+
+        if(x && x.found){
+          this.publish_action.data.block_num = x.block_num
+        }
         //do publishing here
         
       }
@@ -143,6 +148,10 @@ export default {
 
     },
     async emitPropose(){
+      this.$refs.filescope.validate()
+      if(this.$refs.filescope.hasError){
+        return;
+      }
       await this.upload();
       let action = JSON.parse(JSON.stringify(this.publish_action));
       const payload = {
@@ -154,6 +163,10 @@ export default {
       this.$emit('propose', payload);
     },
     async emitBucket(){
+      this.$refs.filescope.validate()
+      if(this.$refs.filescope.hasError){
+        return;
+      }
       await this.upload();
       let action = JSON.parse(JSON.stringify(this.publish_action))
       this.$emit('addtobucket', action);     

@@ -130,6 +130,51 @@ export async function serializeActionData(action ) {
   }
 }
 
+export async function get_content_from_trace(trxid, block_num, actionname, datakey ) {
+  let content = "";
+  let error = false;
+  let found = false;
+
+  let startblock = block_num;
+  let endblock = startblock+10;
+  let block;
+
+  while( !found && startblock !=endblock && !error){
+    block = await Vue.prototype.$eos.rpc.get_block(startblock);
+    console.log('looking in block_num',startblock)
+    // console.log(block)
+    if(block && block.transactions.length){
+      let transaction = block.transactions.find(trx => trx.trx.id == trxid);
+      if(transaction){
+        let data = transaction.trx.transaction.actions.find(a => a.name == actionname).data[datakey];
+        if(data !==undefined){
+          content = data;
+          found = true;
+        }
+        else{
+          error = true;
+        }
+      }
+      else{
+        startblock++;
+        continue;        
+      }
+    }
+    else{
+      startblock++;
+      continue;
+    }
+  }
+  //return object
+  return {
+    error: error,
+    found:true,
+    content: content,
+    block_num: startblock
+  }
+
+}
+
 
 
 
