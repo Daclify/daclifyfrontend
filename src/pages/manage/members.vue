@@ -54,7 +54,9 @@
             </q-item-section>
           </template>
           <q-card>
-            nothing here yet
+            <q-card-section>
+            <q-item-label caption>nothing here yet</q-item-label>
+            </q-card-section>
           </q-card>
         </q-expansion-item>
         <q-item v-if="is_loading" >

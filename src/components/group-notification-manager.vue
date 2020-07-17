@@ -66,7 +66,7 @@ export default {
         alert("This browser does not support notifications");
       }
       else if (Notification.permission === "granted") {
-        console.log('ssssssssssssss')
+
         if(!this.getCurrentFCMToken){
             let token = await this.getNewInstanceIdToken();
             if(token){

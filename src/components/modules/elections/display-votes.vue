@@ -44,7 +44,7 @@ export default {
   },
   methods:{
     goToProfile(v){
-      console.log("ssssssssss")
+      console.log(`go to profile ${v}`);
       this.$router.push(`/members/${this.$route.params.groupname}/profile/${v}`).catch(e=>{});
     }
   }

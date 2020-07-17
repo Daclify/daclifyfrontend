@@ -10,20 +10,27 @@
             <span class="text-capitalize">{{getFileTitle()}}</span>
           </q-toolbar-title>
           <q-space />
+          <q-btn v-if="content" :icon="raw?'mdi-minus':'mdi-pencil'" round dense color="secondary"  @click="raw=!raw">
+            <q-tooltip content-class="bg-secondary" :delay="500">
+              todo: this is work in progress...
+            </q-tooltip>
+          </q-btn>
         </q-toolbar>
         <q-card-section>
           <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" mode="out-in">
             <div v-if="is_loading" class="row justify-center" key="loading">
               <q-spinner size="66px" color="primary" />
             </div>
-            <q-markdown
-              key="view"
-              v-else
-              class="text-weight-light"
-              :src="error?'could not find content':content"
-              :no-abbreviation="false"
-            >
-            </q-markdown>
+            <div v-else key="loaded">
+              <q-markdown
+                v-if="!raw"
+                class="text-weight-light"
+                :src="error?'could not find content':content"
+                :no-abbreviation="false"
+              >
+              </q-markdown>
+              <q-input v-else v-model="content" type="textarea" autogrow :input-style="{ padding:0 }"/>
+            </div>
           </transition>
         </q-card-section>
       </q-card>
@@ -46,7 +53,8 @@ export default {
     return {
       content: "",
       error:false,
-      is_loading:false
+      is_loading:false,
+      raw: false
     };
   },
   methods: {
@@ -60,7 +68,9 @@ export default {
       
     },
     async get_uploaded_content_from_block(file) {
+
       this.content = "";
+      this.raw = false;
       this.error = false;
       this.is_loading = true;
 

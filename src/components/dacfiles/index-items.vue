@@ -5,21 +5,22 @@
     </div>
     <q-list v-else separator>
       <q-item v-for="file in files" :key="file.id" clickable dense>
-        <q-item-section avatar >
+        <q-item-section avatar @click="$emit('loadfile', file)" >
           <q-icon name="mdi-file-document" />
         </q-item-section>
         <q-item-section style="margin-left:-25px">
-          <q-item-label v-if="file.title">{{file.title}}</q-item-label>
-          <q-item-label v-else>{{`version ${file.id}`}}</q-item-label>
+          <q-item-label  >
+            <span @click="$emit('loadfile', file)">{{file.title?file.title:`version ${file.id}`}}</span>
+          </q-item-label>
         </q-item-section>
-        <q-item-section>
+        <q-item-section side>
           <q-item-label caption>
             <date-string prepend="published" :date="file.published" />
           </q-item-label>
         </q-item-section>
-        <q-item-section side>
+        <!-- <q-item-section side>
           <q-btn label="load" flat color="positive" dense size="sm" @click="$emit('loadfile', file)"/>
-        </q-item-section>
+        </q-item-section> -->
       </q-item>
     </q-list>
   </div>
