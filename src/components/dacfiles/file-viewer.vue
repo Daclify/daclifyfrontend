@@ -65,7 +65,7 @@ export default {
       this.is_loading = true;
 
       let x = await get_content_from_trace(file.trx_id, file.block_num, "fileupload", "content" );
-
+      console.log(x)
       if(!x.error){
         this.content = x.content;
       }

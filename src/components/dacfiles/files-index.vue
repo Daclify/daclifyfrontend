@@ -1,25 +1,18 @@
 <template>
   <div>
     <!-- {{file_scopes}} -->
+    <q-card>
     <q-toolbar class="bg-primary text-white shadow-2">
       <q-toolbar-title :shrink="true">
         <span>Documents</span>
       </q-toolbar-title>
       <q-space />
-      <!-- <q-btn
-        round
-        dense
-        :icon="add_threshold_link ? 'mdi-minus' : 'mdi-plus'"
-        color="secondary"
-        @click="add_threshold_link = !add_threshold_link"
-      >
-        <q-tooltip content-class="bg-secondary" :delay="500">
-          <span >Add threshold link</span>
-          <span v-else>Go back to threshold links</span>
-        </q-tooltip>
-      </q-btn> -->
     </q-toolbar>
+    <div v-if="is_loading" class="row items-center justify-center">
+      <q-spinner color="primary" size="42" />
+    </div>
     <q-list
+      v-else
       class="primary-hover-list"
       bordered
       separator
@@ -40,6 +33,7 @@
         </div>
       </q-expansion-item>
     </q-list>
+    </q-card>
   </div>
 </template>
 
@@ -53,7 +47,8 @@ export default {
   },
   data () {
     return {
-      file_scopes: []
+      file_scopes: [],
+      is_loading: false
     }
   },
   computed: {
@@ -64,6 +59,7 @@ export default {
   },
   methods:{
     async loadFilesIndex(){
+      this.is_loading = true;
       let res = await this.$eos.rpc.get_table_by_scope({
         json: true,
         code: this.getActiveGroup,
@@ -76,6 +72,7 @@ export default {
       else{
         return [];
       }
+      this.is_loading = false;
     }
   },
   mounted(){

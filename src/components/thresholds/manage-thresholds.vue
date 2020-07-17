@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <q-card>
     <!-- {{getThresholdsWithFilter}} -->
     <q-toolbar class="bg-primary text-white shadow-2">
       <q-toolbar-title :shrink="true">
@@ -74,7 +74,7 @@
     </transition>
 
     <!-- {{getThresholds}} -->
-  </div>
+  </q-card>
 </template>
 
 <script>

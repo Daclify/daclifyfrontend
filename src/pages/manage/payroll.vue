@@ -40,46 +40,49 @@
       <payroll-stats :payroll="getActivePayRoll" @onbalance="active_payroll_balance = $event" />
     </q-card>
 
-    <q-toolbar class="bg-primary text-white shadow-2">
-      <q-toolbar-title :shrink="true">
-          <span v-if="!add_payment_view">Pending Payments</span>
-          <span v-else>Add Payment</span>
-          <span class="text-caption"> ({{getActivePayRoll.payroll_tag}})</span>
-      </q-toolbar-title>
-      <q-space />
-      <q-btn round dense :icon="add_payment_view?'mdi-minus':'mdi-plus'" color="secondary" @click="add_payment_view=!add_payment_view">
-        <q-tooltip content-class="bg-secondary" :delay="500">
-          <span v-if="!add_payment_view">Add payment to payroll <b>{{getActivePayRoll.payroll_tag}}</b></span>
-          <span v-else>Go back to pending payments</span>
-        </q-tooltip>  
-      </q-btn>
-    </q-toolbar>
-    <transition enter-active-class="animated zoomIn" leave-active-class="animated zoomOut" mode="out-in" tag="div" >
-    <div v-if="!add_payment_view" key="payments">
-      <q-list v-if="filterPayments.length"  class="primary-hover-list" bordered separator striped>
-        <payment v-for="(payment, i) in filterPayments" :key="payment.pay_id" :payment="payment" :class="i % 2 === 0 ?'':''" />
-      </q-list>
-      <q-list v-else bordered separator striped>
-        <q-item>
-          <q-item-label caption>No Payments</q-item-label>
-        </q-item>
-      </q-list>
-    </div>
-    <div v-else class="relative-position" key="add">
-        <!-- <q-btn icon="close"  round dense  class="q-ma-md " @click="add_payment_view=false"/> -->
-        <action-proposer>
-          <template slot-scope="scope">
-            <add-payment @propose="scope.propose" @addtobucket="scope.addtobucket" :payroll="getActivePayRoll" :currentbalance="active_payroll_balance"/>
-          </template>
-        </action-proposer>
-    </div>
-    </transition>
+    <q-card>
+      <q-toolbar class="bg-primary text-white shadow-2">
+        <q-toolbar-title :shrink="true">
+            <span v-if="!add_payment_view">Pending Payments</span>
+            <span v-else>Add Payment</span>
+            <span class="text-caption"> ({{getActivePayRoll.payroll_tag}})</span>
+        </q-toolbar-title>
+        <q-space />
+        <q-btn round dense :icon="add_payment_view?'mdi-minus':'mdi-plus'" color="secondary" @click="add_payment_view=!add_payment_view">
+          <q-tooltip content-class="bg-secondary" :delay="500">
+            <span v-if="!add_payment_view">Add payment to payroll <b>{{getActivePayRoll.payroll_tag}}</b></span>
+            <span v-else>Go back to pending payments</span>
+          </q-tooltip>  
+        </q-btn>
+      </q-toolbar>
+      <transition enter-active-class="animated zoomIn" leave-active-class="animated zoomOut" mode="out-in" tag="div" >
+      <div v-if="!add_payment_view" key="payments">
+        <q-list v-if="filterPayments.length"  class="primary-hover-list" bordered separator striped>
+          <payment v-for="(payment, i) in filterPayments" :key="payment.pay_id" :payment="payment" :class="i % 2 === 0 ?'':''" />
+        </q-list>
+        <q-list v-else bordered separator striped>
+          <q-item>
+            <q-item-label caption>No Payments</q-item-label>
+          </q-item>
+        </q-list>
+      </div>
+      <div v-else class="relative-position" key="add">
+          <!-- <q-btn icon="close"  round dense  class="q-ma-md " @click="add_payment_view=false"/> -->
+          <action-proposer>
+            <template slot-scope="scope">
+              <add-payment @propose="scope.propose" @addtobucket="scope.addtobucket" :payroll="getActivePayRoll" :currentbalance="active_payroll_balance"/>
+            </template>
+          </action-proposer>
+      </div>
+      </transition>
+    </q-card>
     </div>
     <q-card v-else>
       <q-card-section>
         No payrolls configured yet.
       </q-card-section>
     </q-card>
+  
   </q-page>
 </template>
 

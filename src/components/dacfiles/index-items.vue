@@ -1,11 +1,14 @@
 <template>
   <div>
-    <div v-if="is_loading" class="row items-center justidy-center">
+    <div v-if="is_loading" class="row items-center justify-center">
       <q-spinner color="primary" size="42" />
     </div>
     <q-list v-else separator>
       <q-item v-for="file in files" :key="file.id" clickable dense>
-        <q-item-section>
+        <q-item-section avatar >
+          <q-icon name="mdi-file-document" />
+        </q-item-section>
+        <q-item-section style="margin-left:-25px">
           <q-item-label v-if="file.title">{{file.title}}</q-item-label>
           <q-item-label v-else>{{`version ${file.id}`}}</q-item-label>
         </q-item-section>
