@@ -60,11 +60,13 @@
       </div>
       <div v-else class="relative-position" key="add">
         <!-- <q-btn icon="close"  round dense  class="q-ma-md " @click="add_payment_view=false"/> -->
-        <action-proposer>
-          <template slot-scope="scope">
-            <add-threshold-link @propose="scope.propose" @addtobucket="scope.addtobucket" />
-          </template>
-        </action-proposer>
+        <q-card-section>
+          <action-proposer>
+            <template slot-scope="scope">
+              <add-threshold-link @propose="scope.propose" @addtobucket="scope.addtobucket"/>
+            </template>
+          </action-proposer>
+        </q-card-section>
       </div>
     </transition>
 

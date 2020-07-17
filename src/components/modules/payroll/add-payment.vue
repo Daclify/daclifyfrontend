@@ -1,4 +1,5 @@
 <template>
+<q-card-section>
   <div class="row  q-col-gutter-md q-pb-xs q-mt-md">
     <!-- {{payroll}} -->
     <div class="col-xs-12 col-sm-6">
@@ -111,6 +112,7 @@
     </div>
     <!-- <pre>{{action}}</pre> -->
   </div>
+</q-card-section>
 </template>
 
 <script>
