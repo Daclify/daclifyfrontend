@@ -130,6 +130,12 @@ export async function fetchModules ({ commit, rootState, rootGetters }, groupnam
     if(elections){
       commit('elections/setElectionsContract', elections.slave_permission.actor, {root: true});
     }
+    let hooks = res.rows.find(m => m.module_name == 'hooks');
+    if(hooks){
+      commit('hooks/setHooksContract', hooks.slave_permission.actor, {root: true});
+    }
+
+
 
 
     return res.rows;

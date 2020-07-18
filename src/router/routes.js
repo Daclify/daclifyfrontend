@@ -37,6 +37,7 @@ const routes = [
       { path: 'payroll', component: () => import('pages/manage/payroll.vue') },
       { path: 'members', component: () => import('pages/manage/members.vue') },
       { path: 'files', component: () => import('pages/manage/files.vue') },
+      { path: 'hooks', component: () => import('pages/manage/hooks.vue') },
     ]
   },
 

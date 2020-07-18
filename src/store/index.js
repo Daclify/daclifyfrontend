@@ -9,6 +9,7 @@ import group from './group';
 import bucket from './bucket';
 import elections from './elections';
 import payroll from './payroll';
+import hooks from './hooks';
 
 Vue.use(Vuex)
 
@@ -26,7 +27,8 @@ export default function (/* { ssrContext } */) {
       group,
       bucket,
       elections,
-      payroll
+      payroll,
+      hooks
     },
     plugins: [
       createPersistedState({

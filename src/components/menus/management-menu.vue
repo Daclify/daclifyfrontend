@@ -40,6 +40,16 @@
           </q-item-section>
         </q-item>
 
+        <q-item v-if="getModuleByName('hooks')" clickable :to="`/manage/${getActiveGroup}/hooks`">
+          <q-item-section avatar>
+            <q-icon name="mdi-anchor"  />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Hooks</q-item-label>
+            <!-- <q-item-label caption>mining stats</q-item-label> -->
+          </q-item-section>
+        </q-item>
+
         <q-item clickable :to="`/manage/${getActiveGroup}/proposals`">
           <q-item-section avatar>
             <q-icon name="mdi-file-key" />

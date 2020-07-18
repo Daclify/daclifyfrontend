@@ -1,0 +1,121 @@
+<template>
+  <q-page padding class="constrain-page-width">
+  <div>
+
+    <q-input class="q-pb-md" placeholder="Find hook" outlined v-model.trim="searchfilter"  @input="add_hook_view= false">
+      <template v-slot:prepend>
+        <q-icon name="search" class="cursor-pointer" />
+      </template>
+      <template v-slot:append>
+        <transition
+          appear
+          enter-active-class="animated fadeInRight"
+          leave-active-class="animated fadeOutRight"
+          tag="div"
+        >
+          <q-icon
+            v-if="searchfilter.length"
+            name="close"
+            key="has_filter"
+            @click="searchfilter = ''"
+            class="cursor-pointer"
+          />
+        </transition>
+      </template>
+    </q-input>
+
+
+    <q-card>
+      <q-toolbar class="bg-primary text-white shadow-2">
+        <q-toolbar-title :shrink="true">
+          <span>Hooks</span>
+        </q-toolbar-title>
+        <q-space />
+        <q-btn round dense :icon="add_hook_view?'mdi-minus':'mdi-plus'" color="secondary" @click="add_hook_view=!add_hook_view">
+          <q-tooltip content-class="bg-secondary" :delay="500">
+            <span v-if="!add_hook_view">Add new hook</span>
+            <span v-else>Go back to hooks</span>
+          </q-tooltip>  
+        </q-btn>
+      </q-toolbar>
+      <div v-if="!getHooks" class="row items-center justify-center">
+        <q-spinner color="primary" size="42" />
+      </div>
+      <q-list
+        v-else
+        class="primary-hover-list"
+        bordered
+        separator
+      >
+        <!-- <transition-group appear enter-active-class="animated zoomIn" leave-active-class="animated zoomOut"> -->
+          <q-expansion-item clickable v-for="hook in getFilteredHooks" :key="hook.hook_id" group="hooks">
+            <template v-slot:header>
+              <q-item-section>
+                <q-item-label>{{hook.hook_action_name}}</q-item-label>
+              </q-item-section>
+              <q-item-section side>
+                <q-item-label>{{hook.hooked_contract}}::{{hook.hooked_action}}</q-item-label>
+              </q-item-section>
+            </template>
+            <q-separator />
+            <div class="q-pa-md">
+              todo
+            </div>
+          </q-expansion-item>
+        <!-- </transition-group> -->
+      </q-list>
+    </q-card>
+  </div>
+  </q-page>
+</template>
+
+<script>
+import { mapGetters } from "vuex";
+
+export default {
+  name: "hooks",
+
+  data() {
+    return {
+      add_hook_view:false,
+      searchfilter:""
+    };
+  },
+  computed: {
+    ...mapGetters({
+      getHooksContract: "hooks/getHooksContract",
+      getHooks: "hooks/getHooks"
+    }),
+    getFilteredHooks(){
+      if(this.getHooks && this.getHooks.length){
+        let res = this.getHooks;
+        if(this.searchfilter){
+          res = res.filter(h =>{
+            return h.hook_action_name.includes(this.searchfilter) ||
+            h.hooked_action.includes(this.searchfilter) ||
+            h.hooked_contract.includes(this.searchfilter)
+          })
+        }
+        return res;
+      }
+      else{
+        return [];
+      }
+      
+    }
+  },
+  methods: {
+
+  },
+  watch: {
+    getHooksContract: {
+      handler: async function(newVal, oldVal) {
+        if (newVal && newVal != oldVal && !this.getHooks) {
+          this.$store.dispatch("hooks/fetchHooks", this.getHooksContract);
+        }
+      },
+      immediate: true
+    }
+  }
+};
+</script>
