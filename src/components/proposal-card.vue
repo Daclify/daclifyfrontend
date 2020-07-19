@@ -1,6 +1,6 @@
 <template>
   <div class="q-pb-xs">
-    <q-card class="custodian-card">
+    <q-card  class="proposal" :class="{'proposal-voted': hasVoted}">
       <q-expansion-item
         
         class="primary-hover-list"
@@ -219,6 +219,13 @@ export default {
       getIsCustodian: "group/getIsCustodian",
       getCLOCK: "app/getCLOCK"
     }),
+    hasVoted(){
+      let res = false;
+      if(this.getAccountName){
+        res = this.proposal.approvals.includes(this.getAccountName);
+      }
+      return res;
+    },
     getThresholdScore() {
       let res = {
         approved_weight: 0,
@@ -325,7 +332,11 @@ export default {
 </script>
 
 <style>
-.custodian-card {
-  transition: height 0.25s ease-in;
+.proposal-voted{
+  border: 2px solid var(--q-color-primary) !important;
+}
+.proposal{
+  border: 2px solid transparent;
+  transition : border 500ms ease-out;
 }
 </style>
