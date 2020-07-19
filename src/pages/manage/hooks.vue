@@ -38,11 +38,12 @@
           </q-tooltip>  
         </q-btn>
       </q-toolbar>
-      <div v-if="!getHooks" class="row items-center justify-center">
-        <q-spinner color="primary" size="42" />
-      </div>
+
+      <transition enter-active-class="animated zoomIn" leave-active-class="animated zoomOut" mode="out-in" tag="div" >
+      
       <q-list
-        v-else
+        v-if="!add_hook_view"
+        key="listhooks"
         class="primary-hover-list"
         bordered
         separator
@@ -58,17 +59,31 @@
                 </q-item-label>
               </q-item-section>
               <q-item-section side>
-                <q-item-label>{{hook.hooked_contract}}::{{hook.hooked_action}}</q-item-label>
+                <q-item-label>
+                  <q-icon name="mdi-anchor" />
+                  {{hook.hooked_contract}}::{{hook.hooked_action}}
+                </q-item-label>
               </q-item-section>
             </template>
             <q-separator />
             <div class="q-pa-md text-caption">
               <div>{{hook.description}}</div>
-              
             </div>
           </q-expansion-item>
+          <q-item v-if="!getFilteredHooks.length">
+            <q-item-section>
+              <q-item-label>No hooks</q-item-label>
+            </q-item-section>
+          </q-item>
         <!-- </transition-group> -->
       </q-list>
+
+      <action-proposer v-else key="addhook">
+        <template slot-scope="scope">
+            <add-hook @propose="scope.propose" @addtobucket="scope.addtobucket"/>
+        </template>
+      </action-proposer>
+      </transition>
     </q-card>
   </div>
   </q-page>
@@ -76,10 +91,15 @@
 
 <script>
 import { mapGetters } from "vuex";
+import addHook from "components/modules/hooks/add-hook";
+import actionProposer from "components/actions/action-proposer";
 
 export default {
   name: "hooks",
-
+  components:{
+    addHook,
+    actionProposer
+  },
   data() {
     return {
       add_hook_view:false,
