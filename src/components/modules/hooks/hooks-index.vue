@@ -1,10 +1,10 @@
 <template>
   <div>
-    <!-- {{file_scopes}} -->
+
     <q-card>
       <q-toolbar class="bg-primary text-white shadow-2">
         <q-toolbar-title :shrink="true">
-          <span>Documents</span>
+          <span>Hooks</span>
         </q-toolbar-title>
         <q-space />
       </q-toolbar>

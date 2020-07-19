@@ -52,14 +52,19 @@
             <template v-slot:header>
               <q-item-section>
                 <q-item-label>{{hook.hook_action_name}}</q-item-label>
+                <q-item-label caption>
+                  <div v-if="hook.enabled" >enabled</div>
+                  <div v-else >disabled</div>
+                </q-item-label>
               </q-item-section>
               <q-item-section side>
                 <q-item-label>{{hook.hooked_contract}}::{{hook.hooked_action}}</q-item-label>
               </q-item-section>
             </template>
             <q-separator />
-            <div class="q-pa-md">
-              todo
+            <div class="q-pa-md text-caption">
+              <div>{{hook.description}}</div>
+              
             </div>
           </q-expansion-item>
         <!-- </transition-group> -->
