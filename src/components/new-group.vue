@@ -95,6 +95,14 @@
               />
 
               <div v-if="groups_by_creator.length" class="q-mt-sm">
+                <transition-group
+                  appear
+                  enter-active-class="animated zoomIn"
+                  leave-active-class="animated zoomOut"
+                  mode="out-in"
+                  class="column q-gutter-sm"
+                  tag="div"
+                >
                 <q-btn
                   icon="mdi-alert"
                   :label="group.groupname"
@@ -110,6 +118,7 @@
                     clicking the button.
                   </q-tooltip>
                 </q-btn>
+                </transition-group>
               </div>
             </div>
             <!-- next button -->
@@ -451,15 +460,13 @@ export default {
       });
 
 
-
-
-
       if (groups_by_creator && groups_by_creator.rows.length && groups_by_creator.rows[0].creator == this.getAccountName) {
         groups_by_creator = groups_by_creator.rows;
       } else {
         groups_by_creator = [];
       }
       console.log("fetched groups by creator", groups_by_creator);
+      //this.groups_by_creator = [{groupname:"test", state:0}, {groupname:"test1", state:0}];
       this.groups_by_creator = groups_by_creator;
     },
     // async calculateRequiredResources(){
