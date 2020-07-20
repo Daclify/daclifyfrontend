@@ -65,7 +65,12 @@
           </q-item-section>
         </q-item>
 
-        <q-item v-if="getAccountName" class="bg-secondary" clickable v-close-popup @click="$root.$emit('showHubDeposits')">
+        <q-item 
+          v-if="getAccountName" 
+          class="bg-secondary" 
+          clickable v-close-popup 
+          @click="$root.$emit('showHubDeposits')"
+        >
           <q-item-section avatar>
             <q-icon name="mdi-wallet" class="cursor-pointer" />
           </q-item-section>

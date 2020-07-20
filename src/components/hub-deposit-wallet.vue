@@ -81,6 +81,7 @@
 import { mapGetters } from "vuex";
 export default {
   name: "hubDepositWallet",
+
   data() {
     return {
       active_tab: "deposit",

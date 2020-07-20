@@ -163,11 +163,11 @@
           </div> -->
           <!-- voice toggle -->
           <div class="text-grey-6">
-            <p>
-              Account will be created.
-            </p>
-            {{getResourceEstimation}}
-            {{has_enough_deposits}}
+            <div>
+              Account will be created. Estimated RAM cost is {{getResourceEstimation}}
+            </div>
+
+            
             
           </div>
 
@@ -402,6 +402,10 @@ export default {
       }
       else{
         this.step = "create_account";
+        if(!this.has_enough_deposits){
+          let msg = `You don't have enough EOS deposits to pay for RAM. Daclify calculated you need a minimum of ${this.getResourceEstimation} to deploy the daclify core contract. Excess deposits will be used to buy extra RAM. Daclify takes no fees.`
+          this.$root.$emit('showHubDeposits', msg);
+        }
       }
     },
     async get_wasm_and_abi_from_block(query) {

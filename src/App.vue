@@ -5,10 +5,10 @@
 
 
     <q-dialog v-model="show_hub_deposit_wallet">
-      <q-card class="overflow-hidden" style="max-width:350px">
+      <q-card class="overflow-hidden" style="min-width:300px; max-width:350px">
         <q-card-section>
             <page-header title="Daclify hub deposits"/>
-            <p class="text-grey-7 text-caption">Deposits on the Daclify Hub are needed to perform certain actions like paying for resources during group creation or clapping for a group.</p>
+            <p class="text-grey-7 text-caption">{{customHubWalletMessage}}</p>
             <q-btn icon="close" flat round dense v-close-popup class="q-ma-md absolute-top-right"/>
             <div>
               <hub-deposit-wallet />
@@ -67,7 +67,8 @@ export default {
         new EOSIOAuth(chains, { appName, protocol: 'eosio' })
       ],
       chains: chains,
-      show_hub_deposit_wallet: false
+      show_hub_deposit_wallet: false,
+      customHubWalletMessage:""
     }
   },
   computed: {
@@ -81,8 +82,14 @@ export default {
     this.$store.dispatch('app/initRoutine');
 
   },
+  methods:{
+    showHubWallet(e){
+      this.customHubWalletMessage = e || "Deposits on the Daclify Hub are needed to perform certain actions like paying for resources during group creation or clapping for a group.";
+      this.show_hub_deposit_wallet=true;
+    }
+  },
   created(){
-    this.$root.$on('showHubDeposits', ()=>{this.show_hub_deposit_wallet=true});
+    this.$root.$on('showHubDeposits', (e)=>{this.showHubWallet(e) } );
 
     if(this.$messaging){
       this.$messaging.onMessage((payload) =>{
