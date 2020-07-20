@@ -84,7 +84,7 @@ export default {
   },
   methods:{
     showHubWallet(e){
-      this.customHubWalletMessage = e || "Deposits on the Daclify Hub are needed to perform certain actions like paying for resources during group creation or clapping for a group.";
+      this.customHubWalletMessage = e || "The Daclify Hub Wallet hold your funds to perform certain actions on the hub contract. Examples are creating new groups, clapping for a group, buy NFTs, etc...";
       this.show_hub_deposit_wallet=true;
     }
   },

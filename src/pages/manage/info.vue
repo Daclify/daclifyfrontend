@@ -1,8 +1,19 @@
 <template>
   <q-page padding class="constrain-page-width">
-    <div v-if="getActiveGroupConfig" class="row q-col-gutter-md">
+    <!-- <div v-if="getActiveGroupConfig" class="row q-col-gutter-md"> -->
 
-      <div class="col-xs-12">
+
+    <transition-group
+      v-if="getActiveGroupConfig"
+      appear
+      enter-active-class="animated fadeIn"
+      leave-active-class="animated fadeOut"
+      mode="out-in"
+      class="row q-col-gutter-md"
+      tag="div"
+    >
+
+      <div class="col-xs-12" key="header_info">
         <q-card>
           
           <q-card-section >
@@ -63,7 +74,7 @@
         </q-card>
       </div>
 
-      <div  class="col-xs-12">
+      <div  class="col-xs-12" key="clap_info">
         <q-card>
           
           <div class="row justify-between items-center">
@@ -74,14 +85,14 @@
         </q-card>
       </div>
 
-      <div v-if="getCoreConfig" class="col-xs-12">
+      <div v-if="getCoreConfig" class="col-xs-12" key="version_manager">
         <q-card class="primary-hover-list">
            <core-version-manager />
         </q-card>
       </div>
 
 
-      <div class="col-xs-12 col-sm-6 col-lg-4">
+      <div class="col-xs-12 col-sm-6 col-lg-4" key="custodians_info">
         <q-card class="primary-hover-list">
           <q-item clickable :to="`/manage/${getActiveGroup}/custodians`">
             <q-item-section avatar>
@@ -97,7 +108,7 @@
         </q-card>
       </div>
 
-      <div v-if="getElectionsState" class="col-xs-12 col-sm-6 col-lg-4">
+      <div v-if="getElectionsState" class="col-xs-12 col-sm-6 col-lg-4" key="candidates_info">
         <q-card class="primary-hover-list">
           <q-item clickable :to="`/members/${getActiveGroup}/elections`">
             <q-item-section avatar>
@@ -117,7 +128,7 @@
         </q-card>
       </div>
 
-      <div v-if="getCoreConfig && getCoreConfig.conf.member_registration" class="col-xs-12 col-sm-6 col-lg-4">
+      <div v-if="getCoreConfig && getCoreConfig.conf.member_registration" class="col-xs-12 col-sm-6 col-lg-4" key="members_info">
         <q-card class="primary-hover-list">
           <q-item clickable :to="`/manage/${getActiveGroup}/members`">
             <q-item-section avatar>
@@ -133,7 +144,7 @@
         </q-card>
       </div>
 
-      <div v-if="getCoreConfig && getCoreConfig.conf.maintainer_account" class="col-xs-12 col-sm-6 col-lg-4">
+      <div v-if="getCoreConfig && getCoreConfig.conf.maintainer_account" class="col-xs-12 col-sm-6 col-lg-4" key="maintainer_account">
         <q-card class="primary-hover-list">
           <q-item clickable >
             <q-item-section avatar>
@@ -147,14 +158,15 @@
         </q-card>
       </div>
 
-      <div v-if="getElectionsContract" class="col-xs-12 col-sm-6 col-lg-8">
+      <div v-if="getElectionsContract" class="col-xs-12 col-sm-6 col-lg-8" key="new_election">
         <q-card class="primary-hover-list" >
           <new-election-timer />
         </q-card>
       </div>
       
 
-    </div>
+    <!-- </div> -->
+    </transition-group>
 
    
     <!-- <pre>{{getActiveGroupConfig}}</pre> -->

@@ -45,7 +45,7 @@
           </q-item-section>
         </q-item>
 
-        <q-item v-if="getAccountName" clickable v-close-popup :to="`/members/${getActiveGroup}/profile/${getAccountName}`" class="bg-secondary">
+        <q-item v-if="getAccountName && getActiveGroup" clickable v-close-popup :to="`/members/${getActiveGroup}/profile/${getAccountName}`" class="bg-secondary">
           <q-item-section avatar>
             <q-icon name="mdi-face-profile" />
           </q-item-section>

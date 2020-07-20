@@ -23,6 +23,8 @@ export async function resetStore ({  commit }, payload) {
   commit('elections/setCandidates', false, {root: true});
   commit('elections/setElectionsState', false, {root: true});
   commit('elections/setElectionsConfig', false, {root: true});
+  commit('setActiveGroupConfig', false);
+  commit('setActiveGroup', "");//todo catch the error generating loading group with empty name
 }
 
 export async function loadGroupRoutine ({ dispatch, commit, rootGetters }, payload) {
