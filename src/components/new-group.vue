@@ -263,7 +263,7 @@ export default {
       wasmhex: "",
       abihex: "",
       groups_by_creator: [],
-      required_bytes: 1500000
+      required_bytes: 1600000
     };
   },
   computed: {
@@ -320,6 +320,13 @@ export default {
       //   );
       //   return;
       // }
+
+        if(!this.has_enough_deposits){
+          this.openHubWallet();
+          return;
+        }
+
+
       await this.$store.dispatch('app/fetchRamPricePerByte');
       this.step = "request_signature";
       let create_group = {
@@ -393,6 +400,10 @@ export default {
       }
 
     },
+    openHubWallet(){
+          let msg = `You don't have enough EOS deposits to pay for RAM. Daclify calculated you need a minimum of ${this.getResourceEstimation} to deploy the daclify core contract. Excess deposits will be used to buy extra RAM. Daclify takes no fees.`
+          this.$root.$emit('showHubDeposits', msg);
+    },
     async next(resume_account_name = "") {
       
       if (resume_account_name !="") {
@@ -403,8 +414,7 @@ export default {
       else{
         this.step = "create_account";
         if(!this.has_enough_deposits){
-          let msg = `You don't have enough EOS deposits to pay for RAM. Daclify calculated you need a minimum of ${this.getResourceEstimation} to deploy the daclify core contract. Excess deposits will be used to buy extra RAM. Daclify takes no fees.`
-          this.$root.$emit('showHubDeposits', msg);
+          this.openHubWallet();
         }
       }
     },
