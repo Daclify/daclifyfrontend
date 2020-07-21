@@ -1,25 +1,50 @@
 <template>
   <div >
 
-    <q-input
-      class="q-mt-md"
-      outlined
-      label="Maintainer Account"
-      :value="getNewCoreConfig.conf.maintainer_account"
-      @input="
-        $store.commit('group/setNewCoreConfigPath', {
-          path: 'conf.maintainer_account',
-          value: $event
-        })
-      "
-    >
-      <template v-slot:prepend>
-        <q-icon name="mdi-settings-transfer" />
-      </template>
-      <!-- <template v-slot:append>
-        <div>SEC</div>
-      </template> -->
-    </q-input>
+
+
+      <div class="row items-center justify-between no-wrap">
+      <q-input
+        style="min-width:200px"
+        class="q-mr-xs"
+        :value="getNewCoreConfig.conf.maintainer_account.actor"
+        @input="
+          $store.commit('group/setNewCoreConfigPath', {
+            path: 'conf.maintainer_account.actor',
+            value: $event
+          })
+        "
+        label="Actor"
+        outlined
+        maxlength="12"
+        :debounce="500"
+        bottom-slots
+        placeholder="name of the account"
+        no-error-icon
+      >
+      </q-input>
+
+      <q-input
+        style="width:100%"
+        ref="permission"
+        :value="getNewCoreConfig.conf.maintainer_account.permission"
+        @input="
+          $store.commit('group/setNewCoreConfigPath', {
+            path: 'conf.maintainer_account.permission',
+            value: $event
+          })
+        "
+        label="Permission"
+        outlined
+        bottom-slots
+        placeholder="permission to use"
+        no-error-icon
+      >
+        <template v-slot:prepend>
+            @
+        </template>
+      </q-input>
+      </div>
 
 
   </div>

@@ -152,7 +152,7 @@
             </q-item-section>
             <q-item-section>
               <q-item-label class="text-weight-light text-h5 text-grey-7">Maintainer Account</q-item-label>
-              <q-item-label caption >{{getCoreConfig.conf.maintainer_account}}</q-item-label>
+              <q-item-label caption >{{getCoreConfig.conf.maintainer_account.actor}}@{{getCoreConfig.conf.maintainer_account.permission}}</q-item-label>
             </q-item-section>
           </q-item>
         </q-card>

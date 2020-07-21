@@ -479,12 +479,12 @@ export default {
     this.$store.dispatch('app/fetchRamPricePerByte');
     await this.get_wasm_and_abi_from_block({
       wasm: [
-        26072366,
-        "84e5633fb6fb076d24b5f2c72ea71bc7195d861eb15ca2fec9fe7a5956301a7c"
+        26419629,
+        "dfb775eb28c1514277650a3038606b8cd1a6c1719386e55ef127c99bfc59ee3b"
       ],
       abi: [
-        26072366,
-        "84e5633fb6fb076d24b5f2c72ea71bc7195d861eb15ca2fec9fe7a5956301a7c"
+        26419629,
+        "dfb775eb28c1514277650a3038606b8cd1a6c1719386e55ef127c99bfc59ee3b"
       ]
     });
 
