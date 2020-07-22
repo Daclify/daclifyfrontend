@@ -153,6 +153,7 @@
                   :date="profile_data.last_update"
                 />
               </div>
+
             </div>
             <!-- {{profile_data}} -->
           </q-card-section>
@@ -222,7 +223,8 @@ export default {
       getIsCustodian: "group/getIsCustodian",
       getMyOldProfile: "group/getMyOldProfile",
       getElectionsContract: "elections/getElectionsContract",
-      getModuleByName: "group/getModuleByName"
+      getModuleByName: "group/getModuleByName",
+      
       
       // getActiveGroupConfig: "group/getActiveGroupConfig",
       // getCoreConfig: "group/getCoreConfig"

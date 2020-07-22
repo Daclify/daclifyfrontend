@@ -46,8 +46,14 @@
             @updated="edit_avatar = false"
           />
         </transition>
-        <div class="row justify-end">
-          <date-string v-if="getIsMember" prepend="Member since:" :date="getIsMember.member_since" />
+        <div class="row justify-end items-center">
+          <q-btn @click="openURL(getSelectedBlockExplorer.base+getSelectedBlockExplorer.account+account)" class="q-mr-xs" icon="search" color="primary" size="xs" round dense flat>
+            <q-tooltip content-class="bg-secondary" :delay="500">
+              Explore <b>{{account}}</b> on {{getSelectedBlockExplorer.base}}
+            </q-tooltip>
+          </q-btn>
+
+          <date-string v-if="is_member" prepend="Member since:" :date="is_member.member_since" />
           <div v-else>Not yet a member</div>
         </div>
       </q-card-section>
@@ -115,6 +121,7 @@ import { mapGetters } from "vuex";
 import profilePic from "components/profile-pic";
 import updateProfilePic from "components/update-profile-pic";
 import dateString from "components/date-string";
+import {openURL} from "quasar";
 export default {
   name: "profileHeader",
   props: {
@@ -132,7 +139,8 @@ export default {
       is_unregging: false,
       is_clearing_profile: false,
       userterms_dropdown_open: false,
-      is_signing_terms: false
+      is_signing_terms: false,
+      is_member: false
     };
   },
   computed: {
@@ -140,10 +148,12 @@ export default {
       getAccountName: "ual/getAccountName",
       getActiveGroup: "group/getActiveGroup",
       getIsCustodian: "group/getIsCustodian",
-      getIsMember: "user/getIsMember"
+      getIsMember: "user/getIsMember",
+      getSelectedBlockExplorer: "user/getSelectedBlockExplorer"
     })
   },
   methods:{
+    openURL,
     changeView(){
       if(this.view !="header"){
         this.view = 'header';
@@ -164,6 +174,7 @@ export default {
       let res = await this.$store.dispatch("ual/transact", { actions: [action], disable_signing_overlay: true  });
       if(res && res.trxid){
         this.$store.commit('user/setIsMember', false);
+        this.is_member = false;
       }
       this.is_unregging = false;
 
@@ -201,10 +212,18 @@ export default {
         this.$store.commit('user/delProfile', this.getAccountName);
       }
       this.is_signing_terms = false;
-
-
     }
   },
-
+  watch:{
+    account:{
+      immediate: true,
+      handler: async function(newV, oldV){
+        if(newV && newV != oldV){
+          this.is_member = await this.$store.dispatch('user/fetchIsMember', this.account);
+        }
+        
+      }
+    }
+  }
 };
 </script>
