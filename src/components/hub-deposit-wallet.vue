@@ -2,29 +2,38 @@
   <div v-if="getAppConfig && getAccountName">
     <!-- <pre>{{getHubDeposits}}</pre> -->
 
-    <div v-for="d in getHubDeposits" :key="d.contract + d.symbol">
-      <q-card >
-        <q-item >
-          <q-item-section avatar>
-            <q-img
-              contain
-              :src="d.logo"
-              spinner-color="white"
-              style="height: 50px; width: 50px"
-            />
-          </q-item-section>
 
-          <q-item-section>
-            <q-item-label class="text-weight-light text-h6">
-              <span>{{ d.amount }}</span>
-              <span class="text-weight-bold"> {{ d.symbol }}</span>
-            </q-item-label>
-            <q-item-label caption class="text-grey">Deposit Balance</q-item-label>
-          </q-item-section>
-          <q-item-section side> </q-item-section>
-        </q-item>
-      </q-card>
-    </div>
+    <transition-group
+      appear
+      enter-active-class="animated zoomIn"
+      leave-active-class="animated zoomOut"
+      tag="div"
+    >
+      <div v-for="d in getHubDeposits" :key="d.contract + d.symbol">
+        <q-card >
+          <q-item >
+            <q-item-section avatar>
+              <q-img
+                contain
+                :src="d.logo"
+                spinner-color="white"
+                style="height: 50px; width: 50px"
+              />
+            </q-item-section>
+
+            <q-item-section>
+              <q-item-label class="text-weight-light text-h6">
+                <span>{{ d.amount }}</span>
+                <span class="text-weight-bold"> {{ d.symbol }}</span>
+              </q-item-label>
+              <q-item-label caption class="text-grey">Deposit Balance</q-item-label>
+            </q-item-section>
+            <q-item-section side> </q-item-section>
+          </q-item>
+        </q-card>
+      
+      </div>
+    </transition-group>
 
     <q-tabs  v-model="active_tab"  dense align="left" class="text-primary q-mt-md">
       <q-tab label="Deposit" name="deposit" />

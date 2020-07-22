@@ -69,6 +69,10 @@ export function setActiveGroup(state, payload){
     state.activeGroup = payload;
 }
 
+export function setLatestUserterms(state, payload){
+    state.latestUserterms = payload;
+}
+
 export function setProposals(state, payload){
     let scope = payload.scope;
     let data = payload.data;

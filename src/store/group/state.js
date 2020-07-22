@@ -19,6 +19,7 @@ export default {
   modules: false,
   avatars: [],
   profiles: [],
-  myOldProfile: false
+  myOldProfile: false,
+  latestUserterms: false
   
 }

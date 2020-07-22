@@ -2,8 +2,9 @@
 import {getLogoForToken} from "../../imports/tokens.js";
 import {notifyError, notifySuccess} from '../../imports/notifications.js';
 import { colors } from 'quasar';
-import profile_template from "../../statics/profile_template.json"
-// import {notifyError} from '../../../imports/notifications.js';
+import profile_template from "../../statics/profile_template.json";
+
+
 // destructuring to keep only what is needed
 const { setBrand } = colors;
 
@@ -25,6 +26,7 @@ export async function resetStore ({  commit }, payload) {
   commit('elections/setElectionsConfig', false, {root: true});
   commit('setActiveGroupConfig', false);
   commit('setActiveGroup', "");//todo catch the error generating loading group with empty name
+  commit('setLatestUserterms', false);
 }
 
 export async function loadGroupRoutine ({ dispatch, commit, rootGetters }, payload) {
@@ -63,7 +65,7 @@ export async function loadGroupRoutine ({ dispatch, commit, rootGetters }, paylo
     dispatch('fetchCoreState', groupname);
 }
 
-export async function fetchCoreConfig ({ commit, rootState, rootGetters }, groupname) {
+export async function fetchCoreConfig ({ dispatch, commit }, groupname) {
   let res = await this._vm.$eos.rpc.get_table_rows({
     json: true,
     code: groupname,
@@ -77,6 +79,9 @@ export async function fetchCoreConfig ({ commit, rootState, rootGetters }, group
     commit('setCoreConfig', res.rows[0]);
     let clone = JSON.parse(JSON.stringify(res.rows[0]));
     commit('setNewCoreConfig', clone);
+    if(res.rows[0].conf.userterms){
+      dispatch("fetchLatestUserterms", groupname);
+    }
     
   }
 }
@@ -307,6 +312,27 @@ export async function fetchAvatars ({ state, commit }, groupname) {
     }
     else{
       console.log(`fetching avatars for group ${groupname} failed`);
+    }
+}
+
+export async function fetchLatestUserterms ({ state, commit }, groupname) {
+  let res = await this._vm.$eos.rpc.get_table_rows({
+      json: true,
+      code: groupname,
+      scope: "userterms",
+      table: "dacfiles",
+      limit: 1,
+      reverse: true
+    });
+    if(res && res.rows && res.rows.length){
+      console.log(`fetched latest userterms for group ${groupname}`, res.rows);
+      let userterms = res.rows[0];
+      userterms.data = false;
+
+      commit('setLatestUserterms', userterms);
+    }
+    else{
+      console.log(`fetching latest userterms for group ${groupname} failed`);
     }
 }
 

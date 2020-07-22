@@ -54,6 +54,10 @@ export function getAvatar(state) {
   };
 }
 
+export function getLatestUserterms(state){
+  return state.latestUserterms;
+}
+
 export function getProposals(state){
     return state.proposals;
 }

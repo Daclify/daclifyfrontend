@@ -23,6 +23,27 @@
           />
         </q-item-section>
       </q-item>
+
+      <q-item clickable>
+        <q-item-section>
+         <q-item-label>Enable userterms/constitution</q-item-label>
+        </q-item-section>
+        <q-item-section side>
+          <q-toggle
+            v-if="getNewCoreConfig"
+            :true-value="1"
+            :false-value="0"
+            :value="getNewCoreConfig.conf.userterms"
+            color="positive"
+            @input="
+              $store.commit('group/setNewCoreConfigPath', {
+                path: 'conf.userterms',
+                value: Number($event)
+              })
+            "
+          />
+        </q-item-section>
+      </q-item>
     </q-list>
 
 
