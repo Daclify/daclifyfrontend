@@ -64,6 +64,7 @@
             <q-spinner color="primary" size="24px" />
           </div>
         </q-item>
+        <no-items v-if="!is_loading && !members.length" text="No members" />
       </q-list>
       <div class="text-right q-mt-md">
         <q-btn label="more" @click="fetchMembers()" color="primary" :disabled="!more" />
@@ -78,13 +79,15 @@ import { mapGetters } from "vuex";
 import pageHeader from "components/page-header";
 import profilePic from "components/profile-pic";
 import profileLink from "components/profile-link";
+import noItems from "components/no-items";
 
 export default {
   name: 'members',
   components:{
     pageHeader,
     profilePic,
-    profileLink
+    profileLink,
+    noItems
   },
   data () {
     return {

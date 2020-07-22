@@ -32,6 +32,7 @@
             <index-items :file_scope="type.scope" @loadfile="$emit('loadfile', $event)" />
           </div>
         </q-expansion-item>
+        <no-items v-if="file_scopes.length==0" text="No files found" />
       </q-list>
     </q-card>
   </div>
@@ -40,10 +41,12 @@
 <script>
 import { mapGetters } from "vuex";
 import indexItems from "components/dacfiles/index-items";
+import noItems from "components/no-items";
 export default {
   name: 'filesIndex',
   components:{
-    indexItems
+    indexItems,
+    noItems
   },
   data () {
     return {
@@ -68,9 +71,6 @@ export default {
       }).catch(e => false);
       if(res && res.rows.length){
         this.file_scopes = res.rows;
-      }
-      else{
-        return [];
       }
       this.is_loading = false;
     }

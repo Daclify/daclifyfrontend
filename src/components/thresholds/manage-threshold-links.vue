@@ -51,11 +51,10 @@
               </q-item-label>
             </q-item-section>
           </q-item>
+          <no-items v-if="!getThresholdLinksWithFilter.length" text="No links found"/>
         </q-list>
         <q-list v-else bordered separator striped>
-          <q-item>
-            <q-item-label caption>All actions require the default threshold</q-item-label>
-          </q-item>
+          <no-items text="All actions require the default threshold"/>
         </q-list>
       </div>
       <div v-else class="relative-position" key="add">
@@ -78,11 +77,13 @@
 import { mapGetters } from "vuex";
 import actionProposer from "components/actions/action-proposer";
 import addThresholdLink from 'components/thresholds/add-threshold-link';
+import noItems from "components/no-items";
 export default {
   name: "manageThresholds",
   components: {
     actionProposer,
-    addThresholdLink
+    addThresholdLink,
+    noItems
   },
   data() {
     return {
