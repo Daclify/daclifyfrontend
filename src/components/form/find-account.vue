@@ -87,26 +87,26 @@ export default {
     getModules:{
       immediate:true,
       handler:function(newV, oldV){
-        if(this.getModules){
-          this.setDefaultOptions();
-        }
+        this.setDefaultOptions();
       }
     }
   },
 
   methods:{
     setDefaultOptions(){
+
       this.fetchedAccountNames = [
         {label:"Hub contract", account:this.getAppConfig.groups_contract, value:this.getAppConfig.groups_contract},
         {label:"Core contract",account:this.$store.state.group.activeGroup, value:this.$store.state.group.activeGroup},
-
-        ...this.getModules.map(m=> {
+      ];
+      if(this.getModules){
+        this.fetchedAccountNames = this.fetchedAccountNames.concat(this.getModules.map(m=> {
           if(m.has_contract){
             return {label: 'Module '+m.module_name, account: m.slave_permission.actor, value: m.slave_permission.actor}
           }
         })
-        
-      ]
+        )
+      }
     },
     async fetchAccounts(acc){
       let res = await this.$eos.rpc.get_table_by_scope({

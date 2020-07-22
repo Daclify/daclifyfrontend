@@ -145,6 +145,7 @@ export default {
       new_conf.userterms = !!new_conf.userterms;
       new_conf.r1 = !!new_conf.r1;
       new_conf.r2 = !!new_conf.r2;
+      // new_conf.r3 = !!new_conf.r3;
 
       let action = {
         account: this.$store.state.group.activeGroup,

@@ -73,36 +73,6 @@
           </q-tab-panel>
 
 
-          <q-tab-panel name="Modules" class="overflow-hidden">
-            <page-header title="Modules" />
-            <p>
-              Here you can enable modules to upgrade the group account "{{
-                getActiveGroup
-              }}" to a DAC/DAO.
-            </p>
-            <p>A module is a contract installed on an account. You can link different modules with your group to enable certain features. </p>
-          </q-tab-panel>
-
-
-
-          <q-tab-panel name="Elections" class="overflow-hidden">
-            <page-header title="Elections" />
-            <action-proposer>
-              <template slot-scope="scope">
-                <link-child-account @propose="scope.propose" @addtobucket="scope.addtobucket"  module_name="elections" :parent="getActiveGroup" />
-              </template>
-            </action-proposer>
-          </q-tab-panel>
-
-          <q-tab-panel name="Token" class="overflow-hidden">
-            <page-header title="Token" />
-            <p>
-              No token symbol linked.
-            </p>
-            <!-- <q-btn label="link contract" color="primary" size="sm" /> -->
-          </q-tab-panel>
-
-
           <q-tab-panel name="Members" class="overflow-hidden">
             <page-header title="Members" />
             <set-members />
@@ -129,20 +99,6 @@
             <set-internal-accounting />
           </q-tab-panel>
 
-          <q-tab-panel name="Sub accounts">
-            <page-header title="Child accounts" />
-            <p>
-              Manage child accounts that are under control of the group "{{
-                getActiveGroup
-              }}"
-            </p>
-            <p>
-              Sub accounts can be used to manage funds or third party contracts
-              in a trustless way. You can add an existing account to the
-              children of "{{ getActiveGroup }} infoxxxx"
-            </p>
-            <child-account-selector />
-          </q-tab-panel>
 
           <q-tab-panel name="Color" class="overflow-hidden">
             <page-header title="UI Color" />
@@ -182,24 +138,6 @@ var testtree = [
       },
 
       {
-        label: "Modules",
-        icon: "view_module",
-        children: [
-          // { label: "Token" },
-          { label: "Elections" },
-          
-        ]
-      },
-      {
-        label: "Sub accounts",
-        icon: "mdi-file-tree",
-        disabled: false,
-        children: [
-          // { label: 'Prompt attention' },
-          // { label: 'Professional waiter' }
-        ]
-      },
-      {
         label: "Meta & UI",
         icon: "mdi-television-guide",
         children: [
@@ -215,7 +153,7 @@ var testtree = [
 
 
 import { mapGetters } from "vuex";
-import childAccountSelector from "components/child-account-selector";
+
 import setCustodians from "components/config/set-custodians";
 import setInternalAccounting from "components/config/set-internal-accounting";
 import setProposals from "components/config/set-proposals";
@@ -224,11 +162,10 @@ import setMembers from "components/config/set-members";
 import pageHeader from "components/page-header";
 import actionProposer from "components/actions/action-proposer";
 import updateColor from "components/actions/update-color";
-import linkChildAccount from "components/actions/link-child-account";
+
 export default {
   name: "groupSubaccounts",
   components: {
-    childAccountSelector,
     setCustodians,
     setInternalAccounting,
     setProposals,
@@ -236,7 +173,7 @@ export default {
     pageHeader,
     updateColor,
     actionProposer,
-    linkChildAccount,
+
     setMaintainanceAccount
   },
   data() {

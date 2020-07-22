@@ -395,6 +395,7 @@ export default {
         }
       };
 
+
       let res = await this.$store.dispatch("ual/transact", {
         actions: [setabi, setcode, activate],
         disable_signing_overlay: true
@@ -479,12 +480,12 @@ export default {
     this.$store.dispatch('app/fetchRamPricePerByte');
     await this.get_wasm_and_abi_from_block({
       wasm: [
-        26419629,
-        "dfb775eb28c1514277650a3038606b8cd1a6c1719386e55ef127c99bfc59ee3b"
+        26460582,
+        "a5a42f1fc159012adb618274814b3be57f628d34e2dd0796fc5df9074428ce4b"
       ],
       abi: [
-        26419629,
-        "dfb775eb28c1514277650a3038606b8cd1a6c1719386e55ef127c99bfc59ee3b"
+        	26460584,
+        "b6228e92a5ab5643972dbe80c108a47ec275c9fd85c9bd0efd9eb757ecbb21f6"
       ]
     });
 

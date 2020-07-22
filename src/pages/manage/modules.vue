@@ -64,7 +64,7 @@
 import vue from 'vue';
 import { mapGetters } from "vuex";
 import pageHeader from "components/page-header";
-import childAccountSelector from "components/child-account-selector";
+
 
 import configEditor from "components/config/config-editor";
 import configUpdater from "components/config/config-updater";
@@ -84,7 +84,7 @@ export default {
     pageHeader,
     configEditor,
     configUpdater,
-    childAccountSelector,
+
     coreVersionManager,
     manageModules
   },

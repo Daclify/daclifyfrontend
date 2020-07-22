@@ -6,7 +6,7 @@
     >
       <q-tab-panels
         v-model="view_mode"
-        :style="{ backgroundColor: group.ui.hexcolor }"
+        :style="{ backgroundColor: getGroupColor }"
         style="min-height:200px"
         animated 
         transition-prev="fade" 
@@ -59,7 +59,7 @@
                   flat
                   size="sm"
                   text-color="white"
-                  :style="{ backgroundColor: group.ui.hexcolor }"
+                  :style="{ backgroundColor: getGroupColor }"
                 />
                 <q-btn
                   v-else
@@ -139,10 +139,14 @@ export default {
         }
       }
       return res;
-    }
+    },
+    getGroupColor(){
+      return this.group.ui.hexcolor.startsWith('#') ? this.group.ui.hexcolor : `#${this.group.ui.hexcolor}`;
+    },
   },
   methods: {
     openURL,
+
     switchViewMode(){
       if(this.view_mode == 'main'){
         this.view_mode = 'info';

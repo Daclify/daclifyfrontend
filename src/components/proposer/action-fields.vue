@@ -135,8 +135,11 @@ export default {
         authorization: [{ actor: this.getActiveGroup, permission: "owner" }],
         data: {}
       };
+      let is_action_from_module = false;
+      if(this.getModules && this.getModules.length){
+        is_action_from_module = this.getModules.find(m=> m.slave_permission.actor ==  this.fields.contract);
+      }
 
-      let is_action_from_module = this.getModules.find(m=> m.slave_permission.actor ==  this.fields.contract);
       if(is_action_from_module){
         action.authorization = [is_action_from_module.slave_permission];
       }
