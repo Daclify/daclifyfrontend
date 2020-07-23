@@ -81,19 +81,29 @@
           </q-btn>
 
           <q-btn-dropdown
-            v-if="getIsMember"
+            v-if="getIsMember && userterms_enabled"
             color="primary"
-            :label="`Agreed userterms v`+getIsMember.agreed_userterms_version"
+            :label="getRequireUsertermsAgreement?'you have not agreed the latest userterms':`Agreed v${getIsMember.agreed_userterms_version}`"
             :split="true"
+            :icon="getRequireUsertermsAgreement?'mdi-alert':'mdi-check'"
             v-model="userterms_dropdown_open"
             @click="userterms_dropdown_open=true"
             :loading="is_signing_terms"
           >
             <q-list class="primary-hover-list">
-              <q-item  clickable v-close-popup  @click="signuserterms(false)">
+              <q-item v-if="getRequireUsertermsAgreement" clickable v-close-popup  @click="signuserterms(true)">
                 <q-item-section>
-                  <q-item-label>Disagree</q-item-label>
-                  <q-item-label caption>sign disagreement</q-item-label>
+                  <q-item-label>Agree userterms v{{getLatestUserterms.id}}</q-item-label>
+                </q-item-section>
+              </q-item>
+              <q-item v-else clickable v-close-popup  @click="signuserterms(false)">
+                <q-item-section>
+                  <q-item-label>Disagree userterms v{{getLatestUserterms.id}}</q-item-label>
+                </q-item-section>
+              </q-item>
+              <q-item clickable v-close-popup  @click="userterms_modal=true">
+                <q-item-section>
+                  <q-item-label>View latest userterms v{{getLatestUserterms.id}}</q-item-label>
                 </q-item-section>
               </q-item>
             </q-list>
@@ -113,6 +123,23 @@
         @click="changeView"
       />
     </q-card>
+
+
+
+    <q-dialog v-model="userterms_modal" maximized>
+      <q-card class="overflow-hidden">
+        <q-card-section>
+            <page-header :title="`Userterms v${getLatestUserterms.id}`"/>
+            <q-btn icon="close" flat round dense v-close-popup class="q-ma-md absolute-top-right"/>
+            <div class="q-mt-md">
+              <latest-userterms signButtons/>
+            </div>
+
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+
+
   </div>
 </template>
 
@@ -121,6 +148,8 @@ import { mapGetters } from "vuex";
 import profilePic from "components/profile-pic";
 import updateProfilePic from "components/update-profile-pic";
 import dateString from "components/date-string";
+import latestUserterms from "components/latest-userterms";
+import pageHeader from "components/page-header";
 import {openURL} from "quasar";
 export default {
   name: "profileHeader",
@@ -130,7 +159,9 @@ export default {
   components: {
     profilePic,
     updateProfilePic,
-    dateString
+    dateString,
+    latestUserterms,
+    pageHeader
   },
   data() {
     return {
@@ -140,7 +171,8 @@ export default {
       is_clearing_profile: false,
       userterms_dropdown_open: false,
       is_signing_terms: false,
-      is_member: false
+      is_member: false,
+      userterms_modal: false
     };
   },
   computed: {
@@ -149,8 +181,20 @@ export default {
       getActiveGroup: "group/getActiveGroup",
       getIsCustodian: "group/getIsCustodian",
       getIsMember: "user/getIsMember",
-      getSelectedBlockExplorer: "user/getSelectedBlockExplorer"
-    })
+      getSelectedBlockExplorer: "user/getSelectedBlockExplorer",
+      getRequireUsertermsAgreement: "user/getRequireUsertermsAgreement",
+      getLatestUserterms: "group/getLatestUserterms",
+      getCoreConfig: "group/getCoreConfig",
+    }),
+    userterms_enabled(){
+      if(this.getCoreConfig){
+        return this.getCoreConfig.conf.userterms;
+      }
+      else{
+        return false;
+      }
+      
+    }
   },
   methods:{
     openURL,
@@ -209,7 +253,9 @@ export default {
       this.is_signing_terms = true;
       let res = await this.$store.dispatch("ual/transact", { actions: [action], disable_signing_overlay: true  });
       if(res && res.trxid){
-        this.$store.commit('user/delProfile', this.getAccountName);
+        let new_version = agreed ? this.getLatestUserterms.id : 0;
+        let memberobj = Object.assign(this.getIsMember, {agreed_userterms_version:new_version});
+        this.$store.commit('user/setIsMember', memberobj);
       }
       this.is_signing_terms = false;
     }

@@ -44,4 +44,19 @@ export function getHubDeposits(state){
   return state.hubDeposits;
 }
 
+export function getRequireUsertermsAgreement(state, getters, rootState, rootGetters) {
+  let res = false;
+  const coreconfig = rootGetters["group/getCoreConfig"];
+  const member = getters.getIsMember;
+  if(coreconfig && coreconfig.conf.userterms && member){
+    const latestterms = rootGetters["group/getLatestUserterms"];
+    if(latestterms && latestterms.id){
+      res = latestterms.id !== member.agreed_userterms_version;
+    }
+  }
+
+  return res;
+
+}
+
 

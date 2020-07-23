@@ -14,8 +14,10 @@
       </div>
      </q-card-section>
    </q-card>
-
-   <latest-userterms class="q-mt-md"/>
+  
+  <q-card class="q-mt-md">
+   <latest-userterms />
+  </q-card>
 
 
 
