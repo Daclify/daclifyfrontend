@@ -14,20 +14,11 @@
     >
 
       <div class="col-xs-12" key="header_info">
-        <q-card>
+        <q-card class="relative-position">
           
           <q-card-section >
-            <q-btn icon="mdi-pencil"  color="secondary" size="sm" text-color="primary" round  class="absolute-top-right q-mr-md q-mt-md" />
-            <q-img v-if="getActiveGroupConfig.ui.logo" :src="getActiveGroupConfig.ui.logo"  style="width:100%; max-width:300px;">
-              <template v-slot:error>
-                <div class="text-weight-light bg-transparent flex">
-                  <span class="text-primary" >error loading logo</span>
-                </div>
-              </template>
-            </q-img>
-            <div v-else class="text-primary text-h5" >No Logo</div>
-          </q-card-section>
-          <q-card-section >
+            <update-logo :show_edit="allowed_to_edit" class="q-mb-md"/>
+
             <div class="row justify-between">
               <q-item class="no-padding q-mr-sm">
                 <q-item-section>
@@ -49,13 +40,17 @@
               </q-item>
               
             </div>
-            <div class="q-mt-md">About</div>
-            <q-markdown
-              class="text-caption text-weight-light"
-              :src="getActiveGroupConfig.meta.about"
-              :no-abbreviation="false"
-            >
-            </q-markdown>
+            <div class="q-mt-md">
+              <div>About</div>
+              <q-markdown
+         
+                class="text-caption text-weight-light"
+                :src="getActiveGroupConfig.meta.about"
+                :no-abbreviation="false"
+              >
+              </q-markdown>
+
+            </div>
 
 
             <div class="text-weight-light row justify-between items-center">
@@ -71,6 +66,8 @@
               </q-item>
             </div>
           </q-card-section>
+
+         
         </q-card>
       </div>
 
@@ -144,7 +141,7 @@
         </q-card>
       </div>
 
-      <div v-if="getCoreConfig && getCoreConfig.conf.maintainer_account" class="col-xs-12 col-sm-6 col-lg-4" key="maintainer_account">
+      <div v-if="getCoreConfig && getCoreConfig.conf.maintainer_account.actor" class="col-xs-12 col-sm-6 col-lg-4" key="maintainer_account">
         <q-card class="primary-hover-list">
           <q-item clickable >
             <q-item-section avatar>
@@ -178,11 +175,12 @@
 <script>
 import { mapGetters } from "vuex";
 import {openURL} from "quasar";
+import updateLogo from "components/meta/update-logo";
 import groupTags from "components/group-tags";
 import groupLinks from "components/group-links";
 import clapForGroup from "components/clap-for-group";
 import groupNotificationManager from "components/group-notification-manager";
-import dateString from "components/date-string"
+import dateString from "components/date-string";
 
 import newElectionTimer from "components/modules/elections/new-election-timer";
 
@@ -192,6 +190,7 @@ import coreVersionManager from "components/core-version-manager";
 export default {
   name: "PageIndex",
   components: {
+    updateLogo,
     groupTags,
     groupLinks,
     coreVersionManager,
@@ -216,8 +215,17 @@ export default {
       getNumberCustodians: "group/getNumberCustodians",
       getSelectedBlockExplorer: "user/getSelectedBlockExplorer",
       getElectionsContract: "elections/getElectionsContract",
-      getElectionsState: "elections/getElectionsState"
-    })
+      getElectionsState: "elections/getElectionsState",
+      getIsCustodian: "group/getIsCustodian"
+    }),
+    allowed_to_edit() {
+      if(this.getIsCustodian(this.getAccountName)){
+        return true
+      }
+      else{
+        return false
+      }
+    }
   },
   methods: {
     openURL,
