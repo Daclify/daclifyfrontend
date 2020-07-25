@@ -218,7 +218,8 @@ export default {
       getAccountName: "ual/getAccountName",
       getActiveGroup: "group/getActiveGroup",
       getActiveGroupConfig: "group/getActiveGroupConfig",
-      getCoreConfig: "group/getCoreConfig"
+      getCoreConfig: "group/getCoreConfig",
+      getElectionsConfig: "elections/getElectionsConfig"
     }),
     groupconfigAndAccountLoaded(){
       return {getActiveGroupConfig: this.getActiveGroupConfig, getAccountName: this.getAccountName}
@@ -267,7 +268,13 @@ export default {
             this.$router.push(`/members/${this.$route.params.groupname}/profile/${this.getAccountName}`).catch(err => {});
           }
           else{
-            this.$router.push(`/members/${this.$route.params.groupname}/elections`).catch(err => {});
+            if(this.getElectionsConfig && this.getElectionsConfig.elections){
+              this.$router.push(`/members/${this.$route.params.groupname}/elections`).catch(err => {});
+            }
+            else{
+              this.$router.push(`/members/${this.$route.params.groupname}/register`).catch(err => {});
+            }
+            
           }
           
           notifyInfo({message: `you switched to members menu.`})

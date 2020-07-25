@@ -9,8 +9,8 @@
         <q-btn v-if="!getIsMember" label="register" color="primary" @click="regmember" :loading="is_transacting" />
         <q-btn v-else label="unregister" color="primary" @click="unregmember" :loading="is_transacting" />
        </div>
-      <div v-if="getCoreConfig && getCoreConfig.conf.userterms">
-        <q-checkbox v-model="agree_terms" label="I have read and I agree to the user terms." />
+      <div v-if="getCoreConfig && getCoreConfig.conf.userterms" class="row justify-end q-mt-sm text-weight-light">
+        <q-checkbox v-model="agree_terms" left-label label="I have read and I agree to the user terms." />
       </div>
      </q-card-section>
    </q-card>
