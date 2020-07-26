@@ -63,7 +63,7 @@ export default {
     getLogoForToken,
     async getBalance(){
       let symbol = this.payroll.total_paid.quantity.split(' ')[1];
-      let res = await this.$eos.rpc.get_currency_balance(
+      let res = await this.$eos.api.rpc.get_currency_balance(
         this.payroll.total_paid.contract, 
         this.payroll.pay_permission.actor,
         symbol

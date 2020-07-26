@@ -9,7 +9,7 @@ export async function initRoutine ({ dispatch }) {
 }
 
 export async function fetchGroups ({ state, commit, getters, rootGetters }) {
-    let res = await this._vm.$eos.rpc.get_table_rows({
+    let res = await this._vm.$eos.api.rpc.get_table_rows({
         json: true,
         code: getters.getAppConfig.groups_contract, //state.config.groups_contract,
         scope: getters.getAppConfig.groups_contract, //state.config.groups_contract,
@@ -54,7 +54,7 @@ export function stopClock () {
 }
 
 export async function fetchComponentRegistry ({ state, commit, getters }) {
-  let res = await this._vm.$eos.rpc.get_table_rows({
+  let res = await this._vm.$eos.api.rpc.get_table_rows({
       json: true,
       code: getters.getAppConfig.groups_contract, //state.config.groups_contract,
       scope: getters.getAppConfig.groups_contract, //state.config.groups_contract,
@@ -80,7 +80,7 @@ export async function fetchComponentRegistry ({ state, commit, getters }) {
 
 export async function fetchModuleVersions ({ state, commit, getters }, modulename) {
   let module_type = modulename || "core";
-  let res = await this._vm.$eos.rpc.get_table_rows({
+  let res = await this._vm.$eos.api.rpc.get_table_rows({
     json: true,
     code: getters.getAppConfig.groups_contract, //state.config.groups_contract,
     scope: module_type,
@@ -100,7 +100,7 @@ export async function fetchModuleVersions ({ state, commit, getters }, modulenam
 
 export async function fetchModuleRegistry ({ state, commit, getters }, payload) {
 
-  let res = await this._vm.$eos.rpc.get_table_by_scope({
+  let res = await this._vm.$eos.api.rpc.get_table_by_scope({
     json: true,
     code: getters.getAppConfig.groups_contract, //state.config.groups_contract,
     table: "versions",
@@ -115,7 +115,7 @@ export async function fetchModuleRegistry ({ state, commit, getters }, payload) 
 }
 
 export async function fetchRamPricePerByte ({ state, commit }){
-  let res = await this._vm.$eos.rpc.get_table_rows({
+  let res = await this._vm.$eos.api.rpc.get_table_rows({
     json: true,
     code: "eosio",
     scope: "eosio",

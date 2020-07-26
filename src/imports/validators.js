@@ -16,7 +16,7 @@ export function isValidAccountName(v) {
 
 export async function isAvailableAccountName(v) {
   v = v.toLowerCase();
-  let res = await Vue.prototype.$eos.rpc.get_account(v).catch(e => false);
+  let res = await Vue.prototype.$eos.api.rpc.get_account(v).catch(e => false);
   if (!res) {
     //accountname not found
     return true;
@@ -28,7 +28,7 @@ export async function isAvailableAccountName(v) {
 
 export async function isExistingAccountName(v) {
   v = v.toLowerCase();
-  let res = await Vue.prototype.$eos.rpc.get_account(v).catch(e => false);
+  let res = await Vue.prototype.$eos.api.rpc.get_account(v).catch(e => false);
   if (!res) {
     //accountname not found
     return 'Account does not exists';
@@ -74,7 +74,7 @@ export function isYouTubeUrl(url) {
 export async function isAvailableSymbol(v) {
   v = v.toUpperCase();
   let contract = "kasdactokens";
-  let res = await Vue.prototype.$eosapi
+  let res = await Vue.prototype.$eos.apiapi
     .get_table_rows({
       json: true,
       code: contract,

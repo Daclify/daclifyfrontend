@@ -9,7 +9,7 @@ export async function loadHooksRoutine({ dispatch, commit, getters, rootGetters 
 }
 
 export async function fetchHooks ({ commit, rootState, rootGetters }, hooksContract) {
-    let res = await this._vm.$eos.rpc.get_table_rows({
+    let res = await this._vm.$eos.api.rpc.get_table_rows({
       json: true,
       code: hooksContract,
       scope: hooksContract,

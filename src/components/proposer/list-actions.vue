@@ -106,7 +106,7 @@ export default {
       if (!contract) return;
       this.is_loading = true;
       (this.abi = ""), (this.abi_actions = []);
-      let abi = await this.$eos.rpc.get_abi(contract);
+      let abi = await this.$eos.api.rpc.get_abi(contract);
       console.log(abi);
       if (abi && abi.account_name == contract && abi.abi) {
         this.abi = abi;

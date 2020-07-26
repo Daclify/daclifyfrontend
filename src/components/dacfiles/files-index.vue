@@ -63,7 +63,7 @@ export default {
   methods:{
     async loadFilesIndex(){
       this.is_loading = true;
-      let res = await this.$eos.rpc.get_table_by_scope({
+      let res = await this.$eos.api.rpc.get_table_by_scope({
         json: true,
         code: this.getActiveGroup,
         table: "dacfiles",

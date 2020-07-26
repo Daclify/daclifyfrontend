@@ -181,7 +181,7 @@ export default {
         await this.$store.dispatch('ual/logout');
       };
       this.$store.commit("ual/setActiveNetwork", network_key);
-      //this.$eos = this.$eos.switch_network(this.getRpcEndpoints);
+      this.$eos.build(this.getRpcEndpoints);
 
       await this.$store.dispatch("ual/initUAL");
       this.$store.dispatch('ual/renderLoginModal');

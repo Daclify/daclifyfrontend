@@ -22,7 +22,7 @@ export async function loggedOutRoutine ({ dispatch, commit }) {
 export async function fetchAccount ({ commit, rootState, rootGetters }, accountname) {
   //let account = rootGetters.getAccountName ||
   if(!accountname) return;
-  let res = await this._vm.$eos.rpc.get_account(accountname);
+  let res = await this._vm.$eos.api.rpc.get_account(accountname);
     if(res ){
       console.log('Fetched User Account', res);
       commit('setAccount', res);
@@ -30,7 +30,7 @@ export async function fetchAccount ({ commit, rootState, rootGetters }, accountn
 }
 
 export async function fetchIsMember ({ commit, rootState, rootGetters }, accountname) {
-  let res = await this._vm.$eos.rpc.get_table_rows({
+  let res = await this._vm.$eos.api.rpc.get_table_rows({
       json: true,
       code:   rootState.group.activeGroup,
       scope:   rootState.group.activeGroup,
@@ -53,7 +53,7 @@ export async function fetchIsMember ({ commit, rootState, rootGetters }, account
 
 export async function fetchHubDeposits({ state,rootState, commit, rootGetters }, accountname) {
   let hubcntr = rootGetters["app/getAppConfig"].groups_contract;
-  let res = await this._vm.$eos.rpc.get_table_rows({
+  let res = await this._vm.$eos.api.rpc.get_table_rows({
       json: true,
       code: hubcntr,
       scope: accountname,

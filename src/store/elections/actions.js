@@ -10,7 +10,7 @@ export async function loadElectionsRoutine({ dispatch, commit, getters, rootGett
 }
 
 export async function fetchElectionsConfig ({ commit, rootState, rootGetters }, electionsContract) {
-    let res = await this._vm.$eos.rpc.get_table_rows({
+    let res = await this._vm.$eos.api.rpc.get_table_rows({
       json: true,
       code: electionsContract,
       scope: electionsContract,
@@ -27,7 +27,7 @@ export async function fetchElectionsConfig ({ commit, rootState, rootGetters }, 
 }
 
 export async function fetchElectionsState ({ commit, rootState, rootGetters }, electionsContract) {
-    let res = await this._vm.$eos.rpc.get_table_rows({
+    let res = await this._vm.$eos.api.rpc.get_table_rows({
       json: true,
       code: electionsContract,
       scope: electionsContract,
@@ -45,7 +45,7 @@ export async function fetchElectionsState ({ commit, rootState, rootGetters }, e
 
 export async function fetchCandidates ({ commit, rootState, rootGetters }, electionsContract) {
     //fetch by decreasing votes
-    let res = await this._vm.$eos.rpc.get_table_rows({
+    let res = await this._vm.$eos.api.rpc.get_table_rows({
       json: true,
       code: electionsContract,
       scope: electionsContract,
@@ -66,7 +66,7 @@ export async function fetchCandidates ({ commit, rootState, rootGetters }, elect
 export async function fetchUserVotes ({ commit, getters, rootGetters }, payload) {
     //fetch by decreasing votes
     let contract = payload.electionsContract || getters.getElectionsContract;
-    let res = await this._vm.$eos.rpc.get_table_rows({
+    let res = await this._vm.$eos.api.rpc.get_table_rows({
       json: true,
       code: contract,
       scope: contract,
@@ -91,7 +91,7 @@ export async function fetchUserStakes ({ commit, getters, rootGetters }, payload
     //fetch by decreasing votes
     let contract = payload.electionsContract || getters.getElectionsContract;
     let user = payload.user || rootGetters["ual/getAccountName"];
-    let res = await this._vm.$eos.rpc.get_table_rows({
+    let res = await this._vm.$eos.api.rpc.get_table_rows({
       json: true,
       code: contract,
       scope: user,

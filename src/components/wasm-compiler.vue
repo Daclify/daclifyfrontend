@@ -107,13 +107,13 @@ export default {
       })
     },
     async parseAbi (abifile) {
-      const Serialize = this.$eos.Serialize;
+      const Serialize = this.$eos.api.Serialize;
       const buffer = new Serialize.SerialBuffer({
         textEncoder: new TextEncoder(),
         textDecoder: new TextDecoder()
       })
       let abi = JSON.parse(abifile)
-      const abiDefinition = await this.$eos.abiTypes.get(`abi_def`)
+      const abiDefinition = await this.$eos.api.abiTypes.get(`abi_def`)
       abi = abiDefinition.fields.reduce(
         (acc, { name: fieldName }) =>
           Object.assign(acc, { [fieldName]: acc[fieldName] || [] }),

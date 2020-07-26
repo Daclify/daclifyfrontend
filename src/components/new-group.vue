@@ -430,9 +430,9 @@ export default {
     },
     async get_wasm_and_abi_from_block(query) {
       let blocks = [];
-      blocks.push(this.$eos.rpc.get_block(query.wasm[0]));
+      blocks.push(this.$eos.api.rpc.get_block(query.wasm[0]));
       if (query.wasm[0] != query.abi[0]) {
-        blocks.push(this.$eos.rpc.get_block(query.abi[0]));
+        blocks.push(this.$eos.api.rpc.get_block(query.abi[0]));
       }
       let [wasmblock, abiblock] = await Promise.all(blocks);
       abiblock = abiblock || wasmblock;
@@ -448,7 +448,7 @@ export default {
       //return {wasmhex: wasmhex, abihex: abihex};
     },
     async getGroupsByCreator() {
-      let groups_by_creator = await this.$eos.rpc.get_table_rows({
+      let groups_by_creator = await this.$eos.api.rpc.get_table_rows({
         json: true,
         code: this.getAppConfig.groups_contract,
         scope: this.getAppConfig.groups_contract,
