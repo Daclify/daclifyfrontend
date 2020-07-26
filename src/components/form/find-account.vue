@@ -109,7 +109,7 @@ export default {
       }
     },
     async fetchAccounts(acc){
-      let res = await this.$eos.rpc.get_table_by_scope({
+      let res = await this.$eos.api.rpc.get_table_by_scope({
         json: true,
         code: "eosio",
         scope: "eosio",

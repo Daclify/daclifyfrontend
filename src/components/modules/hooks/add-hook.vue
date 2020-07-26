@@ -125,7 +125,7 @@ export default {
     isValidAccountName,
     async getHookOptions(){
       const system_actions=["hookreg", "hookdel", "hookenable", "hookedit"];
-      let abi = await this.$eos.rpc.get_abi(this.getHooksContract);
+      let abi = await this.$eos.api.rpc.get_abi(this.getHooksContract);
       let actions = abi.abi.actions.filter(a=> !system_actions.includes(a.name));
       let hooks = actions.map(a=>{ return {value: a.name, label:a.name} });
       this.hookOptions = hooks || [];

@@ -86,7 +86,7 @@ export function chunkArray(arr, chunksize) {
 
 export async function getSystemMsig(proposer, proposal_name) {
   let contract = "eosio.msig";
-  let res = await Vue.prototype.$eos.rpc
+  let res = await Vue.prototype.$eos.api.rpc
     .get_table_rows({
       json: true,
       code: contract,
@@ -114,8 +114,8 @@ export async function serializeActionData(action ) {
     let account = action.account;
     let name = action.name;
     let data = action.data;
-    const contract = await Vue.prototype.$eos.getContract(account);
-    let hex = Vue.prototype.$eos.Serialize.serializeActionData(
+    const contract = await Vue.prototype.$eos.api.getContract(account);
+    let hex = Vue.prototype.$eos.api.Serialize.serializeActionData(
       contract,
       account,
       name,
@@ -140,7 +140,7 @@ export async function get_content_from_trace(trxid, block_num, actionname, datak
   let block;
 
   while( !found && startblock !=endblock && !error){
-    block = await Vue.prototype.$eos.rpc.get_block(startblock);
+    block = await Vue.prototype.$eos.api.rpc.get_block(startblock);
     console.log('looking in block_num',startblock)
     // console.log(block)
     if(block && block.transactions.length){

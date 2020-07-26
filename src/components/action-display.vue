@@ -62,8 +62,8 @@ export default {
     async deserializeAction() {
       if (typeof this.action.data == "string") {
         this.is_deserializing = true;
-        const contract = await this.$eos.getContract(this.action.account);
-        let r = await this.$eos.Serialize.deserializeAction(
+        const contract = await this.$eos.api.getContract(this.action.account);
+        let r = await this.$eos.api.Serialize.deserializeAction(
           contract,
           this.action.account,
           this.action.name,

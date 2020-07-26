@@ -109,7 +109,7 @@ export default {
       this.$emit('addtobucket', this.action);     
     },
     async hasValidPermission(v){
-      let res = await this.$eos.rpc.get_account(v).catch(e => false);
+      let res = await this.$eos.api.rpc.get_account(v).catch(e => false);
       if (res) {
         console.log(res.permissions)
 

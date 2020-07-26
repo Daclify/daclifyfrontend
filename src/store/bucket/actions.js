@@ -5,8 +5,8 @@ export async function addToBucket ({ state, commit, rootState, rootGetters }, ac
         action.authorization = [{actor: rootState.group.activeGroup, permission: "owner"}];
     }
     try{
-        const contract = await this._vm.$eos.getContract(action.account);
-        action.hex = this._vm.$eos.Serialize.serializeActionData(contract, action.account, action.name, action.data);
+        const contract = await this._vm.$eos.api.getContract(action.account);
+        action.hex = this._vm.$eos.api.Serialize.serializeActionData(contract, action.account, action.name, action.data);
         commit('addToActionBucket', action);
         notifySuccess({message:'Action added to bucket.'});
     }

@@ -13,7 +13,7 @@ export async function loadPayrollRoutine({ dispatch, commit, getters, rootGetter
 }
 
 export async function fetchPayments ({ commit, rootState, rootGetters }, payrollcontract) {
-    let res = await this._vm.$eos.rpc.get_table_rows({
+    let res = await this._vm.$eos.api.rpc.get_table_rows({
       json: true,
       code: payrollcontract,
       scope: payrollcontract,
@@ -30,7 +30,7 @@ export async function fetchPayments ({ commit, rootState, rootGetters }, payroll
 }
 
 export async function fetchUserPayments ({ commit, rootState, rootGetters }, payload) {
-  let res = await this._vm.$eos.rpc.get_table_rows({
+  let res = await this._vm.$eos.api.rpc.get_table_rows({
     json: true,
     code: payload.contract,
     scope: payload.contract,
@@ -54,7 +54,7 @@ export async function fetchUserPayments ({ commit, rootState, rootGetters }, pay
 }
 
 export async function fetchPayrolls ({ commit, rootState, rootGetters }, payrollcontract) {
-  let res = await this._vm.$eos.rpc.get_table_rows({
+  let res = await this._vm.$eos.api.rpc.get_table_rows({
     json: true,
     code: payrollcontract,
     scope: payrollcontract,

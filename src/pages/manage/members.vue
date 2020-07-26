@@ -111,7 +111,7 @@ export default {
 
     async fetchMembers(){
       this.is_loading =true;
-      let res = await this.$eos.rpc.get_table_rows({
+      let res = await this.$eos.api.rpc.get_table_rows({
         json: true,
         code: this.getActiveGroup,
         scope: this.getActiveGroup,

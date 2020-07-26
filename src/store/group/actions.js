@@ -67,7 +67,7 @@ export async function loadGroupRoutine ({ dispatch, commit, rootGetters }, paylo
 }
 
 export async function fetchCoreConfig ({ dispatch, commit }, groupname) {
-  let res = await this._vm.$eos.rpc.get_table_rows({
+  let res = await this._vm.$eos.api.rpc.get_table_rows({
     json: true,
     code: groupname,
     scope: groupname,
@@ -88,7 +88,7 @@ export async function fetchCoreConfig ({ dispatch, commit }, groupname) {
 }
 
 export async function fetchCoreState ({ commit, rootState, rootGetters }, groupname) {
-  let res = await this._vm.$eos.rpc.get_table_rows({
+  let res = await this._vm.$eos.api.rpc.get_table_rows({
     json: true,
     code: groupname,
     scope: groupname,
@@ -105,7 +105,7 @@ export async function fetchCoreState ({ commit, rootState, rootGetters }, groupn
 
 export async function fetchGroupConfig ({ commit, rootState, rootGetters }, groupname) {
   let hubcntr = rootGetters["app/getAppConfig"].groups_contract;
-  let res = await this._vm.$eos.rpc.get_table_rows({
+  let res = await this._vm.$eos.api.rpc.get_table_rows({
     json: true,
     code: hubcntr,
     scope: hubcntr,
@@ -124,7 +124,7 @@ export async function fetchGroupConfig ({ commit, rootState, rootGetters }, grou
 }
 
 export async function fetchModules ({ commit, rootState, rootGetters }, groupname) {
-  let res = await this._vm.$eos.rpc.get_table_rows({
+  let res = await this._vm.$eos.api.rpc.get_table_rows({
     json: true,
     code: groupname,
     scope: groupname,
@@ -159,7 +159,7 @@ export async function fetchModules ({ commit, rootState, rootGetters }, groupnam
 export async function fetchAccount ({ commit, rootState, rootGetters }, groupname) {
   //let account = rootGetters.getAccountName ||
   if(!groupname) return;
-  let res = await this._vm.$eos.rpc.get_account(groupname);
+  let res = await this._vm.$eos.api.rpc.get_account(groupname);
     if(res ){
       console.log(res)
       commit('setGroupAccount', res);
@@ -167,7 +167,7 @@ export async function fetchAccount ({ commit, rootState, rootGetters }, groupnam
 }
 
 export async function fetchCustodians ({ state, commit }, groupname) {
-    let res = await this._vm.$eos.rpc.get_table_rows({
+    let res = await this._vm.$eos.api.rpc.get_table_rows({
         json: true,
         code: groupname,
         scope: groupname,
@@ -184,7 +184,7 @@ export async function fetchCustodians ({ state, commit }, groupname) {
 }
 
 export async function fetchProposals ({ state, commit }, payload ) {
-  let res = await this._vm.$eos.rpc.get_table_rows({
+  let res = await this._vm.$eos.api.rpc.get_table_rows({
       json: true,
       code: payload.groupname,
       scope: payload.scope || payload.groupname,
@@ -204,7 +204,7 @@ export async function fetchProposals ({ state, commit }, payload ) {
 
 export async function fetchThresholds ({ state, commit }, groupname) {
 
-  let res = await this._vm.$eos.rpc.get_table_rows({
+  let res = await this._vm.$eos.api.rpc.get_table_rows({
       json: true,
       code: groupname,
       scope: groupname,
@@ -223,7 +223,7 @@ export async function fetchThresholds ({ state, commit }, groupname) {
 
 export async function fetchThresholdLinks ({ state, commit }, groupname) {
 
-  let res = await this._vm.$eos.rpc.get_table_rows({
+  let res = await this._vm.$eos.api.rpc.get_table_rows({
       json: true,
       code: groupname,
       scope: groupname,
@@ -243,7 +243,7 @@ export async function fetchThresholdLinks ({ state, commit }, groupname) {
 export async function fetchThresholdLinksForScope ({ state, commit }, payload) {
   let groupname = payload.groupname;
   let scope = payload.scope;
-  let res = await this._vm.$eos.rpc.get_table_rows({
+  let res = await this._vm.$eos.api.rpc.get_table_rows({
       json: true,
       code: groupname,
       scope: scope,
@@ -266,7 +266,7 @@ export async function fetchTokensOwnedByScope ({ state, commit }, payload) {
   let groupname = payload.groupname;
   let scope = payload.scope;
 
-  let res = await this._vm.$eos.rpc.get_table_rows({
+  let res = await this._vm.$eos.api.rpc.get_table_rows({
     json: true,
     code: groupname,
     scope: scope,
@@ -301,7 +301,7 @@ export async function fetchTokensOwnedByScope ({ state, commit }, payload) {
 }
 
 export async function fetchAvatars ({ state, commit }, groupname) {
-  let res = await this._vm.$eos.rpc.get_table_rows({
+  let res = await this._vm.$eos.api.rpc.get_table_rows({
       json: true,
       code: groupname,
       scope: groupname,
@@ -318,7 +318,7 @@ export async function fetchAvatars ({ state, commit }, groupname) {
 }
 
 export async function fetchLatestUserterms ({ state, commit }, groupname) {
-  let res = await this._vm.$eos.rpc.get_table_rows({
+  let res = await this._vm.$eos.api.rpc.get_table_rows({
       json: true,
       code: groupname,
       scope: "userterms",
@@ -350,7 +350,7 @@ export async function fetchProfile ({ state, commit, rootState, rootGetters }, a
   }
   
 
-  let res = await this._vm.$eos.rpc.get_table_rows({
+  let res = await this._vm.$eos.api.rpc.get_table_rows({
       json: true,
       code:   rootState.group.activeGroup,
       scope:   rootState.group.activeGroup,
@@ -431,8 +431,8 @@ export async function propose({ state, rootState, dispatch, commit }, payload) {
       delete action.hex;
     }
     if(typeof action.data == 'object'){
-      const contract = await this._vm.$eos.getContract(action.account);
-      action = this._vm.$eos.Serialize.serializeAction(contract, action.account, action.name, action.authorization, action.data);
+      const contract = await this._vm.$eos.api.getContract(action.account);
+      action = this._vm.$eos.api.Serialize.serializeAction(contract, action.account, action.name, action.authorization, action.data);
     }
     propose_action.data.actions.push(action);
   }
