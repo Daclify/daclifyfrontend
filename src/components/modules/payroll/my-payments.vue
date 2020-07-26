@@ -2,11 +2,7 @@
   <div>
     <q-list class="primary-hover-list no-padding" separator bordered>
       <my-payment v-for="payment in payments" :key="payment.pay_id" :payment="payment"/>
-      <q-item>
-        <q-item-section v-if="!payments.length">
-          <q-item-label>No payments</q-item-label>
-        </q-item-section>
-      </q-item>
+      <no-items v-if="!payments.length" text="No payments" />
     </q-list>
     <!-- {{payments}} -->
   </div>
@@ -14,6 +10,7 @@
 
 <script>
 import myPayment from "components/modules/payroll/my-payment";
+import noItems from "components/no-items";
 import { mapGetters } from "vuex";
 export default {
   name: 'myPayments',
@@ -24,8 +21,8 @@ export default {
     }
   },
   components:{
-
-    myPayment
+    myPayment,
+    noItems
   },
   computed: {
     ...mapGetters({

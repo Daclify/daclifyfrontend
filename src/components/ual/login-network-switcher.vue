@@ -153,6 +153,7 @@ export default {
       getActiveNetwork: "ual/getActiveNetwork",
       getActiveGroup: "group/getActiveGroup",
       getSESSION: "ual/getSESSION",
+      getRpcEndpoints: "ual/getRpcEndpoints",
       getIsCustodian: "group/getIsCustodian",
       getIsDark: "user/getIsDark",
     })
@@ -180,6 +181,8 @@ export default {
         await this.$store.dispatch('ual/logout');
       };
       this.$store.commit("ual/setActiveNetwork", network_key);
+      //this.$eos = this.$eos.switch_network(this.getRpcEndpoints);
+
       await this.$store.dispatch("ual/initUAL");
       this.$store.dispatch('ual/renderLoginModal');
     }

@@ -1,6 +1,7 @@
 <template>
   <div id="q-app">
-    <ual :appName= "appName" :chains="chains" :authenticators="authenticators" ref="ual-component"/>
+    <!-- <ual :appName= "appName" :chains="chains" :authenticators="authenticators" ref="ual-component"/> -->
+    <ual ref="ual-component"/>
     <router-view />
 
 
@@ -25,31 +26,7 @@
 import ual from "components/ual/ual";
 import hubDepositWallet from "components/hub-deposit-wallet";
 import pageHeader from "components/page-header";
-import { Scatter } from 'ual-scatter';
-import { Ledger } from 'ual-ledger';
-import { Lynx } from 'ual-lynx';
-import { TokenPocket } from 'ual-token-pocket';
-import { EOSIOAuth } from 'ual-eosio-reference-authenticator';
 
-
-
-const appName = 'daclify';
-// const chains = [{
-//     chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
-//     rpcEndpoints: [{
-//         protocol: 'https',
-//         host: 'api.eostitan.com',
-//         port: '443',
-//     }]
-// }];
-const chains = [{
-    chainId: '2a02a0053e5a8cf73a56ba0fda11e4d92e0238a4a2aa74fccf46d5a910746840',
-    rpcEndpoints: [{
-        protocol: 'https',
-        host: 'jungle3.eossweden.org',
-        port: 443,
-    }]
-}];
 
 import { mapGetters } from "vuex";
 import {notifyError, notifySuccess} from './imports/notifications.js';
@@ -58,15 +35,6 @@ export default {
   components:{ual, hubDepositWallet, pageHeader},
   data () {
     return {
-      appName: appName,
-      authenticators:[
-        new Scatter(chains, {appName: appName}),
-        new Ledger(chains),
-        new Lynx(chains, { appName: appName }),
-        new TokenPocket(chains),
-        new EOSIOAuth(chains, { appName, protocol: 'eosio' })
-      ],
-      chains: chains,
       show_hub_deposit_wallet: false,
       customHubWalletMessage:""
     }

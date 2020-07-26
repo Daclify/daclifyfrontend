@@ -4,7 +4,10 @@ export async function loggedInRoutine ({ dispatch,commit }, payload) {
   dispatch('fetchAccount', payload.accountname);
   dispatch('fetchHubDeposits', payload.accountname);
   let res = await dispatch('group/fetchProfile', payload.accountname,{root:true});
-  commit('group/setMyOldProfile', JSON.parse(JSON.stringify(res) ),{root:true} );
+  if(res){
+    commit('group/setMyOldProfile', JSON.parse(JSON.stringify(res) ),{root:true} );
+  }
+  
   //dispatch('fetchIsMember', payload.accountname);
 
 }
@@ -49,9 +52,10 @@ export async function fetchIsMember ({ commit, rootState, rootGetters }, account
 }
 
 export async function fetchHubDeposits({ state,rootState, commit, rootGetters }, accountname) {
+  let hubcntr = rootGetters["app/getAppConfig"].groups_contract;
   let res = await this._vm.$eos.rpc.get_table_rows({
       json: true,
-      code: rootState.app.config.groups_contract,
+      code: hubcntr,
       scope: accountname,
       table: "deposits",
       limit: 1

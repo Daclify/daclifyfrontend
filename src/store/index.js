@@ -33,7 +33,7 @@ export default function (/* { ssrContext } */) {
     plugins: [
       createPersistedState({
         key: "ual",
-        paths: ["ual.SESSION"]
+        paths: ["ual.SESSION", "ual.activeNetwork"]
       }),
       createPersistedState({
         key: "user",

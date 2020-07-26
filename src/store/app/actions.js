@@ -4,23 +4,15 @@ const {getBrand} = colors;
 let CLOCK_TIMER = null;
 
 export async function initRoutine ({ dispatch }) {
-
     dispatch('fetchComponentRegistry');
-
     dispatch('fetchModuleRegistry');
-
-
-    // dispatch('fetchAllowedFeeTokens');
-    // dispatch('fetchCronjobsByScope');
-    // dispatch('fetchBlacklist');
-    
 }
 
-export async function fetchGroups ({ state, commit, rootGetters }) {
+export async function fetchGroups ({ state, commit, getters, rootGetters }) {
     let res = await this._vm.$eos.rpc.get_table_rows({
         json: true,
-        code: state.config.groups_contract,
-        scope: state.config.groups_contract,
+        code: getters.getAppConfig.groups_contract, //state.config.groups_contract,
+        scope: getters.getAppConfig.groups_contract, //state.config.groups_contract,
         table: "groups",
         key_type: "i64",
         index_position: 2,
@@ -61,11 +53,11 @@ export function stopClock () {
     CLOCK_TIMER = null;
 }
 
-export async function fetchComponentRegistry ({ state, commit }) {
+export async function fetchComponentRegistry ({ state, commit, getters }) {
   let res = await this._vm.$eos.rpc.get_table_rows({
       json: true,
-      code: state.config.groups_contract,
-      scope: state.config.groups_contract,
+      code: getters.getAppConfig.groups_contract, //state.config.groups_contract,
+      scope: getters.getAppConfig.groups_contract, //state.config.groups_contract,
       table: "components",
       limit: -1
     });
@@ -86,11 +78,11 @@ export async function fetchComponentRegistry ({ state, commit }) {
     }
 }
 
-export async function fetchModuleVersions ({ state, commit }, modulename) {
+export async function fetchModuleVersions ({ state, commit, getters }, modulename) {
   let module_type = modulename || "core";
   let res = await this._vm.$eos.rpc.get_table_rows({
     json: true,
-    code: state.config.groups_contract,
+    code: getters.getAppConfig.groups_contract, //state.config.groups_contract,
     scope: module_type,
     table: "versions",
     limit: -1
@@ -106,16 +98,16 @@ export async function fetchModuleVersions ({ state, commit }, modulename) {
   }
 }
 
-export async function fetchModuleRegistry ({ state, commit }, payload) {
+export async function fetchModuleRegistry ({ state, commit, getters }, payload) {
 
   let res = await this._vm.$eos.rpc.get_table_by_scope({
     json: true,
-    code: state.config.groups_contract,
+    code: getters.getAppConfig.groups_contract, //state.config.groups_contract,
     table: "versions",
     limit: -1
   });
   if(res){
-    console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',res)
+    console.log('fetched module registry',res)
   }
   else{
       console.log('fetching module registry faild');

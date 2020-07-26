@@ -12,12 +12,11 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
+    "@jafri/eosjs2": "^21.0.0-rc.15",
     "@quasar/extras": "^1.8.2",
     "axios": "^0.18.1",
     "crypto-js": "^3.1.9-1",
     "deep-diff": "^1.0.2",
-    "eosjs": "^20.0.3",
-    "eosjs2": "^1.0.0",
     "file-saver": "^2.0.2",
     "firebase": "6.6.2",
     "highlightjs": "^9.12.0",

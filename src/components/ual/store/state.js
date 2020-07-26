@@ -42,6 +42,11 @@ export default {
             protocol: "https",
             host: "jungle3.eossweden.org",
             port: 443
+          },
+          {
+            protocol: "https",
+            host: "api.jungle3.alohaeos.com",
+            port: 443
           }
         ]
       }

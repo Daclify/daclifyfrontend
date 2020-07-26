@@ -27,6 +27,7 @@ export async function resetStore ({  commit }, payload) {
   commit('setActiveGroupConfig', false);
   commit('setActiveGroup', "");//todo catch the error generating loading group with empty name
   commit('setLatestUserterms', false);
+  commit('setProfileCache', []);
 }
 
 export async function loadGroupRoutine ({ dispatch, commit, rootGetters }, payload) {
@@ -103,10 +104,11 @@ export async function fetchCoreState ({ commit, rootState, rootGetters }, groupn
 }
 
 export async function fetchGroupConfig ({ commit, rootState, rootGetters }, groupname) {
+  let hubcntr = rootGetters["app/getAppConfig"].groups_contract;
   let res = await this._vm.$eos.rpc.get_table_rows({
     json: true,
-    code: rootState.app.config.groups_contract,
-    scope: rootState.app.config.groups_contract,
+    code: hubcntr,
+    scope: hubcntr,
     lower_bound: groupname,
     upper_bound: groupname,
     table: "groups",
@@ -337,12 +339,16 @@ export async function fetchLatestUserterms ({ state, commit }, groupname) {
 }
 
 export async function fetchProfile ({ state, commit, rootState, rootGetters }, accountname) {
+  if(!rootState.group.activeGroup){
+    return;
+  }
   let template = JSON.stringify(profile_template);
   let cached_p = state.profiles.find(p=> p.account == accountname);
   if(cached_p){
     console.log("serve profile from cache");
     return cached_p;
   }
+  
 
   let res = await this._vm.$eos.rpc.get_table_rows({
       json: true,

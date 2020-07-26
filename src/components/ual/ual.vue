@@ -88,7 +88,7 @@ export default {
     authenticatorBtn,
     signingOverlay
   },
-  props: ["chains", "authenticators", "appName"],
+  //props: ["chains", "authenticators", "appName"],
   data() {
     return {
       ual: null,

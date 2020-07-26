@@ -13,7 +13,7 @@ import { Anchor } from 'ual-anchor'
 export async function initUAL({ state, commit, dispatch, getters }, network) {
   let appName="daclify";
   let chains = [state.networks[getters.getActiveNetwork].config];
-  console.log('init ual with', chains)
+  console.log('init ual with', chains);
   let authenticators = [
     new Scatter(chains, {appName: appName}),
     new Ledger(chains),
@@ -28,23 +28,19 @@ export async function initUAL({ state, commit, dispatch, getters }, network) {
     appName,
     authenticators
   );
-
-  console.log("UAL", ual);
+  //console.log("UAL", ual);
   commit("setUAL", ual);
 }
 
 
 export async function renderLoginModal({ state, commit, dispatch, getters }) {
-  
-  console.log("available authenticators", getters.getAuthenticators)
   for (var i = 0; i < getters.getAuthenticators; i++) {
     getters.getAuthenticators[i].reset();
     getters.getAuthenticators[i].init();
     await dispatch('waitForAuthenticatorToLoad', getters.getAuthenticators[i]);
   }
   commit("setShouldRenderLoginModal", true);
-  console.log("available authenticators", getters.getAuthenticators)
-  
+  console.log("available authenticators", getters.getAuthenticators);
 }
 
 export async function logout({ state, commit, dispatch }) {
@@ -74,7 +70,7 @@ export async function waitForAuthenticatorToLoad({}, authenticator) {
         clearInterval(authenticatorIsLoadingCheck)
         resolve()
       }
-    }, 250)
+    }, 250);
   })
 }
 export async function attemptAutoLogin({state, commit, dispatch}){

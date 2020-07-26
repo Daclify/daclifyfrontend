@@ -37,6 +37,10 @@ export function addProfile(state, payload){
     state.profiles.push(payload);
 }
 
+export function setProfileCache(state, payload){
+    state.profiles = payload;
+}
+
 export function delProfile(state, payload){
     let del_index = state.profiles.findIndex(p=> p.account == payload);
     if(del_index > -1){

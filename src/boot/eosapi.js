@@ -1,26 +1,24 @@
-import { JsonRpc, Api, Serialize } from "eosjs";
-var VConsole = require("vconsole");
-var vConsole = new VConsole();
+import { JsonRpc, Api, Serialize, RpcError} from "@jafri/eosjs2";
+//var VConsole = require("vconsole");
+//var vConsole = new VConsole();
 
-
-const rpc = new JsonRpc("https://api.jungle3.alohaeos.com");//api.jungle3.alohaeos.com //api.main.alohaeos.com, eos.greymass.com, jungle2.cryptolions.io jungle.eosdac.io
-const api = new Api({
-  rpc,
-  textDecoder: new TextDecoder(),
-  textEncoder: new TextEncoder()
-});
-
-api.Serialize = Serialize;
-
-api.setEndpoint = (endpoint) => {
-  console.log('setting endpoint to', endpoint);
-  api.rpc = new JsonRpc(endpoint);
+const switch_network = function (endpoints){
+  const rpc = new JsonRpc(endpoints);
+  const api = new Api({
+    rpc,
+    textDecoder: new TextDecoder(),
+    textEncoder: new TextEncoder()
+  });
+  
+  api.Serialize = Serialize;
+  api.switch_network = switch_network;
+  console.log(api);
+  return api;
 }
 
-export default ({ Vue }) => {
-  // something to do
-  console.log('eos injected in Vue prototype!');
-  console.log(api)
 
-  Vue.prototype.$eos = api;
+export default ({ Vue, store }) => {
+  console.log('eos injected in Vue prototype!');
+  // Vue.prototype.$eos = api;
+  Vue.prototype.$eos = switch_network(store.getters["ual/getRpcEndpoints"]);
 };

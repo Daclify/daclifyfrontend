@@ -40,4 +40,11 @@ export function getActiveNetwork(state) {
     return state.SESSION.network || state.activeNetwork;
 }
 
+export function getRpcEndpoints(state, getters) {
+    let rpcobjs =  state.networks[getters.getActiveNetwork].config.rpcEndpoints;
+    return rpcobjs.map(rpcobj =>{
+        return rpcobj.protocol+"://"+rpcobj.host;
+    })
+}
+
 
