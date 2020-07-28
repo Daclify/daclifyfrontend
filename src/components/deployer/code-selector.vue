@@ -18,6 +18,9 @@
             </q-item-section>
           </q-item>
         </template>
+        <template v-slot:prepend>
+          <q-icon name="mdi-source-repository" />
+        </template>
     </q-select>
 
     <transition
@@ -26,8 +29,16 @@
       mode="out-in"
     >
       <div v-if="selected_src.value=='remote'" key="remote" class="row items-center">
-        <q-input label="wasm url" outlined v-model="wasm_url" class="q-mr-md"/>
-        <q-input label="abi url" outlined v-model="abi_url" class="q-mr-md"/>
+        <q-input label="wasm url" outlined v-model="wasm_url" class="q-mr-md">
+          <template v-slot:prepend>
+            <q-icon name="mdi-file-link" />
+          </template>
+        </q-input>
+        <q-input label="abi url" outlined v-model="abi_url" class="q-mr-md">
+          <template v-slot:prepend>
+            <q-icon name="mdi-file-link" />
+          </template>
+        </q-input>
         <div class="q-mr-md">
           <q-btn label="load" color="primary" @click="load_remote" />
         </div>
@@ -35,18 +46,51 @@
 
       <div v-if="selected_src.value=='local'" key="local" class="row items-center">
         <div style="width:200px; " class="q-mr-md">
-          <q-file outlined clearable counter v-model="wasm_file" label="wasm file" accept=".wasm"/>
+          <q-file outlined clearable counter v-model="wasm_file" label="wasm file" accept=".wasm">
+            <template v-slot:prepend>
+              <q-icon name="mdi-file-code" />
+            </template>
+          </q-file>
         </div>
         <div style="width:200px;" class="q-mr-md">
-          <q-file outlined clearable counter v-model="abi_file" label="abi file" accept=".abi"/>
+          <q-file outlined clearable counter v-model="abi_file" label="abi file" accept=".abi">
+            <template v-slot:prepend>
+              <q-icon name="mdi-file-code" />
+            </template>
+          </q-file>
         </div>
         <div class="q-mr-md">
           <q-btn label="load" color="primary" @click="compile_local" />
         </div>
       </div>
 
-      <div v-if="selected_src.value=='daclify'" key="daclify" class="row items-center">
-        todo
+      <div v-if="selected_src.value=='daclify'" key="daclify" class="row items-center no-wrap">
+        <q-select
+        class="q-mr-md"
+        style="width:100%"
+          outlined
+          v-model="daclify_registry_selection"
+          :options="daclify_registry_options"  
+          label="Select version"
+        >
+            <template v-slot:option="scope">
+              <q-item
+                v-bind="scope.itemProps"
+                v-on="scope.itemEvents"
+              >
+                <q-item-section>
+                  <q-item-label v-html="scope.opt.label" ></q-item-label>
+                  <q-item-label caption v-html="scope.opt.sublabel" ></q-item-label>
+                </q-item-section>
+              </q-item>
+            </template>
+            <template v-slot:prepend>
+              <q-icon name="mdi-expand-all" />
+            </template>
+        </q-select>
+        <div class="q-mr-md">
+          <q-btn label="load" color="primary" @click="" />
+        </div>
       </div>
 
       
@@ -70,7 +114,10 @@ export default {
       abi_url:"https://raw.githubusercontent.com/Daclify/daclifycore/master/daclifycore.abi",
 
       wasm_file:[],
-      abi_file:[]
+      abi_file:[],
+
+      daclify_registry_selection:"",
+      daclify_registry_options: [{label:"Todo", sublabel:"fetch code versions from register", value:"todo"}]
     }
   },
   methods:{
