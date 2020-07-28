@@ -5,12 +5,12 @@
     <div>
       <!-- <page-header :title="getFileTitle()"/> -->
       <q-card style="min-height:300px">
-        <q-toolbar class="bg-primary text-white shadow-2">
+        <q-toolbar class="bg-secondary text-white shadow-2">
           <q-toolbar-title :shrink="true">
             <span class="text-capitalize">{{getFileTitle()}}</span>
           </q-toolbar-title>
           <q-space />
-          <q-btn v-if="content" :icon="raw?'mdi-minus':'mdi-pencil'" round dense color="secondary"  @click="raw=!raw">
+          <q-btn v-if="content" :icon="raw?'mdi-minus':'mdi-pencil'" round dense color="primary"  @click="raw=!raw">
             <q-tooltip content-class="bg-secondary" :delay="500">
               todo: this is work in progress...
             </q-tooltip>

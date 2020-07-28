@@ -2,7 +2,7 @@
   <div>
     <!-- {{file_scopes}} -->
     <q-card>
-      <q-toolbar class="bg-primary text-white shadow-2">
+      <q-toolbar class="bg-secondary text-white shadow-2">
         <q-toolbar-title :shrink="true">
           <span>Documents</span>
         </q-toolbar-title>

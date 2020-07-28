@@ -1,7 +1,7 @@
 <template>
   <q-card>
     <!-- {{getThresholdsWithFilter}} -->
-    <q-toolbar class="bg-primary text-white shadow-2">
+    <q-toolbar class="bg-secondary text-white shadow-2">
       <q-toolbar-title :shrink="true">
         <span v-if="add_threshold_view">Manage Thresholds</span>
         <span v-else>Thresholds</span>
@@ -11,7 +11,7 @@
         round
         dense
         :icon="add_threshold_view ? 'mdi-minus' : 'mdi-plus'"
-        color="secondary"
+        color="primary"
         @click="add_threshold_view = !add_threshold_view"
       >
         <q-tooltip content-class="bg-secondary" :delay="500">

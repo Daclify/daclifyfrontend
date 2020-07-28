@@ -1,7 +1,7 @@
 <template>
   <q-card>
     <!-- {{ getThresholdLinksWithFilter }} -->
-    <q-toolbar class="bg-primary text-white shadow-2">
+    <q-toolbar class="bg-secondary text-white shadow-2">
       <q-toolbar-title :shrink="true">
         <span v-if="add_threshold_link">Add Threshold Link</span>
         <span v-else>Threshold Action Links</span>
@@ -12,7 +12,7 @@
         round
         dense
         :icon="add_threshold_link ? 'mdi-minus' : 'mdi-plus'"
-        color="secondary"
+        color="primary"
         @click="add_threshold_link = !add_threshold_link"
       >
         <q-tooltip content-class="bg-secondary" :delay="500">

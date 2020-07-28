@@ -26,12 +26,12 @@
 
 
     <q-card>
-      <q-toolbar class="bg-primary text-white shadow-2">
+      <q-toolbar class="bg-secondary text-white shadow-2">
         <q-toolbar-title :shrink="true">
           <span>Hooks</span>
         </q-toolbar-title>
         <q-space />
-        <q-btn round dense :icon="add_hook_view?'mdi-minus':'mdi-plus'" color="secondary" @click="add_hook_view=!add_hook_view">
+        <q-btn round dense :icon="add_hook_view?'mdi-minus':'mdi-plus'" color="primary" @click="add_hook_view=!add_hook_view">
           <q-tooltip content-class="bg-secondary" :delay="500">
             <span v-if="!add_hook_view">Add new hook</span>
             <span v-else>Go back to hooks</span>

@@ -2,7 +2,7 @@
   <div>
 
     <q-card>
-      <q-toolbar class="bg-primary text-white shadow-2">
+      <q-toolbar class="bg-secondary text-white shadow-2">
         <q-toolbar-title :shrink="true">
           <span>Hooks</span>
         </q-toolbar-title>

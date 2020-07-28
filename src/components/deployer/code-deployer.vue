@@ -31,7 +31,7 @@
         <q-btn v-if="module.has_contract" label="update code" @click="view='update_code'" color="primary" />
       </div>
       <div v-else class="row justify-between">
-        <q-btn label="back" @click="reset_view" color="secondary" />
+        <q-btn label="back" @click="reset_view"  color="primary" flat/>
         <q-btn label="propose code update" @click="proposeCodeUpdate" color="primary" :disabled="!can_propose_code_update" :loading="is_proposing"/>
         <!-- {{new_hex.abi_hash}}
         {{new_hex.code_hash}} -->

@@ -110,8 +110,8 @@ export default {
         {label:"Remote", sublabel:"github, server, ... ", value:"remote"},
         {label:"Local", sublabel:"disk", value:"local"},
       ],
-      wasm_url:"https://raw.githubusercontent.com/Daclify/daclifycore/master/daclifycore.wasm",
-      abi_url:"https://raw.githubusercontent.com/Daclify/daclifycore/master/daclifycore.abi",
+      wasm_url:"",
+      abi_url:"",
 
       wasm_file:[],
       abi_file:[],

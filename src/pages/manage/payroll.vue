@@ -41,14 +41,14 @@
     </q-card>
 
     <q-card>
-      <q-toolbar class="bg-primary text-white shadow-2">
+      <q-toolbar class="bg-secondary text-white shadow-2">
         <q-toolbar-title :shrink="true">
             <span v-if="!add_payment_view">Pending Payments</span>
             <span v-else>Add Payment</span>
             <span class="text-caption"> ({{getActivePayRoll.payroll_tag}})</span>
         </q-toolbar-title>
         <q-space />
-        <q-btn round dense :icon="add_payment_view?'mdi-minus':'mdi-plus'" color="secondary" @click="add_payment_view=!add_payment_view">
+        <q-btn round dense :icon="add_payment_view?'mdi-minus':'mdi-plus'" color="primary" @click="add_payment_view=!add_payment_view">
           <q-tooltip content-class="bg-secondary" :delay="500">
             <span v-if="!add_payment_view">Add payment to payroll <b>{{getActivePayRoll.payroll_tag}}</b></span>
             <span v-else>Go back to pending payments</span>
