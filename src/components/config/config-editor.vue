@@ -99,6 +99,11 @@
             <set-internal-accounting />
           </q-tab-panel>
 
+          <q-tab-panel name="Update Code" class="overflow-hidden">
+            <page-header title="Update Core Code" />
+            <code-deployer :module="{module_name:'core', slave_permission:{actor: getActiveGroup, permission:'owner'}, has_contract:true}" />
+          </q-tab-panel>
+
 
           <q-tab-panel name="Color" class="overflow-hidden">
             <page-header title="UI Color" />
@@ -147,6 +152,10 @@ var testtree = [
           
         ]
       },
+      {
+        label: "Update Code",
+        icon: "mdi-file-upload"
+      },
     ]
   }
 ];
@@ -162,6 +171,7 @@ import setMembers from "components/config/set-members";
 import pageHeader from "components/page-header";
 import actionProposer from "components/actions/action-proposer";
 import updateColor from "components/actions/update-color";
+import codeDeployer from "components/deployer/code-deployer";
 
 export default {
   name: "groupSubaccounts",
@@ -173,6 +183,7 @@ export default {
     pageHeader,
     updateColor,
     actionProposer,
+    codeDeployer,
 
     setMaintainanceAccount
   },

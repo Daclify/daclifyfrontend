@@ -53,7 +53,7 @@
           <q-card-section>
             <action-proposer>
               <template slot-scope="scope">
-                  <file-publisher :content="`test`" @propose="scope.propose" @addtobucket="scope.addtobucket" />
+                  <file-publisher :content="`this is test content`" @propose="scope.propose" @addtobucket="scope.addtobucket" />
               </template>
             </action-proposer>
           </q-card-section>
