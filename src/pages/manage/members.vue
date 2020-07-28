@@ -1,6 +1,6 @@
 <template>
   <q-page  padding class="constrain-page-width">
-    <page-header title="Members" />
+ 
     <div v-if="getCoreConfig" class="text-right q-mb-md">
       <q-badge  v-if="getCoreConfig.conf.member_registration" key="enabled" >Member Registration Enabled</q-badge>
       <q-badge  color="negative" v-else key="disabled">Member Registration disabled</q-badge>
@@ -37,8 +37,14 @@
 
 
 
-    <div v-if="getActiveGroup">
-      <!-- <pre>{{members}}</pre> -->
+    <q-card v-if="getActiveGroup">
+      <q-toolbar class="bg-secondary text-white shadow-2">
+        <q-toolbar-title :shrink="true">
+          <span>Members</span>
+        </q-toolbar-title>
+        <q-space />
+        <div v-if="getCoreState">#{{getCoreState.state.member_count}}</div>
+      </q-toolbar>
       <q-list class="primary-hover-list" bordered separator>
         <q-expansion-item v-for="member in members" :key="member.account" group="members">
           <template v-slot:header>
@@ -66,9 +72,10 @@
         </q-item>
         <no-items v-if="!is_loading && !members.length" text="No members" />
       </q-list>
-      <div class="text-right q-mt-md">
-        <q-btn label="more" @click="fetchMembers()" color="primary" :disabled="!more" />
-      </div>
+
+    </q-card>
+    <div class="text-right q-mt-md">
+      <q-btn label="more" @click="fetchMembers()" color="primary" :disabled="!more" />
     </div>
 
   </q-page>
@@ -76,7 +83,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import pageHeader from "components/page-header";
+
 import profilePic from "components/profile-pic";
 import profileLink from "components/profile-link";
 import noItems from "components/no-items";
@@ -84,7 +91,7 @@ import noItems from "components/no-items";
 export default {
   name: 'members',
   components:{
-    pageHeader,
+
     profilePic,
     profileLink,
     noItems
