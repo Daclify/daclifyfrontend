@@ -14,7 +14,6 @@
       <q-list
         v-else
         class="primary-hover-list"
-        bordered
         separator
         striped
       >

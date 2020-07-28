@@ -31,7 +31,6 @@
         <q-list
           v-if="getThresholdLinksWithFilter.length"
           class="primary-hover-list"
-          bordered
           separator
           striped
         >
@@ -53,7 +52,7 @@
           </q-item>
           <no-items v-if="!getThresholdLinksWithFilter.length" text="No links found"/>
         </q-list>
-        <q-list v-else bordered separator striped>
+        <q-list v-else separator striped>
           <no-items text="All actions require the default threshold"/>
         </q-list>
       </div>

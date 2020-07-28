@@ -29,7 +29,6 @@
       <div v-if="!add_module_view" key="modules">
         <q-list
           class="primary-hover-list"
-          bordered
           separator
           striped
         >

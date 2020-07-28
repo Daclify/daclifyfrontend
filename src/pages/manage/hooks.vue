@@ -45,7 +45,6 @@
         v-if="!add_hook_view"
         key="listhooks"
         class="primary-hover-list"
-        bordered
         separator
       >
         <!-- <transition-group appear enter-active-class="animated zoomIn" leave-active-class="animated zoomOut"> -->

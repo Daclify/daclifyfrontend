@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-list class="primary-hover-list no-padding" separator bordered>
+    <q-list class="primary-hover-list no-padding" separator>
       <my-payment v-for="payment in payments" :key="payment.pay_id" :payment="payment"/>
       <no-items v-if="!payments.length" text="No payments" />
     </q-list>

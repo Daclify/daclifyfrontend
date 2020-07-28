@@ -30,7 +30,6 @@
         <q-list
           v-if="getThresholdsWithFilter.length"
           class="primary-hover-list"
-          bordered
           separator
           striped
         >
@@ -57,7 +56,7 @@
             </q-item-section>
           </q-item>
         </q-list>
-        <q-list v-else bordered separator striped>
+        <q-list v-else separator striped>
           <q-item>
             <q-item-label caption>No thresholds</q-item-label>
           </q-item>

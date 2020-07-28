@@ -7,7 +7,6 @@ const routes = [
       { path: 'create', component: () => import('pages/create.vue') },
       { path: 'browse', component: () => import('pages/browse.vue') },
       { path: 'create/:newgroupname', component: () => import('pages/create.vue') },
-      { path: 'preferences', component: () => import('pages/preferences.vue') },
       { path: 'tests', component: () => import('pages/tests.vue') },
       // { path: 'pricing', component: () => import('pages/pricing.vue') }
     ]

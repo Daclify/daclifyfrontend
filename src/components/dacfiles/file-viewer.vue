@@ -30,7 +30,12 @@
               >
               </q-markdown>
               <q-input v-else v-model="content" type="textarea" autogrow :input-style="{ padding:0 }"/>
+
+            <div v-if="!content" class="text-caption">
+              No file selected
             </div>
+            </div>
+
           </transition>
         </q-card-section>
       </q-card>

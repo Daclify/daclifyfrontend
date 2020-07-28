@@ -57,7 +57,7 @@
       </q-toolbar>
       <transition enter-active-class="animated zoomIn" leave-active-class="animated zoomOut" mode="out-in" tag="div" >
       <div v-if="!add_payment_view" key="payments">
-        <q-list v-if="filterPayments.length"  class="primary-hover-list" bordered separator striped>
+        <q-list v-if="filterPayments.length"  class="primary-hover-list" separator striped>
           <payment v-for="(payment, i) in filterPayments" :key="payment.pay_id" :payment="payment" :class="i % 2 === 0 ?'':''" />
         </q-list>
         <q-list v-else bordered separator striped>
