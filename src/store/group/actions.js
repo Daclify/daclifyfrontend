@@ -432,7 +432,7 @@ export async function propose({ state, rootState, dispatch, commit }, payload) {
     }
     if(typeof action.data == 'object'){
       const contract = await this._vm.$eos.api.getContract(action.account);
-      action = this._vm.$eos.api.Serialize.serializeAction(contract, action.account, action.name, action.authorization, action.data);
+      action = this._vm.$eos.Serialize.serializeAction(contract, action.account, action.name, action.authorization, action.data);
     }
     propose_action.data.actions.push(action);
   }

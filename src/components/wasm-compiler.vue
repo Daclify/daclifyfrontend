@@ -107,7 +107,7 @@ export default {
       })
     },
     async parseAbi (abifile) {
-      const Serialize = this.$eos.api.Serialize;
+      const Serialize = this.$eos.Serialize;
       const buffer = new Serialize.SerialBuffer({
         textEncoder: new TextEncoder(),
         textDecoder: new TextDecoder()

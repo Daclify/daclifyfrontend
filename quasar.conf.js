@@ -102,7 +102,8 @@ module.exports = function (ctx) {
         'QFab',
         'QFabAction',
         'QPageSticky',
-        'QInfiniteScroll'
+        'QInfiniteScroll',
+        'QFile'
       ],
 
       directives: [

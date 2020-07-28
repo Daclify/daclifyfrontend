@@ -257,7 +257,9 @@ export async function proposeSystemMsig({ state, rootState, commit, dispatch, ge
       proposal_name: proposal_name,
       requested: requested,
       trx: msigTrx_template
-    }
+    },
+    //authorization:[{actor: "piecesnbits1", permission: "active"},{actor: "daclifydacgo", permission: "owner"}]
+
   };
 
   if(payload.return_action){

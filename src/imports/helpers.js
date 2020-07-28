@@ -1,4 +1,5 @@
 import Vue from "vue";
+
 const crypto = require('crypto');
 
 export function randomName () {
@@ -115,7 +116,7 @@ export async function serializeActionData(action ) {
     let name = action.name;
     let data = action.data;
     const contract = await Vue.prototype.$eos.api.getContract(account);
-    let hex = Vue.prototype.$eos.api.Serialize.serializeActionData(
+    let hex = Vue.prototype.$eos.Serialize.serializeActionData(
       contract,
       account,
       name,
@@ -171,6 +172,25 @@ export async function get_content_from_trace(trxid, block_num, actionname, datak
     found:true,
     content: content,
     block_num: startblock
+  }
+
+}
+
+
+export async function getCurrentCodeHash(rpcEndpoints, account) {
+
+  let url = rpcEndpoints[0]+'/v1/chain/get_raw_abi';
+  let res = await Vue.prototype.$axios({
+    method: 'post',
+    url: url,
+    data: {
+      account_name: account
+    }
+  })
+  console.log('fetched code hash for', account, res.data);
+  return {
+    code_hash: res.data.code_hash !="0000000000000000000000000000000000000000000000000000000000000000"?res.data.code_hash:false,
+    abi_hash: res.data.abi !=""?res.data.abi_hash:false
   }
 
 }

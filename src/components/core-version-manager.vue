@@ -113,22 +113,24 @@ export default {
         account: "eosio",
         name: "setcode",
         data:{
-          account: this.getActiveGroup,
+          account: "testmodule11",//this.getActiveGroup,
           vmtype: 0,
           vmversion: 0,
           code: this.wasmhex
         },
-        authorization:[{actor: this.getActiveGroup, permission: "owner"}]
+        //authorization:[{actor: this.getActiveGroup, permission: "owner"}]
+        authorization:[{actor: "testmodule11", permission: "active"}]
 
       };
       let setabi = {
         account: "eosio",
         name: "setabi",
         data:{
-          account: this.getActiveGroup,
+          account: "testmodule11",//this.getActiveGroup,
           abi: this.abihex
         },
-        authorization:[{actor: this.getActiveGroup, permission: "owner"}]
+        //authorization:[{actor: this.getActiveGroup, permission: "owner"}]
+        authorization:[{actor: "testmodule11", permission: "active"}]
       };
 
       let system_propose_options = {

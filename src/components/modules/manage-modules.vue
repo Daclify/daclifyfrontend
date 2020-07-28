@@ -1,9 +1,9 @@
 <template>
   <q-card class="">
     <!-- {{getModules}} -->
-    <q-toolbar class="bg-primary text-white shadow-2">
+    <q-toolbar class="bg-secondary text-white shadow-2">
       <q-toolbar-title :shrink="true">
-        <span v-if="add_module_view">Manage Modules</span>
+        <span v-if="add_module_view">Link Module</span>
         <span v-else>Modules</span>
       </q-toolbar-title>
       <q-space />
@@ -11,7 +11,7 @@
         round
         dense
         :icon="add_module_view ? 'mdi-minus' : 'mdi-plus'"
-        color="secondary"
+        color="primary"
         @click="add_module_view = !add_module_view"
       >
         <q-tooltip content-class="bg-secondary" :delay="500">
@@ -28,31 +28,37 @@
     >
       <div v-if="!add_module_view" key="modules">
         <q-list
-          v-if="getModulesWithFilter.length"
           class="primary-hover-list"
           bordered
           separator
           striped
         >
-          <q-item
+          <q-expansion-item 
             v-for="module in getModulesWithFilter"
             :key="module.module_name"
             clickable
+            group="modules"
           >
-            <q-item-section side>
-              <q-badge>{{ module.module_name }}</q-badge>
-            </q-item-section>
-            <q-item-section>
-              <q-item-label caption>
-                slave permission {{module.slave_permission}}
-              </q-item-label>
-            </q-item-section>
+            <template v-slot:header>
+              <q-item-section side>
+                <q-badge>{{ module.module_name }}</q-badge>
+              </q-item-section>
+              <q-item-section>
+                <q-item-label caption>
+                  slave permission {{module.slave_permission}}
+                </q-item-label>
+              </q-item-section> 
+            </template>
+            <q-separator />
+            <div>
+              <q-card-section>
+                <code-deployer :module="module" />
+              </q-card-section>
+            </div>
+          </q-expansion-item>
+          <no-items v-if="!getModulesWithFilter.length" text="No modules" />
+        </q-list>
 
-          </q-item>
-        </q-list>
-        <q-list v-else bordered separator striped>
-          <no-items text="No modules" />
-        </q-list>
       </div>
       <q-card-section  v-else class="relative-position" key="add">
         <!-- <q-btn icon="close"  round dense  class="q-ma-md " @click="add_payment_view=false"/> -->
@@ -72,6 +78,7 @@
 import { mapGetters } from "vuex";
 import actionProposer from "components/actions/action-proposer";
 import linkModule from "components/modules/link-module";
+import codeDeployer from "components/deployer/code-deployer";
 import noItems from "components/no-items";
 
 export default {
@@ -79,7 +86,8 @@ export default {
   components: {
     actionProposer,
     linkModule,
-    noItems
+    noItems,
+    codeDeployer
   
   },
   data() {

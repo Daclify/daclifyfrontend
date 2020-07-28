@@ -76,7 +76,7 @@
           
           <div class="row justify-between items-center">
             <clap-for-group />
-            <group-notification-manager />
+            <!-- <group-notification-manager /> -->
           </div>
           
         </q-card>
