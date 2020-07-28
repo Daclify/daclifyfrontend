@@ -35,10 +35,10 @@
 
       <div v-if="selected_src.value=='local'" key="local" class="row items-center">
         <div style="width:200px; " class="q-mr-md">
-          <q-file outlined counter v-model="wasm_file" label="wasm file" />
+          <q-file outlined clearable counter v-model="wasm_file" label="wasm file" accept=".wasm"/>
         </div>
         <div style="width:200px;" class="q-mr-md">
-          <q-file outlined counter v-model="abi_file" label="abi file" />
+          <q-file outlined clearable counter v-model="abi_file" label="abi file" accept=".abi"/>
         </div>
         <div class="q-mr-md">
           <q-btn label="load" color="primary" @click="compile_local" />
