@@ -48,11 +48,7 @@
       </q-tab-panels>
     </q-card>
 
-    <!-- <div class="q-mt-md">
-      <q-card class="primary-hover-list">
-        <core-version-manager />
-      </q-card>
-    </div> -->
+
 
     <manage-modules class="q-mt-md" />
 
@@ -69,7 +65,7 @@ import pageHeader from "components/page-header";
 import configEditor from "components/config/config-editor";
 import configUpdater from "components/config/config-updater";
 
-import coreVersionManager from "components/core-version-manager";
+
 
 import manageModules from "components/modules/manage-modules"
 
@@ -84,8 +80,6 @@ export default {
     pageHeader,
     configEditor,
     configUpdater,
-
-    coreVersionManager,
     manageModules
   },
   data() {

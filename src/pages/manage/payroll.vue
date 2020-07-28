@@ -61,9 +61,7 @@
           <payment v-for="(payment, i) in filterPayments" :key="payment.pay_id" :payment="payment" :class="i % 2 === 0 ?'':''" />
         </q-list>
         <q-list v-else bordered separator striped>
-          <q-item>
-            <q-item-label caption>No Payments</q-item-label>
-          </q-item>
+          <no-items  text="No payments" />
         </q-list>
       </div>
       <div v-else class="relative-position" key="add">
@@ -92,6 +90,7 @@ import { getLogoForToken } from "../../imports/tokens.js";
 import pageHeader from "components/page-header";
 import actionProposer from "components/actions/action-proposer";
 import addPayment from "components/modules/payroll/add-payment";
+import noItems from "components/no-items";
 
 import payment from "components/modules/payroll/payment";
 import payrollStats from "components/modules/payroll/payroll-stats";
@@ -103,7 +102,8 @@ export default {
     payrollStats,
     payment,
     actionProposer,
-    addPayment
+    addPayment,
+    noItems
   },
   data () {
     return {

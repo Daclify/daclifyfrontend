@@ -82,12 +82,6 @@
         </q-card>
       </div>
 
-      <div v-if="getCoreConfig" class="col-xs-12" key="version_manager">
-        <q-card class="primary-hover-list">
-           <core-version-manager />
-        </q-card>
-      </div>
-
 
       <div class="col-xs-12 col-sm-6 col-lg-4" key="custodians_info">
         <q-card class="primary-hover-list">
@@ -184,7 +178,7 @@ import dateString from "components/date-string";
 
 import newElectionTimer from "components/modules/elections/new-election-timer";
 
-import coreVersionManager from "components/core-version-manager";
+
 
 
 export default {
@@ -193,7 +187,6 @@ export default {
     updateLogo,
     groupTags,
     groupLinks,
-    coreVersionManager,
     clapForGroup,
     groupNotificationManager,
     newElectionTimer,

@@ -106,7 +106,7 @@ export default {
     return {
       selected_src: "",
       src_options:[
-        {label:"Daclify", sublabel:"on-chain code registry", value:"daclify"},
+        {label:"Daclify", sublabel:"official releases from Daclify registry", value:"daclify"},
         {label:"Remote", sublabel:"github, server, ... ", value:"remote"},
         {label:"Local", sublabel:"disk", value:"local"},
       ],
