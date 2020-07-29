@@ -103,7 +103,8 @@ module.exports = function (ctx) {
         'QFabAction',
         'QPageSticky',
         'QInfiniteScroll',
-        'QFile'
+        'QFile',
+        'QIntersection'
       ],
 
       directives: [

@@ -17,7 +17,7 @@ export default {
     network: null
   },
 
-  activeNetwork: "jungle",
+  activeNetwork: "mainnet",
 
   networks: {
     mainnet: {

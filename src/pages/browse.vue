@@ -77,7 +77,7 @@
           v-if="!getGroupsWithFilter.length"
         >
           <q-icon name="error_outline" size="24px" class="q-mr-sm" />
-          No Groups found...
+          No Groups found on {{getActiveNetwork}}...
         </span>
       </transition>
 
@@ -97,6 +97,9 @@
          
         </div>
       </transition-group>
+      <!-- <div v-else class="row justify-center items-center" style="200px">
+        <q-spinner color="primary" size="42px" />
+      </div> -->
     </div>
   </q-page>
 </template>
@@ -122,7 +125,8 @@ export default {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
       getGroups: "app/getGroups",
-      getFavouriteGroups: "user/getFavouriteGroups"
+      getFavouriteGroups: "user/getFavouriteGroups",
+      getActiveNetwork: "ual/getActiveNetwork",
     }),
     getGroupsWithFilter() {
       let res = this.getGroups;
@@ -156,6 +160,11 @@ export default {
         }
       }
       return test;
+    },
+    async loadGroups(){
+      this.is_loading_groups = true;
+      await this.$store.dispatch("app/fetchGroups");
+      this.is_loading_groups = false;
     }
   },
   mounted() {
@@ -168,10 +177,18 @@ export default {
 
     console.log(this.location_hash);
     
-    this.$store.dispatch("app/fetchGroups");
+    // this.$store.dispatch("app/fetchGroups");
     
   },
   watch: {
+    getActiveNetwork:{
+      immediate: true,
+      handler:function (newV, oldV){
+        if(newV != oldV){
+          this.loadGroups();
+        }
+      }
+    },
     location_hash: {
       immediate: true,
       handler(newVal, oldVal) {

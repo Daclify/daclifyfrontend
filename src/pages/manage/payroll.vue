@@ -34,8 +34,10 @@
           {{payroll.description || 'No description'}}
         </q-tooltip>
       </q-tab>
+
     </q-tabs>
     <q-separator  />
+
     <q-card class="q-pa-sm q-my-md">
       <payroll-stats :payroll="getActivePayRoll" @onbalance="active_payroll_balance = $event" />
     </q-card>
@@ -93,6 +95,7 @@ import addPayment from "components/modules/payroll/add-payment";
 import noItems from "components/no-items";
 
 import payment from "components/modules/payroll/payment";
+import newPayroll from "components/modules/payroll/new-payroll";
 import payrollStats from "components/modules/payroll/payroll-stats";
 
 export default {
@@ -103,14 +106,16 @@ export default {
     payment,
     actionProposer,
     addPayment,
-    noItems
+    noItems,
+    newPayroll
   },
   data () {
     return {
       active_payroll: '',
       searchfilter: '',
       add_payment_view: false,
-      active_payroll_balance: ""
+      active_payroll_balance: "",
+      new_payroll_view: false
     }
   },
   computed: {

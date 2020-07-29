@@ -1,9 +1,8 @@
 <template>
   <q-page class=" bg-dark full-height">
-    <!-- <div class="diagonal"></div> -->
+
     <div class="header_box relative-position">
-      <!-- https://svg-clipart.com/blue/P9e4bp8-crowd-clipart -->
-      <!-- ./statics/images/bg.jpg -->
+
       <q-parallax src="statics/images/bg.jpg" :height="500">
         <div class="text-center text-primary" style="">
           <div
@@ -26,19 +25,22 @@
         <comparison-table style="width:100%"/>
       </div>
 
+
+
+
       <div class=" q-mt-md q-pb-xl row q-col-gutter-lg text-grey-9 text-weight-medium">
-        <div class="col-xs-12 col-sm-6">
-          <whatisdac class="invisible" v-scroll-fire="(el)=>{makeVisible(el, 'fadeInLeft')}" />
-        </div>
-        <div class="col-xs-12 col-sm-6">
-          <whydac class="invisible" v-scroll-fire="(el)=>{makeVisible(el, 'fadeInRight')}"/>
-        </div>
-        <div class="col-xs-12 col-sm-6">          
-          <modules class="invisible" v-scroll-fire="(el)=>{makeVisible(el, 'fadeInLeft')}"/>
-        </div>
-        <div class="col-xs-12 col-sm-6">     
-          <onchain class="invisible" v-scroll-fire="(el)=>{makeVisible(el, 'fadeInRight')}"/> 
-        </div>     
+        <q-intersection transition="scale" class="col-xs-12 col-sm-6">
+            <whatisdac  />
+        </q-intersection>
+        <q-intersection transition="scale" class="col-xs-12 col-sm-6">
+            <whydac  />
+        </q-intersection>
+        <q-intersection transition="scale" class="col-xs-12 col-sm-6">
+            <modules  />
+        </q-intersection>
+        <q-intersection transition="scale" class="col-xs-12 col-sm-6">
+            <onchain  />
+        </q-intersection>
       </div>
   
     </div>
@@ -92,33 +94,12 @@ export default {
   computed: {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
-
     })
-  },
-  methods: {
-    makeVisible (el, animation) {
-      el.classList.add("animated", animation, "v-enter-to");
-      el.classList.remove('invisible');
-    }
   }
 };
 </script>
 
 <style>
-.diagonal {
-  height: 400px;
-  background-image: url("../statics/images/diagonal.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin-top: -30px;
-}
-.bottom-info-box {
-  width: 304px;
-  height: 177px;
-  border: 1px solid var(--q-color-secondary);
-  border-radius: 8px;
-  box-sizing: border-box;
-}
 .header_box {
   border-bottom: 5px solid var(--q-color-primary);
 }
