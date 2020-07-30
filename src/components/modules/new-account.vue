@@ -220,7 +220,7 @@ export default {
           creator: creator,
           name: this.new_account_name,
           active: {accounts: [{permission: { actor: this.getActiveGroup, permission: "owner" },weight: 1}],keys: [],threshold: 1,waits: []},
-          owner: {accounts: [{permission: { actor: this.getAccountName, permission: "active" },weight: 1}],keys: [],threshold: 1,waits: []}
+          owner: {accounts: [{permission: { actor: this.getActiveGroup, permission: "owner" },weight: 1},{permission: { actor: this.getAccountName, permission: "active" },weight: 1}],keys: [],threshold: 1,waits: []}
         }
       }
       if(this.include_eosio_code){

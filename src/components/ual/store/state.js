@@ -27,9 +27,15 @@ export default {
         rpcEndpoints: [ //https://eosbp.atticlab.net", "https://eos.greymass.com", "https://api.eossweden.se
           {
             protocol: "https",
+            host: "api.eosn.io",
+            port: "443"
+          },
+          {
+            protocol: "https",
             host: "api.eossweden.org",
             port: "443"
           },
+
           {
             protocol: "https",
             host: "eosbp.atticlab.net",

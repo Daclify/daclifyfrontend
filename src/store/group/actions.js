@@ -28,6 +28,7 @@ export async function resetStore ({  commit }, payload) {
   commit('setActiveGroup', "");//todo catch the error generating loading group with empty name
   commit('setLatestUserterms', false);
   commit('setProfileCache', []);
+  commit('bucket/setActionBucket', [], {root: true});
 }
 
 export async function loadGroupRoutine ({ dispatch, commit, rootGetters }, payload) {

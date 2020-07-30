@@ -11,6 +11,7 @@ export function setActionBucket(state, payload){
     state.actionBucket=payload;
 }
 
+
 export function removeFromActionBucketByIndex(state, index){
     state.actionBucket.splice(index, 1);
 }
