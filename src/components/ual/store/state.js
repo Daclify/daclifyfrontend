@@ -24,7 +24,17 @@ export default {
       config: {
         chainId:
           "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
-        rpcEndpoints: [
+        rpcEndpoints: [ //https://eosbp.atticlab.net", "https://eos.greymass.com", "https://api.eossweden.se
+          {
+            protocol: "https",
+            host: "api.eossweden.org",
+            port: "443"
+          },
+          {
+            protocol: "https",
+            host: "eosbp.atticlab.net",
+            port: "443"
+          },
           {
             protocol: "https",
             host: "api.eostitan.com",
