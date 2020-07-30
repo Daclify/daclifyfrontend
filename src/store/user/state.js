@@ -8,10 +8,19 @@ export default {
     net: 10
   },
   selectedBlockExplorer: {
-    base: 'https://jungle3.bloks.io/',
-    trx: 'transaction/',
-    account: 'account/'
+    jungle:{
+      base: 'https://jungle3.bloks.io/',
+      trx: 'transaction/',
+      account: 'account/'
+    },
+    mainnet:{
+      base: 'https://bloks.io/',
+      trx: 'transaction/',
+      account: 'account/'
+    }
+
   },
+
   minifyCustodians: false,
   isDark: false,
   isMember: false,
