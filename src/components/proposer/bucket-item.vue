@@ -16,10 +16,10 @@
       </q-item-section>
       <q-item-section side>
         <div class="row items-center">
-          <authorization-display
+          <!-- <authorization-display
             :action="action"
             class="text-caption text-grey-5"
-          />
+          /> -->
           <threshold-badge
             :contract="action.account"
             :action_name="action.name"
@@ -43,8 +43,24 @@
     <q-separator />
     <q-card>
       <q-card-section>
-        <q-item-label caption>data: {{ action.data }}</q-item-label>
-        <q-item-label caption>todo: make it possible to update authorization</q-item-label>
+        <q-item>
+          <q-item-section>
+            <q-item-label >Action data</q-item-label>
+            <q-item-label caption>{{ action.data }}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item>
+          <q-item-section>
+            <q-item-label >Autorization</q-item-label>
+            <q-item-label caption>
+              <authorization-display
+                :action="action"
+                :edit="true"
+              />
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+        
       </q-card-section>
     </q-card>
   </q-expansion-item>
