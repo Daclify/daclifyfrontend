@@ -107,7 +107,7 @@ export default {
 
   },
   props:{
-
+    slave_permission:{actor:"", permission:""}
   },
   data() {
     return {
@@ -177,6 +177,9 @@ export default {
   },
   mounted(){
     this.action.account = this.getActiveGroup;
+    if(this.slave_permission.actor && this.slave_permission.permission){
+      this.action.data.slave_permission = this.slave_permission;
+    }
 
 
   },

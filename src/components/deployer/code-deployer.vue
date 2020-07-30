@@ -104,7 +104,7 @@ export default {
           code: this.new_hex.wasm
         },
         // authorization:[{actor: this.getActiveGroup, permission: "owner"}]
-        authorization:[{actor: this.module.slave_permission.actor, permission: "active"}]
+        authorization:[this.module.slave_permission]
 
       };
       let setabi = {
@@ -115,7 +115,7 @@ export default {
           abi: this.new_hex.abi
         },
         // authorization:[{actor: this.getActiveGroup, permission: "owner"}]
-        authorization:[{actor: this.module.slave_permission.actor, permission: "active"}]
+        authorization:[this.module.slave_permission]
       };
 
       let system_propose_options = {

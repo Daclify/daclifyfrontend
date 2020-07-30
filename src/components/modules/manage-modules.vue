@@ -3,19 +3,19 @@
     <!-- {{getModules}} -->
     <q-toolbar class="bg-secondary text-white shadow-2">
       <q-toolbar-title :shrink="true">
-        <span v-if="add_module_view">Link Module</span>
+        <span v-if="manage_module">Manage Modules</span>
         <span v-else>Modules</span>
       </q-toolbar-title>
       <q-space />
       <q-btn
         round
         dense
-        :icon="add_module_view ? 'mdi-minus' : 'mdi-plus'"
+        :icon="manage_module ? 'mdi-minus' : 'mdi-plus'"
         color="primary"
-        @click="add_module_view = !add_module_view"
+        @click="manage_module = !manage_module"
       >
         <q-tooltip content-class="bg-secondary" :delay="500">
-          <span v-if="!add_module_view">manage modules</span>
+          <span v-if="!manage_module">manage modules</span>
           <span v-else>Go back to modules</span>
         </q-tooltip>
       </q-btn>
@@ -26,7 +26,7 @@
       mode="out-in"
       tag="div"
     >
-      <div v-if="!add_module_view" key="modules">
+      <div v-if="!manage_module" key="modules">
         <q-list
           class="primary-hover-list"
           separator
@@ -61,11 +61,38 @@
       </div>
       <q-card-section  v-else class="relative-position" key="add">
         <!-- <q-btn icon="close"  round dense  class="q-ma-md " @click="add_payment_view=false"/> -->
-        <action-proposer>
-          <template slot-scope="scope">
-            <link-module @propose="scope.propose" @addtobucket="scope.addtobucket" />
-          </template>
-        </action-proposer>
+        <q-tabs
+          v-model="manage_module_view"
+          dense
+          class=" text-primary"
+          align="left"
+          inline-label
+        > 
+          <q-tab label="link module" name="link" />
+          <q-tab label="new account" name="create" />
+          
+        </q-tabs>
+        <q-separator/>
+        <q-tab-panels
+          v-model="manage_module_view"
+          style="min-height:200px"
+          animated 
+          transition-prev="fade" 
+          transition-next="fade"
+          class="overflow-hidden"
+        >
+          <q-tab-panel name="link" class="no-padding overflow-hidden" style="min-height:200px">
+            <action-proposer>
+              <template slot-scope="scope">
+                <link-module @propose="scope.propose" @addtobucket="scope.addtobucket" :slave_permission="slave_permission"/>
+              </template>
+            </action-proposer>
+          </q-tab-panel>
+          <q-tab-panel name="create" class="no-padding overflow-hidden" style="min-height:200px">
+            <new-account @requestLink="handleLinkRequest" />
+          </q-tab-panel>
+        </q-tab-panels>
+
       </q-card-section>
     </transition>
 
@@ -77,6 +104,7 @@
 import { mapGetters } from "vuex";
 import actionProposer from "components/actions/action-proposer";
 import linkModule from "components/modules/link-module";
+import newAccount from "components/modules/new-account";
 import codeDeployer from "components/deployer/code-deployer";
 import noItems from "components/no-items";
 
@@ -86,12 +114,15 @@ export default {
     actionProposer,
     linkModule,
     noItems,
-    codeDeployer
+    codeDeployer,
+    newAccount
   
   },
   data() {
     return {
-      add_module_view: false
+      manage_module: false,
+      manage_module_view:"link",
+      slave_permission: {actor:"", permission:""}
     };
   },
   computed: {
@@ -105,6 +136,12 @@ export default {
       return this.getModules;
     }
   },
-  methods: {}
+  methods: {
+    handleLinkRequest(e){
+      this.slave_permission = e;
+      this.manage_module_view = "link"
+
+    }
+  }
 };
 </script>
