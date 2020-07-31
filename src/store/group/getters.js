@@ -66,9 +66,6 @@ export function getMyOldProfile(state){
   return state.myOldProfile;
 }
 
-export function getMyProfile(state){
-  return state.myProfile;
-}
 
 export function getThresholds(state){
     return state.thresholds;

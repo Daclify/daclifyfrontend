@@ -394,7 +394,7 @@ export async function fetchProfile ({ state, commit, rootState, rootGetters }, a
   data = Object.assign(JSON.parse(template), data);
   commit('addProfile', data);
 
-  if(rootState.ual.accountName == accountname){
+  if(rootState.ual.SESSION.accountName == accountname){
     commit('setMyOldProfile', JSON.parse(JSON.stringify(data) ) );
   }
 

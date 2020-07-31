@@ -1,4 +1,3 @@
-import profile_template from "../../statics/profile_template.json";
 
 export default {
   activeGroup:'',

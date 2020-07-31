@@ -61,11 +61,6 @@ export function setMyOldProfile(state, payload){
     
 }
 
-export function setMyProfile(state, payload){
-
-    state.myProfile = payload
-}
-
 export function setCustodianLastActive(state, payload){
     let {custodian, block_time} = payload;
     let found_cust = state.custodians.find(c => c.account == custodian)
