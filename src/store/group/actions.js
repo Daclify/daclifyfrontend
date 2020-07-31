@@ -346,10 +346,10 @@ export async function fetchProfile ({ state, commit, rootState, rootGetters }, a
   let template = JSON.stringify(profile_template);
   let cached_p = state.profiles.find(p=> p.account == accountname);
   if(cached_p){
-    console.log("serve profile from cache");
+    console.log("serve profile from cache"); 
     return cached_p;
   }
-  
+
 
   let res = await this._vm.$eos.api.rpc.get_table_rows({
       json: true,
@@ -367,7 +367,12 @@ export async function fetchProfile ({ state, commit, rootState, rootGetters }, a
   };
   if(!res || res.account != accountname){
     data.last_update =  "";
-    return Object.assign(JSON.parse(template), data);
+    let res = Object.assign(JSON.parse(template), data);
+    if(rootState.ual.SESSION.accountName == accountname){
+      commit('setMyOldProfile', JSON.parse(JSON.stringify(res ) ) );
+    }
+    
+    return res ;
   }
   data.last_update =  res.last_update;
   try {

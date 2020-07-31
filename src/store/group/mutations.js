@@ -56,9 +56,14 @@ export function updateProfileTimestamp(state, payload){
 }
 
 export function setMyOldProfile(state, payload){
-    //{account: this.getAccountName, profile: this.profile}
+
         state.myOldProfile = payload
     
+}
+
+export function setMyProfile(state, payload){
+
+    state.myProfile = payload
 }
 
 export function setCustodianLastActive(state, payload){

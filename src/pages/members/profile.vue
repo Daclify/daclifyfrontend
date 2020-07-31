@@ -115,6 +115,7 @@
               transition-next="fade"
               
             >
+           
               <q-tab-panel name="text" class="overflow-hidden no-padding">
                 <text-edit :account="account" :profile_data="profile_data" />
               </q-tab-panel>
@@ -155,7 +156,9 @@
               </div>
 
             </div>
-            <!-- {{profile_data}} -->
+            <!-- {{profile_data}}
+            <div>{{getMyOldProfile}}</div>
+            <div>{{isProfileChanged}}</div> -->
           </q-card-section>
         </q-card>
       </div>
@@ -303,6 +306,15 @@ export default {
         }
       }
     },
+
+    // getAccountName:{
+    //   immediate: true,
+    //   handler: function(newV, oldV){
+    //     if(newV && newV != oldV && newV == this.account){
+
+    //     }
+    //   }
+    // },
     mutated_load_my_payments:{
       immediate: true,
       handler: async function(newV, oldV){

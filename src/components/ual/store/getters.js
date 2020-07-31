@@ -33,6 +33,9 @@ export function getUAL(state) {
 }
 
 export function getAccountName(state) {
+    if(state.SESSION.accountName){
+        return state.SESSION.accountName;
+    }
     return state.accountName;
 }
 

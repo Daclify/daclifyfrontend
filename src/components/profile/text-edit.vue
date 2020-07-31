@@ -26,6 +26,7 @@ export default {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
       getActiveGroup: "group/getActiveGroup",
+      getMyOldProfile: "group/getMyOldProfile"
 
       // getActiveGroupConfig: "group/getActiveGroupConfig",
       // getNumberCustodians: "group/getNumberCustodians"
