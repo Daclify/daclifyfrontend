@@ -91,7 +91,8 @@
               <q-spinner  color="white" size="40px"/>
             </div>
             <div v-else class="q-mt-xl text-center" >
-              nothing here yet
+              <div class="ellipsis-3-lines">{{group_info.about}}</div>
+         
             </div>
           </transition>
         </q-tab-panel>
@@ -111,7 +112,7 @@ import { openURL } from "quasar";
 import { isValidUrl } from "../imports/validators.js";
 import groupTags from "components/group-tags";
 export default {
-  // name: 'ComponentName',
+  name: 'groupCard',
   components: {
     groupTags
   },
@@ -126,8 +127,11 @@ export default {
   data() {
     return {
       view_mode: "main",
-      group_info: false,
-      info_is_loading: false
+      group_info: {
+        about: ""
+      },
+      info_is_loading: false,
+    
     };
   },
   computed: {
@@ -157,11 +161,14 @@ export default {
       }
     },
     fetchGroupInfo(){
-      if(this.group_info) return;
+
+      this.group_info.about = this.group.meta.about;
+
+
       this.info_is_loading = true;
       setTimeout(()=>{
         this.info_is_loading = false;
-      }, 1000)
+      }, 500)
     }
   }
 };

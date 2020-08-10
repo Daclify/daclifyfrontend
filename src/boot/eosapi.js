@@ -1,6 +1,6 @@
 import { JsonRpc, Api, Serialize, RpcError} from "@jafri/eosjs2";
-//var VConsole = require("vconsole");
-//var vConsole = new VConsole();
+var VConsole = require("vconsole");
+var vConsole = new VConsole();
 
 class EosApi {
   constructor(endpoints){

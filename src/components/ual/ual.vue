@@ -140,6 +140,7 @@ export default {
         }
 
         const account_name = await users[0].getAccountName();
+        console.log(' xxx debug ual users:', users);
         this.$store.commit("ual/setSESSION", {
           accountName: account_name,
           authenticatorName: authenticator_name,

@@ -21,6 +21,27 @@
     </div>
     <div class="q-pa-md center-page-content text-white">
       <div class="text-white text-center q-mb-xl" style="font-size: calc(16px + 1.8vw);" >EMPOWEREMENT OF DECENTRALIZED COMMUNITIES</div>
+
+
+<!-- TODO -->
+
+      <!-- <div class=" q-mt-md q-pb-xl row q-col-gutter-lg text-weight-medium">
+        <q-intersection transition="scale" class="col-xs-12 col-sm-6">
+          
+            <h5 class="text-center">For Existing Projects</h5>
+            <p>ds sd qs  dq sd qs dssssssssssssssssssss ssssssssss ssssssss ssssssssssssssss sssssssssssssssssss sssssssssssssssssss q d qs</p>
+          
+        </q-intersection>
+        <q-intersection transition="scale" class="col-xs-12 col-sm-6">
+        
+            <h5 class="text-center" >For Startups</h5>
+            <p>eeeeeeeeeee eeeeeeeeeee eeeeeeee eeeeeeee eeeeeeee eeeeeeee  eee eeeeeeeeeeeeeeeee eeeeeeeeee ee ee eee</p>
+          
+        </q-intersection>
+      </div> -->
+
+
+
       <div class="">
         <comparison-table style="width:100%"/>
       </div>
