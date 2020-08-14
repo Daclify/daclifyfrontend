@@ -428,6 +428,7 @@ export default {
       }
     },
     async get_wasm_and_abi_from_github(){
+      console.log("retrieving code from github")
       let wasm = await this.$refs.wasm_compiler.loadRemoteWasm("https://raw.githubusercontent.com/Daclify/daclifycore/master/daclifycore.wasm");
       let abi = await this.$refs.wasm_compiler.loadRemoteAbi("https://raw.githubusercontent.com/Daclify/daclifycore/master/daclifycore.abi");
 
