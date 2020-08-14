@@ -92,7 +92,6 @@
             </div>
             <div v-else class="q-mt-xl text-center" >
               <div class="ellipsis-3-lines">{{group_info.about}}</div>
-         
             </div>
           </transition>
         </q-tab-panel>
