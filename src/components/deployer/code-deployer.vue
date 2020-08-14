@@ -11,7 +11,7 @@
 
       <div v-if="view=='info'" key="info">
         <div>module name: {{module.module_name}}</div>
-        <div>account: {{module.slave_permission.actor}}</div>
+        <div class="row">account: <explorer-link  :accountname="module.slave_permission.actor" /> </div>
         <div v-if="current_code_and_abi_hash">
           <div>abi hash: {{current_code_and_abi_hash.abi_hash}}</div>
           <div>code hash: {{current_code_and_abi_hash.code_hash}}</div>
@@ -45,13 +45,15 @@
 import { mapGetters } from "vuex";
 import codeSelector from "components/deployer/code-selector";
 import {getCurrentCodeHash, randomName, sha256} from "../../imports/helpers.js";
+import explorerLink from "components/explorer-link";
 export default {
   name: 'codeDeployer',
   props:{
     module:""
   },
   components:{
-    codeSelector
+    codeSelector,
+    explorerLink
   },
   data () {
     return {

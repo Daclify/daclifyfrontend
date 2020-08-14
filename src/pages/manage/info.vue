@@ -24,10 +24,7 @@
                 <q-item-section>
                   <q-item-label>Group Account</q-item-label>
                   <q-item-label caption>
-                    <a :href="getSelectedBlockExplorer.base+getSelectedBlockExplorer.account+getActiveGroupConfig.groupname" target="_blank" class="text-link row items-center">
-                      <q-icon name="search" size="16px"/>
-                      <span>{{getActiveGroupConfig.groupname}}</span>
-                    </a>
+                    <explorer-link :accountname="getActiveGroupConfig.groupname" />
                   </q-item-label>
                 </q-item-section>
               </q-item>
@@ -175,7 +172,7 @@ import groupLinks from "components/group-links";
 import clapForGroup from "components/clap-for-group";
 import groupNotificationManager from "components/group-notification-manager";
 import dateString from "components/date-string";
-
+import explorerLink from "components/explorer-link";
 import newElectionTimer from "components/modules/elections/new-election-timer";
 
 
@@ -190,7 +187,8 @@ export default {
     clapForGroup,
     groupNotificationManager,
     newElectionTimer,
-    dateString
+    dateString,
+    explorerLink
 
   },
   data() {
