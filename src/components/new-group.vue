@@ -238,7 +238,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import newGroup from "components/new-group";
+
 import wasmCompiler from "components/wasm-compiler";
 
 import {
@@ -249,7 +249,6 @@ import {
 export default {
   name: "create",
   components: {
-    newGroup,
     wasmCompiler
   },
   props: {
@@ -428,6 +427,15 @@ export default {
         }
       }
     },
+    async get_wasm_and_abi_from_github(){
+      let wasm = await this.$refs.wasm_compiler.loadRemoteWasm("https://raw.githubusercontent.com/Daclify/daclifycore/master/daclifycore.wasm");
+      let abi = await this.$refs.wasm_compiler.loadRemoteAbi("https://raw.githubusercontent.com/Daclify/daclifycore/master/daclifycore.abi");
+
+      this.wasmhex = wasm.wasm;
+      this.abihex = abi;
+    },
+
+
     async get_wasm_and_abi_from_block(query) {
       let blocks = [];
       blocks.push(this.$eos.api.rpc.get_block(query.wasm[0]));
@@ -478,16 +486,17 @@ export default {
   async mounted() {
     
     this.$store.dispatch('app/fetchRamPricePerByte');
-    await this.get_wasm_and_abi_from_block({
-      wasm: [
-        26584888,
-        "433202ae4a84c6f13ec458f690acc844c0b81007770dfcfce586e4937e3c1ce9"
-      ],
-      abi: [
-        26584889,
-        "5d34750ee2f3db76f938c962f67709fb57486635030594b67849d49dc56c162c"
-      ]
-    });
+    // await this.get_wasm_and_abi_from_block({
+    //   wasm: [
+    //     26584888,
+    //     "433202ae4a84c6f13ec458f690acc844c0b81007770dfcfce586e4937e3c1ce9"
+    //   ],
+    //   abi: [
+    //     26584889,
+    //     "5d34750ee2f3db76f938c962f67709fb57486635030594b67849d49dc56c162c"
+    //   ]
+    // });
+    await this.get_wasm_and_abi_from_github();
 
     if (this.prefill.group_account_name) {
       this.new_group_account_name = this.prefill.group_account_name;

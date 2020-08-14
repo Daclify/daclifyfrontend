@@ -112,12 +112,18 @@ export async function transact({ state, dispatch, commit }, payload) {
     commit('setSigningOverlay', {show: true, status:0, msg: 'Waiting for Signature'});
   }
   commit('setIsTransacting', true);
-  
+  console.log(state.activeAuthenticator);
   let user = state.activeAuthenticator.users[0];
   //add authorization to actions if not supplied
+  let accountname = user.accountName || user.wallet.name;
+  let permission = "active";
+  if(user.wallet && user.wallet.permission){
+    permission = user.wallet.permissions[0];
+  }
+
   payload.actions.forEach(a => {
     if (!a.authorization) {
-      a.authorization = [{ actor: user.accountName, permission: "active" }];
+      a.authorization = [{ actor: accountname, permission: permission }];
     }
   });
   console.log(JSON.stringify(payload.actions, null, 2) );
@@ -134,10 +140,10 @@ export async function transact({ state, dispatch, commit }, payload) {
       dispatch('hideSigningOverlay', 1000);
     }
     commit('setIsTransacting', false);
-    console.log(res);
+    console.log("receipt", res);
 
-    let authenticator_name = state.activeAuthenticator.getStyle().text
-    console.log();
+    let authenticator_name = state.activeAuthenticator.getStyle().text;
+    console.log(authenticator_name);
     let receipt = {};
 
     if(authenticator_name == "Scatter"){
@@ -151,6 +157,12 @@ export async function transact({ state, dispatch, commit }, payload) {
       receipt.block_time = res.transaction.processed.block_time;
       receipt.trxid = res.transaction.processed.id;
       receipt.block_num = res.transaction.processed.block_num;
+    }
+    else if(authenticator_name == "Token Pocket"){
+      console.log("signed with Token Pocket");
+      receipt.block_time = new Date().toISOString();
+      receipt.trxid = res.transactionId;
+      receipt.block_num = 999999;
     }
     else{
       console.log("signed with unconfigured authenticater, please contact devs");
