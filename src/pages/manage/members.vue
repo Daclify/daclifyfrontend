@@ -52,13 +52,14 @@
               <profile-pic :size="42" :account="member.account"  :icon="getIsCustodian(member.account) ? 'mdi-star' : ''" />
             </q-item-section>
             <q-item-section>
-              <q-item-label class="text-capitalize">
+              <q-item-label >
                 <profile-link :account="member.account" :inversestyle="true" />
               </q-item-label>
               <!-- <q-item-label caption>ID {{payment.pay_id}}</q-item-label> -->
               <!-- {{getIsCustodian(member.account)}} -->
             </q-item-section>
           </template>
+          <q-separator />
           <q-card>
             <q-card-section>
             <q-item-label caption>nothing here yet</q-item-label>

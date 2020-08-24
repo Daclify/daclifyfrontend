@@ -412,7 +412,7 @@ export async function propose({ state, rootState, dispatch, commit }, payload) {
   // expiration:",
   // actions: []
 
-  let active_period = (60*60*24*7)*1000;
+  let active_period = (60*60*24*7*2)*1000;
   let default_expiration = new Date(Date.now()+active_period).toISOString().split('.')[0]; //"2019-12-03T00:28:24.215Z"
 
   let propose_action = {
