@@ -94,7 +94,7 @@
             <q-scroll-area
               :visible="true"
               :thumb-style="thumbStyle"
-              style="height: 130px; width:100%"
+              style="height: 200px; width:100%"
             >
               <div class="q-px-md q-pt-xs text-grey-7">
                 <div class="text-weight-bold">Description</div>

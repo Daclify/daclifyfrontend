@@ -36,6 +36,12 @@ export default {
       if(res && res.trxid){
         let block_time = res.block_time.split('.')[0];
         this.$store.commit('group/setCustodianLastActive', {custodian: this.getAccountName, block_time: block_time});
+        setTimeout(()=>{
+          this.$store.dispatch("group/loadGroupRoutine", {
+            groupname: this.getActiveGroup
+          });
+        }, 1000)
+
       }
       else{
        
