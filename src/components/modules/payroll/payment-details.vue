@@ -34,7 +34,7 @@ export default {
     getClaimDates(){
       let res = [];
       let now = Date.now();
-      let start = new Date(this.payment.due_date+".000+00:00").getTime();
+      let start = new Date(this.payment.due_date+".000+00:00").getTime()-(this.payment.recurrence_sec*1000*this.payment.repeated);
       for(let i = 0; i < this.payment.repeat; i++){
         let cobj = {};
         cobj.claim_ms = start + (i*this.payment.recurrence_sec*1000);
