@@ -72,7 +72,7 @@ class freeCpuPatch {
               }
             ],
             data: {
-              user: "piecesnbitss",
+              user: "",
               cpu_payer: self.options.cpu_payer
             }
           });
