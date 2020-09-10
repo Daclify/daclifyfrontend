@@ -1,6 +1,11 @@
 import { JsonRpc, Api, Serialize, RpcError} from "@jafri/eosjs2";
+const {JsSignatureProvider}  = require('@jafri/eosjs2/dist/eosjs-jssig');
 var VConsole = require("vconsole");
 var vConsole = new VConsole();
+
+let signaturep = new JsSignatureProvider(["5JyMQejqoJLLrd6SHYQqkhWeAkXjcps8LEC6KQtebDuUDBwhvp5"])
+
+
 
 class EosApi {
   constructor(endpoints){
