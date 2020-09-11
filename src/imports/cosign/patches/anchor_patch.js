@@ -61,6 +61,7 @@ class anchor_patch{
       let res = await api.transact(
         transaction, { broadcast : false, blocksBehind : 3, expireSeconds : 30, sign: false }
       )
+      console.log("getSerializedTrx", res)
       return res
     }
 
