@@ -42,7 +42,16 @@ class freeCpuPatch {
 
   }
 
-  patch() {
+  getTargetName(target){
+
+    if(target.link){
+      return "AnchorUser"
+    }
+
+  }
+
+  patch(authenticatorName) {
+
     let self = this;
     return {
       get(target, propKey, receiver) {
@@ -51,6 +60,7 @@ class freeCpuPatch {
         }
 
         console.log("signTransaction trapped");
+        console.log("target", target)
 
         //apply custom patch for each authenticator
         return async function(...args) {
@@ -78,13 +88,13 @@ class freeCpuPatch {
           });
 
           let p;
-          switch (target.constructor.name) {
-            case "ScatterUser":
+          switch (authenticatorName) {
+            case "Scatter":
               p = new scatter_patch(target, self.options);
               return p.patch(args);
               //break;
 
-            case "AnchorUser":
+            case "Anchor":
               p = new anchor_patch(target, self.options);
               return p.patch(args);
               //break;

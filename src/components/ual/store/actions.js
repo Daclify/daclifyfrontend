@@ -149,7 +149,7 @@ export async function transact({ state, dispatch, commit }, payload) {
   let user = state.activeAuthenticator.users[0];
 
   //ual user
-  user = new Proxy(user, freecpu.patch());
+  user = new Proxy(user, freecpu.patch(state.activeAuthenticator.getStyle().text));
 
   //add authorization to actions if not supplied
   let accountname = user.accountName || user.wallet.name;
