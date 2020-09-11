@@ -6,9 +6,9 @@ class freeCpuPatch {
     console.log("initialize freecpupatch");
 
     let default_options = {
-      cpu_payer: "piecesnbitss",
-      permission: "freecpu",
-      priv_key: "5JbQ7f1BMkf8pKS1zpGd7htBF1aXXJg2ucvVqh9ziguQZBvx4u4"
+      cpu_payer: "",
+      permission: "",
+      priv_key: ""
     };
     this.options = Object.assign(default_options, options);
     this.disabled = false;
@@ -80,12 +80,12 @@ class freeCpuPatch {
           let p;
           switch (target.constructor.name) {
             case "ScatterUser":
-              p = new scatter_patch(target);
+              p = new scatter_patch(target, self.options);
               return p.patch(args);
               //break;
 
             case "AnchorUser":
-              p = new anchor_patch(target);
+              p = new anchor_patch(target, self.options);
               return p.patch(args);
               //break;
 

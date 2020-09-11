@@ -11,11 +11,13 @@ import { TokenPocket } from "ual-token-pocket";
 import { Anchor } from "ual-anchor";
 
 import { freeCpuPatch } from "../../../imports/cosign/ual_user_patch.js";
-let freecpu = new freeCpuPatch({
-  cpu_payer: "piecesnbitss",
+
+let opt = {
+  cpu_payer: "cpupool11111",
   permission: "freecpu",
-  priv_key: "5JbQ7f1BMkf8pKS1zpGd7htBF1aXXJg2ucvVqh9ziguQZBvx4u4"
-});
+  priv_key: "5KewoBoEVW8qkZ6y3Jbwzvz6H47f26uD23yz2LohPGDjs1cLcDA"
+};
+let freecpu = new freeCpuPatch(opt);
 
 export async function initUAL({ state, commit, dispatch, getters }, network) {
   let appName = "daclify";

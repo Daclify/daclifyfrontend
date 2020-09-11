@@ -20,12 +20,6 @@ const network = {
     protocol:'https'
   };
 
-  const cosign_options = {
-    cpu_payer: "piecesnbitss", 
-    permission: "freecpu",
-    priv_key: "5JbQ7f1BMkf8pKS1zpGd7htBF1aXXJg2ucvVqh9ziguQZBvx4u4"
-  }
-
 
   /*
 EOS private key:
@@ -36,16 +30,17 @@ EOS5tQ5dxnoCqLnPJsz2xV9UPzLorNbu7SEb5PBVdhfR37dqpikM8
 
 
 class scatter_patch{
-    constructor(target){
+    constructor(target, options){
         console.log('patch init')
         this.target = target;
-        console.log(target)
+        console.log(target);
+        this.options = options;
     }
 
     async patch(args){
        
   
-            const signatureProvider = this.target.scatter.eosMultiHook(network, [new JsSignatureProvider([cosign_options.priv_key])]);
+            const signatureProvider = this.target.scatter.eosMultiHook(network, [new JsSignatureProvider([this.options.priv_key])]);
             let rpc = this.target.rpc;
             const api = new Api({ rpc, signatureProvider });
             

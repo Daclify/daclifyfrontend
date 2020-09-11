@@ -1,44 +1,74 @@
 
 import {JsSignatureProvider}  from'@jafri/eosjs2/dist/eosjs-jssig';
+import {Api} from "@jafri/eosjs2";
 
-const cosign_options = {
-  cpu_payer: "piecesnbitss", 
-  permission: "freecpu",
-  priv_key: "5JbQ7f1BMkf8pKS1zpGd7htBF1aXXJg2ucvVqh9ziguQZBvx4u4",
-  pub_key: "EOS5tQ5dxnoCqLnPJsz2xV9UPzLorNbu7SEb5PBVdhfR37dqpikM8"
-}
 
 
 class anchor_patch{
-    constructor(target){
+    constructor(target, options){
       console.log('patch init')
+      console.log("target", target)
       this.target = target;
       this.rpc = target.session.link.rpc;
       this.chainId = target.session.link.chainId;
+      this.options = options;
     }
 
     async patch(args){
-       
-      let trx = await this.userSign(args);
+      let trx = await this.getSerializedTrx(args[0]);
+      //let trx = await this.userSign(args);
+    
 
       let cosignature = await this.getCoSignature(trx.serializedTransaction);
       trx.signatures = trx.signatures.concat(cosignature);
-      //console.log(trx)
+      let usersignature = await this.getUserSignature(trx.serializedTransaction);
+      trx.signatures = trx.signatures.concat(usersignature);
+      console.log("trx before push", trx)
+
       let completedTransaction =  await this.rpc.push_transaction(trx);
       console.log("completedTransaction",completedTransaction);
       return this.target.returnEosjsTransaction(true, completedTransaction)
     }
 
-    async userSign(args){
+    async getUserSignature(serializedTransaction){
+
+      const signatureProvider = this.target.session.makeSignatureProvider();
+      console.log("signatureProvider",signatureProvider)
+      const availablekeys = await signatureProvider.getAvailableKeys();
+      const signArgs = {
+        chainId: this.chainId,
+        requiredKeys: availablekeys,
+        serializedTransaction: serializedTransaction,
+        abis: [],
+      }
+      console.log(signArgs)
+      let signature =(await signatureProvider.sign(signArgs) ).signatures
+      console.log("user signature", signature);
+      return signature;
+
+
       let res = await this.target.session.transact(
         args[0], { broadcast : false, blocksBehind : 3, expireSeconds : 30, sign: true }
       )
+      console.log("user signed", res)
       return res;
     }
 
+    async getSerializedTrx(transaction){
+      let rpc = this.rpc;
+      const api = new Api({rpc});
+      console.log(api)
+      let res = await api.transact(
+        transaction, { broadcast : false, blocksBehind : 3, expireSeconds : 30, sign: false }
+      )
+      return res
+    }
+
     async getCoSignature(serializedTransaction){
+
+
       
-      const signatureProvider = new JsSignatureProvider([cosign_options.priv_key]);
+      const signatureProvider = new JsSignatureProvider([this.options.priv_key]);
       console.log("signatureProvider",signatureProvider)
       const availablekeys = await signatureProvider.getAvailableKeys();
       const signArgs = {
