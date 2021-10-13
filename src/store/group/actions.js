@@ -172,7 +172,7 @@ export async function fetchGuardians ({ state, commit }, groupname) {
         json: true,
         code: groupname,
         scope: groupname,
-        table: "guardians",
+        table: "custodians",
         limit: -1
       });
       if(res && res.rows){
