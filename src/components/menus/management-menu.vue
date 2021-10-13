@@ -11,12 +11,12 @@
           </q-item-section>
         </q-item>
 
-        <q-item clickable :to="`/manage/${getActiveGroup}/custodians`">
+        <q-item clickable :to="`/manage/${getActiveGroup}/guardians`">
           <q-item-section avatar>
             <q-icon name="mdi-account-key" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Custodians</q-item-label>
+            <q-item-label>Guardians</q-item-label>
           </q-item-section>
         </q-item>
 

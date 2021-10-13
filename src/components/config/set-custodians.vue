@@ -2,12 +2,12 @@
   <div >
     <q-input
       outlined
-      label="Max number of custodians"
+      label="Max number of guardians"
       type="number"
-      :value="getNewCoreConfig.conf.max_custodians"
+      :value="getNewCoreConfig.conf.max_guardians"
       @input="
         $store.commit('group/setNewCoreConfigPath', {
-          path: 'conf.max_custodians',
+          path: 'conf.max_guardians',
           value: Number($event)
         })
       "
@@ -20,7 +20,7 @@
     <q-input
     class="q-mt-md"
       outlined
-      label="Inactivate custodian after inactivity seconds"
+      label="Inactivate guardian after inactivity seconds"
       type="number"
       :value="getNewCoreConfig.conf.inactivate_cust_after_sec"
       @input="

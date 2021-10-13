@@ -1,13 +1,13 @@
 <template>
   <q-page padding class="text-black constrain-page-width">
     <!-- content -->
-    <page-header title="Custodians"/>
+    <page-header title="Guardians"/>
 
 
     <div>
       <q-input placeholder="Search" outlined v-model.trim="filter" >
         <!-- <template v-slot:hint>
-          <span class="text-grey-8 row" v-if="!getFilteredCustodians.length" >No Result</span>
+          <span class="text-grey-8 row" v-if="!getFilteredGuardians.length" >No Result</span>
         </template> -->
         <template v-slot:prepend>
           <q-icon name="search" class="cursor-pointer" />
@@ -46,22 +46,22 @@
                     <q-item-section avatar>
                       <q-icon name="mdi-account-plus" />
                     </q-item-section>
-                    <q-item-section>Invite Custodian</q-item-section>
+                    <q-item-section>Invite Guardian</q-item-section>
                   </q-item>
                   <q-item clickable @click="rem_cust_dialog = true" v-close-popup>
                     <q-item-section avatar>
                       <q-icon name="mdi-account-minus" />
                     </q-item-section>
-                    <q-item-section>Remove Custodian</q-item-section>
+                    <q-item-section>Remove Guardian</q-item-section>
                   </q-item>
-                  <q-item  clickable @click="$store.commit('user/setMinifyCustodians', !getMinifyCustodians )" v-close-popup>
+                  <q-item  clickable @click="$store.commit('user/setMinifyGuardians', !getMinifyGuardians )" v-close-popup>
                     <q-item-section avatar>
-                      <q-icon v-if="getMinifyCustodians" name="mdi-arrow-expand-all" />
+                      <q-icon v-if="getMinifyGuardians" name="mdi-arrow-expand-all" />
                       <q-icon v-else name="mdi-arrow-collapse-all" />
                     </q-item-section>
                     <q-item-section>
                       <q-item-label>
-                        <span v-if="getMinifyCustodians">Expand</span>
+                        <span v-if="getMinifyGuardians">Expand</span>
                         <span v-else>Minify</span>
                       </q-item-label>
                     </q-item-section>
@@ -94,10 +94,10 @@
       >
         <span
           class="row items-center text-grey-7"
-          v-if="!getFilteredCustodians.length"
+          v-if="!getFilteredGuardians.length"
         >
           <q-icon name="error_outline" size="24px" class="q-mr-sm" />
-          No Custodians found...
+          No Guardians found...
         </span>
       </transition>
     </div>
@@ -109,22 +109,22 @@
       class="row q-col-gutter-md"
       tag="div"
     >
-      <custodian-card
-        v-for="custodian in getFilteredCustodians"
-        :custodian="custodian"
-        :key="custodian.account"
+      <guardian-card
+        v-for="guardian in getFilteredGuardians"
+        :guardian="guardian"
+        :key="guardian.account"
         class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 "
-        :minify="getMinifyCustodians"
+        :minify="getMinifyGuardians"
       />
     </transition-group>
 
-    <!-- <pre>{{getCustodians}}</pre> -->
+    <!-- <pre>{{getGuardians}}</pre> -->
 
 
     <q-dialog v-model="new_cust_dialog">
       <q-card style="width:100%;max-width:350px">
         <q-card-section class="row justify-between items-center">
-          <div class="text-grey-5 text-weight-light text-h5">Invite Custodian</div>
+          <div class="text-grey-5 text-weight-light text-h5">Invite Guardian</div>
           <q-btn icon="close" flat round dense v-close-popup />
         </q-card-section>
         <q-card-section>
@@ -156,7 +156,7 @@
             :disabled="!account_name_validated"
             label="propose"
             color="primary"
-            @click="inviteCustodian"
+            @click="inviteGuardian"
           />
         </q-card-section>
       </q-card>
@@ -165,7 +165,7 @@
     <q-dialog v-model="rem_cust_dialog">
       <q-card style="width:100%;max-width:350px">
         <q-card-section class="row justify-between items-center">
-          <div class="text-grey-5 text-weight-light text-h5">Remove Custodian</div>
+          <div class="text-grey-5 text-weight-light text-h5">Remove Guardian</div>
           <q-btn icon="close" flat round dense v-close-popup />
         </q-card-section>
         <q-card-section>
@@ -179,14 +179,14 @@
             :rules="[
               val => !!val || '* Required', 
               isValidAccountName,
-              isCustodian
+              isGuardian
             ]"
             @input="rem_cust_validated = false"
           >
             <template v-slot:hint>
               <span class="text-grey-8 row" v-if="rem_cust_validated">
                 <!-- <q-icon name="check"/> -->
-                <span>Account is custodian!</span>
+                <span>Account is guardian!</span>
               </span>
               <span v-else>Input account name</span>
             </template>
@@ -197,7 +197,7 @@
             :disabled="!rem_cust_validated"
             label="propose"
             color="primary"
-            @click="removeCustodian"
+            @click="removeGuardian"
           />
         </q-card-section>
       </q-card>
@@ -211,7 +211,7 @@
 <script>
 import { mapGetters } from "vuex";
 import pageHeader from "components/page-header";
-import custodianCard from "components/custodian-card";
+import guardianCard from "components/guardian-card";
 
 import { isValidAccountName, isExistingAccountName } from "../../imports/validators";
 
@@ -219,7 +219,7 @@ export default {
   // name: 'LayoutName',
   components: {
     pageHeader,
-    custodianCard
+    guardianCard
   },
   data() {
     return {
@@ -239,24 +239,24 @@ export default {
   computed: {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
-      getCustodians: "group/getCustodians",
-      getIsCustodian: "group/getIsCustodian",
+      getGuardians: "group/getGuardians",
+      getIsGuardian: "group/getIsGuardian",
       getActiveGroup: "group/getActiveGroup",
-      getMinifyCustodians: "user/getMinifyCustodians"
+      getMinifyGuardians: "user/getMinifyGuardians"
     }),
-    getFilteredCustodians() {
+    getFilteredGuardians() {
       if (this.filter != "") {
         this.filter = this.filter.toLowerCase();
-        return this.getCustodians.filter(c => c.account.includes(this.filter));
+        return this.getGuardians.filter(c => c.account.includes(this.filter));
       } else {
-        return this.getCustodians;
+        return this.getGuardians;
       }
     }
   },
   methods: {
     isValidAccountName,
     isExistingAccountName,
-    async inviteCustodian() {
+    async inviteGuardian() {
       let action = {
         account: this.getActiveGroup,
         name: "invitecust",
@@ -265,8 +265,8 @@ export default {
         }
       };
 
-      const title = `Invite new custodian`;
-      const description = `This proposal is to invite a new custodian ${action.data.account}`;
+      const title = `Invite new guardian`;
+      const description = `This proposal is to invite a new guardian ${action.data.account}`;
 
       let res = await this.$store.dispatch("group/propose", {
         actions: [action],
@@ -276,7 +276,7 @@ export default {
       this.new_cust_name ='';
       this.new_cust_dialog= false;
     },
-    async removeCustodian(){
+    async removeGuardian(){
       let action = {
         account: this.getActiveGroup,
         name: "removecust",
@@ -285,8 +285,8 @@ export default {
         }
       };
 
-      const title = `Remove custodian`;
-      const description = `This proposal is to remove custodian ${action.data.account}`;
+      const title = `Remove guardian`;
+      const description = `This proposal is to remove guardian ${action.data.account}`;
 
       await this.$store.dispatch("group/propose", {
         actions: [action],
@@ -297,8 +297,8 @@ export default {
       this.rem_cust_dialog= false;
     },
     async isExistingAccountNameWrapper(v){
-      if(this.getIsCustodian(v)){
-        return 'Already custodian.';
+      if(this.getIsGuardian(v)){
+        return 'Already guardian.';
       }
       else{
         let t = await isExistingAccountName(v);
@@ -309,13 +309,13 @@ export default {
       }
 
     },
-    isCustodian(v){
-      if(this.getIsCustodian(v)){
+    isGuardian(v){
+      if(this.getIsGuardian(v)){
         this.rem_cust_validated = true;
         return true;
       }
       else{
-        return "Account is not a custodian.";
+        return "Account is not a guardian.";
       }
     }
   }

@@ -25,7 +25,7 @@ const routes = [
     component: () => import('layouts/GroupLayout.vue'),
     children: [
       { path: '', component: () => import('pages/manage/info.vue') },
-      { path: 'custodians', component: () => import('pages/manage/custodians.vue') },
+      { path: 'guardians', component: () => import('pages/manage/guardians.vue') },
       { path: 'proposals', component: () => import('pages/manage/proposals.vue') },
       { path: 'new-proposal', component: () => import('pages/manage/new-proposal.vue') },
       { path: 'settings', component: () => import('pages/manage/settings.vue') },

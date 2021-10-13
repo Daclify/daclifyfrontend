@@ -17,7 +17,7 @@
         </q-item>
       </div>
       <q-card
-        class="custodian-card shadow-1"
+        class="guardian-card shadow-1"
         v-for="approver in approvals"
         :key="`a${approver}`"
         :class="$q.dark.isActive ? `bg-secondary` : ``"
@@ -29,11 +29,11 @@
 
           <q-item-section style="margin-left:-7px">
             <q-item-label class="text-capitalize">{{ approver }}</q-item-label>
-            <q-item-label caption v-if="getIsCustodian(approver)">
-              Weight {{ getIsCustodian(approver).weight }}
+            <q-item-label caption v-if="getIsGuardian(approver)">
+              Weight {{ getIsGuardian(approver).weight }}
             </q-item-label>
             <q-item-label caption v-else>
-              Ex Custodian
+              Ex Guardian
             </q-item-label>
           </q-item-section>
         </q-item>
@@ -63,7 +63,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getIsCustodian: "group/getIsCustodian"
+      getIsGuardian: "group/getIsGuardian"
     })
   },
   methods: {}

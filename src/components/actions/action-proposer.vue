@@ -72,7 +72,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getIsCustodian: "group/getIsCustodian",
+      getIsGuardian: "group/getIsGuardian",
       getActionBucket: "bucket/getActionBucket"
     })
   },

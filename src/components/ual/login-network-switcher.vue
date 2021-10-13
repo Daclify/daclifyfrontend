@@ -26,7 +26,7 @@
             </q-tooltip>
           </q-btn>
           
-          <profile-pic v-if="getAccountName && avatar" :size="28"  :icon="getIsCustodian(getAccountName)?'mdi-star':''" iconColor="primary"  :account="getAccountName" class="q-mr-xs"/>
+          <profile-pic v-if="getAccountName && avatar" :size="28"  :icon="getIsGuardian(getAccountName)?'mdi-star':''" iconColor="primary"  :account="getAccountName" class="q-mr-xs"/>
           <div class="text-center">{{getAccountName ? getAccountName : 'login'}}</div>
           
         </div>
@@ -154,7 +154,7 @@ export default {
       getActiveGroup: "group/getActiveGroup",
       getSESSION: "ual/getSESSION",
       getRpcEndpoints: "ual/getRpcEndpoints",
-      getIsCustodian: "group/getIsCustodian",
+      getIsGuardian: "group/getIsGuardian",
       getIsDark: "user/getIsDark",
     })
   },

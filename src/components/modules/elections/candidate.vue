@@ -4,7 +4,7 @@
       <q-expansion-item class="primary-hover-list" @show="fetchProfileData" group="candidate">
         <template v-slot:header>
           <q-item-section avatar>
-            <profile-pic :size="60" :account="candidate.cand" :icon="getIsCustodian(candidate.cand) ? 'mdi-star' : ''"/>
+            <profile-pic :size="60" :account="candidate.cand" :icon="getIsGuardian(candidate.cand) ? 'mdi-star' : ''"/>
           </q-item-section>
 
           <q-item-section>
@@ -102,7 +102,7 @@ export default {
       getElectionsState: "elections/getElectionsState",
       getElectionsConfig: "elections/getElectionsConfig",
       getCandidates: "elections/getCandidates",
-      getIsCustodian: "group/getIsCustodian"
+      getIsGuardian: "group/getIsGuardian"
     })
   },
   methods: {

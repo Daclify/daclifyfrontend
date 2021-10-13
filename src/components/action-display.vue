@@ -56,7 +56,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getIsCustodian: "group/getIsCustodian"
+      getIsGuardian: "group/getIsGuardian"
     })
   },
   methods: {

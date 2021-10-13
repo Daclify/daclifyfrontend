@@ -89,7 +89,7 @@ export default {
       selected: "Modules"
 
       // conf: {
-      //   max_custodians: this.$store.state.group.newCoreConfig.conf.max_custodians,
+      //   max_guardians: this.$store.state.group.newCoreConfig.conf.max_guardians,
       //   inactivate_cust_after_sec: this.$store.state.group.newCoreConfig.conf.inactivate_cust_after_sec,
       //   exec_on_threshold_zero: this.$store.state.group.newCoreConfig.conf.exec_on_threshold_zero,
       //   proposal_archive_size: this.$store.state.group.newCoreConfig.conf.proposal_archive_size,
@@ -101,7 +101,7 @@ export default {
   computed: {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
-      getCustodians: "group/getCustodians",
+      getGuardians: "group/getGuardians",
       getActiveGroup: "group/getActiveGroup",
       getCoreConfigDeltas: "group/getCoreConfigDeltas",
       getNewCoreConfig: "group/getNewCoreConfig"

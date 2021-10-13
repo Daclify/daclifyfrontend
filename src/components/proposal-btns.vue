@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-if="getAccountName && proposal && getIsCustodian(getAccountName)"
+      v-if="getAccountName && proposal && getIsGuardian(getAccountName)"
       class="row justify-end "
     >
 
@@ -43,7 +43,7 @@
     </div>
     <div v-else class="row justify-end ">
       <q-btn
-        label="login as custodian"
+        label="login as guardian"
         size="sm"
         flat
         @click="$store.dispatch('ual/renderLoginModal')"
@@ -75,7 +75,7 @@ export default {
   computed: {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
-      getIsCustodian: "group/getIsCustodian",
+      getIsGuardian: "group/getIsGuardian",
       getThresholdByName: "group/getThresholdByName",
       getThresholds: "group/getThresholds",
       getIsTransacting: "ual/getIsTransacting"
@@ -94,7 +94,7 @@ export default {
 
         let approved_weight = 0;
         this.proposal.approvals.forEach(approver => {
-          const cust = this.getIsCustodian(approver);
+          const cust = this.getIsGuardian(approver);
           if (cust) {
             approved_weight += cust.weight;
           }

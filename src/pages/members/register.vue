@@ -50,7 +50,7 @@ export default {
       getIsMember: "user/getIsMember",
       getCoreConfig: "group/getCoreConfig",
       getLatestUserterms: "group/getLatestUserterms"
-      // getNumberCustodians: "group/getNumberCustodians"
+      // getNumberGuardians: "group/getNumberGuardians"
     })
   },
   methods: {

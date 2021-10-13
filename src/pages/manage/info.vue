@@ -80,17 +80,17 @@
       </div>
 
 
-      <div class="col-xs-12 col-sm-6 col-lg-4" key="custodians_info">
+      <div class="col-xs-12 col-sm-6 col-lg-4" key="guardians_info">
         <q-card class="primary-hover-list">
-          <q-item clickable :to="`/manage/${getActiveGroup}/custodians`">
+          <q-item clickable :to="`/manage/${getActiveGroup}/guardians`">
             <q-item-section avatar>
               <q-icon name="mdi-account-key" color="primary" size="xl"/>
             </q-item-section>
             <q-item-section>
-              <q-item-label class="text-weight-light text-h5 text-grey-7">Custodians</q-item-label>
+              <q-item-label class="text-weight-light text-h5 text-grey-7">Guardians</q-item-label>
             </q-item-section>
             <q-item-section side>
-              <q-item-label class=" text-h5 text-grey-7">{{getNumberCustodians}}</q-item-label>
+              <q-item-label class=" text-h5 text-grey-7">{{getNumberGuardians}}</q-item-label>
             </q-item-section>
           </q-item>
         </q-card>
@@ -203,14 +203,14 @@ export default {
       getActiveGroupConfig: "group/getActiveGroupConfig",
       getCoreConfig: "group/getCoreConfig",
       getCoreState: "group/getCoreState",
-      getNumberCustodians: "group/getNumberCustodians",
+      getNumberGuardians: "group/getNumberGuardians",
       getSelectedBlockExplorer: "user/getSelectedBlockExplorer",
       getElectionsContract: "elections/getElectionsContract",
       getElectionsState: "elections/getElectionsState",
-      getIsCustodian: "group/getIsCustodian"
+      getIsGuardian: "group/getIsGuardian"
     }),
     allowed_to_edit() {
-      if(this.getIsCustodian(this.getAccountName)){
+      if(this.getIsGuardian(this.getAccountName)){
         return true
       }
       else{

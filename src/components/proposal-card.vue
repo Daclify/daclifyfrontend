@@ -216,7 +216,7 @@ export default {
       getActiveGroup: "group/getActiveGroup",
       getGroupWallet: "group/getGroupWallet",
       getThresholdByName: "group/getThresholdByName",
-      getIsCustodian: "group/getIsCustodian",
+      getIsGuardian: "group/getIsGuardian",
       getCLOCK: "app/getCLOCK"
     }),
     hasVoted(){
@@ -237,7 +237,7 @@ export default {
         res.threshold = t.threshold;
         res.threshold_name = t.threshold_name;
         this.proposal.approvals.forEach(approver => {
-          const cust = this.getIsCustodian(approver);
+          const cust = this.getIsGuardian(approver);
           if (cust) {
             res.approved_weight += cust.weight;
           }

@@ -29,7 +29,7 @@ export default {
       getMyOldProfile: "group/getMyOldProfile"
 
       // getActiveGroupConfig: "group/getActiveGroupConfig",
-      // getNumberCustodians: "group/getNumberCustodians"
+      // getNumberGuardians: "group/getNumberGuardians"
     })
   }
 }

@@ -88,7 +88,7 @@ export default {
       getActiveGroup: "group/getActiveGroup",
       getIsMember: "user/getIsMember",
       getCoreConfig: "group/getCoreConfig",
-      // getNumberCustodians: "group/getNumberCustodians"
+      // getNumberGuardians: "group/getNumberGuardians"
     })
   },
   methods: {

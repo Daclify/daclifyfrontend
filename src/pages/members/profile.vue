@@ -223,7 +223,7 @@ export default {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
       getActiveGroup: "group/getActiveGroup",
-      getIsCustodian: "group/getIsCustodian",
+      getIsGuardian: "group/getIsGuardian",
       getMyOldProfile: "group/getMyOldProfile",
       getElectionsContract: "elections/getElectionsContract",
       getModuleByName: "group/getModuleByName",

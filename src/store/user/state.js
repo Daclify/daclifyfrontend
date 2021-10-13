@@ -21,7 +21,7 @@ export default {
 
   },
 
-  minifyCustodians: false,
+  minifyGuardians: false,
   isDark: false,
   isMember: false,
   hubDeposits: false,

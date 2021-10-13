@@ -8,7 +8,7 @@
     >
       <div class="row justify-between items-center text-h5 text-grey-5 text-weight-light q-mb-md">
         <div>Settings</div>
-        <!-- <q-btn icon="add" round color="primary" @click="inviteCustodian" /> -->
+        <!-- <q-btn icon="add" round color="primary" @click="inviteGuardian" /> -->
       </div>
     </transition>
 

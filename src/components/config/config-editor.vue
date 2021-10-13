@@ -78,14 +78,14 @@
             <set-members />
           </q-tab-panel>
 
-          <q-tab-panel name="Custodians" class="overflow-hidden">
-            <page-header title="Custodians" />
-            <set-custodians />
+          <q-tab-panel name="Guardians" class="overflow-hidden">
+            <page-header title="Guardians" />
+            <set-guardians />
           </q-tab-panel>
 
           <q-tab-panel name="Maintainer Account" class="overflow-hidden">
             <page-header title="Maintainer Account" />
-            <p>The maintainer account (can be an other group!) will be added to the groups "owner" permission. This means that this account will (also) have full control over the group. By leaving this field blank this feature is disabled and the custodians are the only controlling accounts.  </p>
+            <p>The maintainer account (can be an other group!) will be added to the groups "owner" permission. This means that this account will (also) have full control over the group. By leaving this field blank this feature is disabled and the guardians are the only controlling accounts.  </p>
             <set-maintainance-account />
           </q-tab-panel>
 
@@ -134,7 +134,7 @@ var testtree = [
         label: "Core",
         icon: "mdi-settings",
         children: [
-          { label: "Custodians", test: "bbbbb" },
+          { label: "Guardians", test: "bbbbb" },
           { label: "Proposals" },
           { label: "Members" },
           { label: "Internal Accounting" },
@@ -163,7 +163,7 @@ var testtree = [
 
 import { mapGetters } from "vuex";
 
-import setCustodians from "components/config/set-custodians";
+import setGuardians from "components/config/set-guardians";
 import setInternalAccounting from "components/config/set-internal-accounting";
 import setProposals from "components/config/set-proposals";
 import setMaintainanceAccount from "components/config/set-maintainance-account";
@@ -176,7 +176,7 @@ import codeDeployer from "components/deployer/code-deployer";
 export default {
   name: "groupSubaccounts",
   components: {
-    setCustodians,
+    setGuardians,
     setInternalAccounting,
     setProposals,
     setMembers,

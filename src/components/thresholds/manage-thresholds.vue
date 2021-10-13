@@ -50,7 +50,7 @@
               <q-badge color="secondary">
                 dynamic
                 <q-tooltip content-class="bg-primary" :delay="500">
-                  dynamic thresholds update automatically in function of the number of active custodians
+                  dynamic thresholds update automatically in function of the number of active guardians
                 </q-tooltip>
               </q-badge>
             </q-item-section>

@@ -29,7 +29,7 @@ export default {
       getAccountName: "ual/getAccountName",
       // getActiveGroup: "group/getActiveGroup",
       // getActiveGroupConfig: "group/getActiveGroupConfig",
-      // getNumberCustodians: "group/getNumberCustodians"
+      // getNumberGuardians: "group/getNumberGuardians"
     })
   },
   methods: {

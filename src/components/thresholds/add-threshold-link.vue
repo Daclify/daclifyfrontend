@@ -64,7 +64,7 @@
             <q-item-section side v-if="scope.opt.warning">
               <q-icon name="mdi-alert" color="warning" >
                 <q-tooltip content-class="bg-secondary" :delay="500">
-                  Threshold exceeds number of custodians {{getNumberCustodians}}
+                  Threshold exceeds number of guardians {{getNumberGuardians}}
                 </q-tooltip>
               </q-icon>
             </q-item-section>
@@ -124,7 +124,7 @@ export default {
       getActiveGroup: 'group/getActiveGroup',
       getGroupWallet: "group/getGroupWallet",
       getThresholds: "group/getThresholds",
-      getNumberCustodians: "group/getNumberCustodians"
+      getNumberGuardians: "group/getNumberGuardians"
 
     })
   },
@@ -134,7 +134,7 @@ export default {
 
     threshold_options(){
       return this.getThresholds.map(t=>{
-        let warning = this.getNumberCustodians < t.threshold;
+        let warning = this.getNumberGuardians < t.threshold;
         return {label: t.threshold_name, value: t.threshold_name, threshold: t.threshold, warning: warning}
       });
     },

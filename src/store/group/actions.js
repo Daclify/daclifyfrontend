@@ -15,7 +15,7 @@ const { setBrand } = colors;
 
 export async function resetStore ({  commit }, payload) {
   commit('setCoreConfig', false);
-  commit('setCustodians', []);
+  commit('setGuardians', []);
   commit('setMyOldProfile', false);
   //commit('setChildAccounts', false);
   commit('setModules', false);
@@ -52,7 +52,7 @@ export async function loadGroupRoutine ({ dispatch, commit, rootGetters }, paylo
     dispatch('fetchAvatars', groupname);
     dispatch('fetchCoreConfig', groupname);
     dispatch('fetchAccount', groupname);
-    dispatch('fetchCustodians', groupname);
+    dispatch('fetchGuardians', groupname);
 
     //dispatch('fetchChildAccounts', groupname);
     dispatch('fetchModules', groupname);
@@ -167,20 +167,20 @@ export async function fetchAccount ({ commit, rootState, rootGetters }, groupnam
     }
 }
 
-export async function fetchCustodians ({ state, commit }, groupname) {
+export async function fetchGuardians ({ state, commit }, groupname) {
     let res = await this._vm.$eos.api.rpc.get_table_rows({
         json: true,
         code: groupname,
         scope: groupname,
-        table: "custodians",
+        table: "guardians",
         limit: -1
       });
       if(res && res.rows){
-        console.log(`fetched custodians for group ${groupname}`, res.rows);
-        commit('setCustodians', res.rows);
+        console.log(`fetched guardians for group ${groupname}`, res.rows);
+        commit('setGuardians', res.rows);
       }
       else{
-        console.log(`fetching custodians for group ${groupname} failed`);
+        console.log(`fetching guardians for group ${groupname} failed`);
       }
 }
 
@@ -457,7 +457,7 @@ export async function propose({ state, rootState, dispatch, commit }, payload) {
   if(res && res.trxid){
 
     let block_time = res.block_time.split('.')[0];
-    commit('setCustodianLastActive', {custodian: rootState.ual.accountName, block_time: block_time});
+    commit('setGuardianLastActive', {guardian: rootState.ual.accountName, block_time: block_time});
     /*
     try{
       let url = rootState.app.config.api.url+'/push_msg';

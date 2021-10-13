@@ -29,7 +29,7 @@
               account
             }}</q-item-label>
             <q-item-label  caption>
-              <span v-if="getIsCustodian(account)">Custodian</span>
+              <span v-if="getIsGuardian(account)">Guardian</span>
               <!-- <span v-if="getIsMember">Member</span> -->
             </q-item-label>
             
@@ -179,7 +179,7 @@ export default {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
       getActiveGroup: "group/getActiveGroup",
-      getIsCustodian: "group/getIsCustodian",
+      getIsGuardian: "group/getIsGuardian",
       getIsMember: "user/getIsMember",
       getSelectedBlockExplorer: "user/getSelectedBlockExplorer",
       getRequireUsertermsAgreement: "user/getRequireUsertermsAgreement",

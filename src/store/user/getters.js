@@ -20,8 +20,8 @@ export function getSelectedBlockExplorer(state, getters, rootState, rootGetters)
   return state.selectedBlockExplorer[rootGetters["ual/getActiveNetwork"] ];
 }
 
-export function getMinifyCustodians(state){
-  return state.minifyCustodians;
+export function getMinifyGuardians(state){
+  return state.minifyGuardians;
 }
 
 export function getIsDark(state, payload){

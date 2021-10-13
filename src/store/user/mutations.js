@@ -27,8 +27,8 @@ export function setResourceWarningLevels(state, payload){
     state.resourceWarningLevels = Object.assign(state.resourceWarningLevels, payload);
 }
 
-export function setMinifyCustodians(state, payload){
-    state.minifyCustodians = payload;
+export function setMinifyGuardians(state, payload){
+    state.minifyGuardians = payload;
 }
 
 export function setHubDeposits(state, payload){

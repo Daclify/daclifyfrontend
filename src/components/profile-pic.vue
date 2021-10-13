@@ -18,7 +18,7 @@
                 @click="$emit('iconClick')"
               >
                 <q-tooltip v-if="tooltip" :delay="400" content-class="bg-primary">
-                  Custodian
+                  Guardian
                 </q-tooltip>
               </q-icon>
             </transition>

@@ -35,10 +35,10 @@
                 >
                   <q-list style="min-width: 100px" class="primary-hover-list">
                     <q-item clickable v-close-popup>
-                      <q-item-section>New Custodian</q-item-section>
+                      <q-item-section>New Guardian</q-item-section>
                     </q-item>
                     <q-item clickable v-close-popup>
-                      <q-item-section>Remove Custodian</q-item-section>
+                      <q-item-section>Remove Guardian</q-item-section>
                     </q-item>
                   </q-list>
                 </q-menu>

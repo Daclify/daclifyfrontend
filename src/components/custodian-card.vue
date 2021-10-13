@@ -6,17 +6,17 @@
               <template v-slot:header>
                 
                   <q-item-section avatar>
-                    <profile-pic :size="60"  :account="custodian.account" class="shadow-3"/> 
+                    <profile-pic :size="60"  :account="guardian.account" class="shadow-3"/> 
                   </q-item-section>
 
                   <q-item-section>
                     <q-item-label class="text-weight-light text-h6">
-                      <profile-link :account ="custodian.account" />
+                      <profile-link :account ="guardian.account" />
                     </q-item-label>
-                    <q-item-label caption>Custodian</q-item-label>
+                    <q-item-label caption>Guardian</q-item-label>
                   </q-item-section>
                   <q-item-section side>
-                    <imalive-btn v-if="custodian.account == getAccountName" />
+                    <imalive-btn v-if="guardian.account == getAccountName" />
                   </q-item-section>
                 
               </template>
@@ -53,7 +53,7 @@
                       <q-item-section>
                         <q-item-label class="text-weight-light">Last Active</q-item-label>
                         <q-item-label caption>
-                          <span v-if="!custodian.last_active.startsWith('1970')"><date-string :date="custodian.last_active" /></span>
+                          <span v-if="!guardian.last_active.startsWith('1970')"><date-string :date="guardian.last_active" /></span>
                           <span v-else>Not been Active Yet</span>
                           </q-item-label>
                       </q-item-section>
@@ -64,8 +64,8 @@
                           <q-icon name="mdi-account-plus" size="25px" color="primary" />
                       </q-item-section>
                       <q-item-section>
-                        <q-item-label class="text-weight-light">Custodian Since</q-item-label>
-                        <q-item-label caption><date-string :date="custodian.joined" /></q-item-label>
+                        <q-item-label class="text-weight-light">Guardian Since</q-item-label>
+                        <q-item-label caption><date-string :date="guardian.joined" /></q-item-label>
                       </q-item-section>
                     </q-item>
 
@@ -75,7 +75,7 @@
                       </q-item-section>
                       <q-item-section>
                         <q-item-label class="text-weight-light">Weight</q-item-label>
-                        <q-item-label caption>{{custodian.weight}}</q-item-label>
+                        <q-item-label caption>{{guardian.weight}}</q-item-label>
                       </q-item-section>
                     </q-item>
 
@@ -85,7 +85,7 @@
                       </q-item-section>
                       <q-item-section>
                         <q-item-label class="text-weight-light">Permission</q-item-label>
-                        <q-item-label caption>@{{custodian.authority}}</q-item-label>
+                        <q-item-label caption>@{{guardian.authority}}</q-item-label>
                       </q-item-section>
                     </q-item>
 
@@ -95,8 +95,8 @@
                   <q-tab-panel name="profile" class="overflow-hidden no-padding">
                     <q-scroll-area :visible="true" :thumb-style="thumbStyle" style="height: 200px; width:100%">
                       <div v-if="!profile_is_loading" class="q-px-md q-pb-md q-pt-xs">
-                        <profile-text :account="custodian.account" :profile_data="profile_data" />
-                        <q-btn color="primary" dense class="full-width" label="full profile" :to="`/members/${getActiveGroup}/profile/${custodian.account}`"/>
+                        <profile-text :account="guardian.account" :profile_data="profile_data" />
+                        <q-btn color="primary" dense class="full-width" label="full profile" :to="`/members/${getActiveGroup}/profile/${guardian.account}`"/>
                       </div>
                       <div v-else class="column justify-center items-center" style="height:200px">
                         <q-spinner color="primary" size="40px"/>
@@ -112,21 +112,21 @@
 
 
 
-    <q-card class="custodian-card" >
+    <q-card class="guardian-card" >
  
       <q-item>
         <q-item-section avatar>
-          <profile-pic :size="60"  :account="custodian.account" class="shadow-3"/> 
+          <profile-pic :size="60"  :account="guardian.account" class="shadow-3"/> 
         </q-item-section>
 
         <q-item-section>
           <q-item-label class="text-weight-light text-h6">
-            <profile-link :account ="custodian.account" />
+            <profile-link :account ="guardian.account" />
           </q-item-label>
-          <q-item-label caption>Custodian</q-item-label>
+          <q-item-label caption>Guardian</q-item-label>
         </q-item-section>
         <q-item-section side>
-          <imalive-btn v-if="custodian.account == getAccountName" />
+          <imalive-btn v-if="guardian.account == getAccountName" />
         </q-item-section>
       </q-item>
 
@@ -162,7 +162,7 @@
             <q-item-section>
               <q-item-label class="text-weight-light">Last Active</q-item-label>
               <q-item-label caption>
-                <span v-if="!custodian.last_active.startsWith('1970')"><date-string :date="custodian.last_active" /></span>
+                <span v-if="!guardian.last_active.startsWith('1970')"><date-string :date="guardian.last_active" /></span>
                 <span v-else>Not been Active Yet</span>
                 </q-item-label>
             </q-item-section>
@@ -173,8 +173,8 @@
                 <q-icon name="mdi-account-plus" size="25px" color="primary" />
             </q-item-section>
             <q-item-section>
-              <q-item-label class="text-weight-light">Custodian Since</q-item-label>
-              <q-item-label caption><date-string :date="custodian.joined" /></q-item-label>
+              <q-item-label class="text-weight-light">Guardian Since</q-item-label>
+              <q-item-label caption><date-string :date="guardian.joined" /></q-item-label>
             </q-item-section>
           </q-item>
 
@@ -184,7 +184,7 @@
             </q-item-section>
             <q-item-section>
               <q-item-label class="text-weight-light">Weight</q-item-label>
-              <q-item-label caption>{{custodian.weight}}</q-item-label>
+              <q-item-label caption>{{guardian.weight}}</q-item-label>
             </q-item-section>
           </q-item>
 
@@ -194,7 +194,7 @@
             </q-item-section>
             <q-item-section>
               <q-item-label class="text-weight-light">Permission</q-item-label>
-              <q-item-label caption>@{{custodian.authority}}</q-item-label>
+              <q-item-label caption>@{{guardian.authority}}</q-item-label>
             </q-item-section>
           </q-item>
 
@@ -204,8 +204,8 @@
         <q-tab-panel name="profile" class="overflow-hidden no-padding">
           <q-scroll-area :visible="true" :thumb-style="thumbStyle" style="height: 200px; width:100%">
             <div v-if="!profile_is_loading" class="q-px-md q-pb-md q-pt-xs">
-              <profile-text :account="custodian.account" :profile_data="profile_data" />
-              <q-btn color="primary" dense class="full-width" label="full profile" :to="`/members/${getActiveGroup}/profile/${custodian.account}`"/>
+              <profile-text :account="guardian.account" :profile_data="profile_data" />
+              <q-btn color="primary" dense class="full-width" label="full profile" :to="`/members/${getActiveGroup}/profile/${guardian.account}`"/>
             </div>
             <div v-else class="column justify-center items-center" style="height:200px">
               <q-spinner color="primary" size="40px"/>
@@ -231,7 +231,7 @@ import imaliveBtn from "components/imalive-btn";
 import profilePic from "components/profile-pic";
 import dateString from "components/date-string"
 export default {
-  name: "custodianCard",
+  name: "guardianCard",
   components: {
     imaliveBtn,
     profilePic,
@@ -240,7 +240,7 @@ export default {
     profileLink
   },
   props:{
-    custodian:{
+    guardian:{
       type: Object,
       default: ()=>{return {};}
     },
@@ -273,7 +273,7 @@ export default {
     getImAliveStats(){
       let res = 0;
       if(this.getCoreConfig && this.getCoreConfig.conf.inactivate_cust_after_sec){
-        let last_active = new Date(this.custodian.last_active+".000+00:00").getTime();
+        let last_active = new Date(this.guardian.last_active+".000+00:00").getTime();
         let now = new Date().getTime(); 
 
         let imalive_period = this.getCoreConfig.conf.inactivate_cust_after_sec*1000;
@@ -290,7 +290,7 @@ export default {
   methods: {
     async getProfile() {
       this.profile_is_loading =true;
-      this.profile_data = await this.$store.dispatch("group/fetchProfile", this.custodian.account);
+      this.profile_data = await this.$store.dispatch("group/fetchProfile", this.guardian.account);
       this.profile_is_loading = false;
     }
   },

@@ -45,7 +45,7 @@
             <!-- <q-item-section side v-if="scope.opt.warning">
               <q-icon name="mdi-alert" color="warning" >
                 <q-tooltip content-class="bg-secondary" :delay="500">
-                  Threshold exceeds number of custodians {{getNumberCustodians}}
+                  Threshold exceeds number of guardians {{getNumberGuardians}}
                 </q-tooltip>
               </q-icon>
             </q-item-section> -->
