@@ -2,8 +2,7 @@
   <q-page class=" bg-dark full-height">
 
     <div class="header_box relative-position">
-
-      <q-parallax src="statics/images/bg.jpg" :height="500">
+      <q-parallax src="statics/images/15410.jpg" :height="500">
         <div class="text-center text-primary" style="">
           <div
             style="background:#272822F2"
@@ -11,7 +10,7 @@
           >
             eosio Group accounts
           </div>
-          <div class=" bg-primary text-secondary text-weight-bold" style="font-size:17px">
+          <div class=" bg-white text-secondary text-weight-bold" style="font-size:17px">
             Start As Group - Proceed As DAC
           </div>
 
@@ -20,7 +19,7 @@
       </q-parallax>
     </div>
     <div class="q-pa-md center-page-content text-white">
-      <div class="text-white text-center q-mb-xl" style="font-size: calc(16px + 1.8vw);" >EMPOWEREMENT OF DECENTRALIZED COMMUNITIES</div>
+      <div class="text-white text-center q-mb-x1" style="font-size: calc(16px + 1.8vw);" >EMPOWEREMENT OF DECENTRALIZED COMMUNITIES</div>
 
 
 <!-- TODO -->

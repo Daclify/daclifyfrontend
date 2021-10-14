@@ -7,7 +7,7 @@
       <div class="q-pa-sm">
         
         <div class="text-h6 q-mb-md">
-          <img  src="~assets/daclify-logo-filled.svg" style="height:24px" class="cursor-pointer q-mt-sm"/>
+          <img  src="~assets/animus-logo-small.png" style="height:60px" class="cursor-pointer q-mt-sm"/>
           <router-link to="/" tag="a" class="text-link text-caption" style="display:block">
             Pricing
           </router-link>
@@ -24,6 +24,7 @@
       <div class="q-pa-sm">
         <div class="text-h6 text-weight-light q-mb-md">Sponsors & Partners</div>
         <q-img  src="https://i.ibb.co/cYGz2xq/36450.png" style="width:80px" contain class="cursor-pointer" @click="openURL('https://boid.com')" />
+        <q-img  src="~assets/animus-logo-small.png" style="width:80px" contain class="cursor-pointer" @click="openURL('https://www.animus.is')" />
       </div>
     </div>
    
@@ -46,7 +47,7 @@
   
   <q-separator dark class="q-mt-lg"/>
 
-  <div class="row justify-end">© Daclify {{new Date().getFullYear()}}</div>
+  <div class="row justify-end">© Daclify by Animus {{new Date().getFullYear()}}</div>
   </div>
   
 

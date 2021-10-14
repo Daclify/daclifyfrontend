@@ -7,8 +7,8 @@
             "precision": 4
         },
         "social":{
-            "github": "https://github.com/Daclify",
-            "telegram": "https://t.me/daclify"
+            "github": "https://github.com/Animus-Labs-Ltd/daclifyfrontend",
+            "telegram": "https://t.me/Boidcom_official"
         },
         "api":{
             "url": "https://api.daclify.com"
@@ -22,11 +22,11 @@
             "precision": 4
         },
         "social":{
-            "github": "https://github.com/Daclify",
-            "telegram": "https://t.me/daclify"
+            "github": "https://github.com/Animus-Labs-Ltd/daclifyfrontend",
+            "telegram": "https://t.me/Boidcom_official"
         },
         "api":{
-            "url": "https://api.daclify.com"
+            "url": "https://eos.api.animus.is"
         }
     }
 
