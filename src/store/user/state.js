@@ -17,6 +17,11 @@ export default {
       base: 'https://bloks.io/',
       trx: 'transaction/',
       account: 'account/'
+    },
+    telos:{
+      base: 'https://telos.bloks.io/',
+      trx: 'transaction/',
+      account: 'account/'
     }
 
   },

@@ -125,16 +125,22 @@ export default {
       menu_open: false,
       networks: [
         {
+          label: "Telos",
+          key:"telos",
+          icon: "img:statics/images/networks/telos.png",
+          msg: "active: beta version"
+        },
+        {
+          label: "EOS",
+          key: "mainnet",
+          icon: "img:statics/images/networks/mainnet.png",
+          msg: "active: beta version"
+        },
+        {
           label: "Jungle",
           key: "jungle",
           icon: "img:statics/images/networks/jungle.png",
           msg: "active: beta version"
-        },
-        {
-          label: "Mainnet",
-          key: "mainnet",
-          icon: "img:statics/images/networks/mainnet.png",
-          msg: "coming soon"
         },
         {
           label: "Kylin",
