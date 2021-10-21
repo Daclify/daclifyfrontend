@@ -131,6 +131,12 @@ export default {
           msg: "active: beta version"
         },
         {
+          label: "TelosTestnet",
+          key:"telosTest",
+          icon: "img:statics/images/networks/telos.png",
+          msg: "active: beta version"
+        },
+        {
           label: "EOS",
           key: "mainnet",
           icon: "img:statics/images/networks/mainnet.png",
@@ -142,12 +148,12 @@ export default {
           icon: "img:statics/images/networks/jungle.png",
           msg: "active: beta version"
         },
-        {
-          label: "Kylin",
-          key:"kylin",
-          icon: "img:statics/images/networks/kylin.png",
-          msg: "coming soon"
-        },
+        // {
+        //   label: "Kylin",
+        //   key:"kylin",
+        //   icon: "img:statics/images/networks/kylin.png",
+        //   msg: "coming soon"
+        // },
 
       ]
     };

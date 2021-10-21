@@ -42,7 +42,7 @@
 
     <q-input v-model="input_value" class="q-mt-md" type="number" outlined bottom-slots dense>
       <template v-slot:append>
-        EOS
+        EOS/TLOS
       </template>
     </q-input>
 

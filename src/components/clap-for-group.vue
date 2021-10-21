@@ -30,12 +30,12 @@
                   :label-always="false"
                   :label="false"
                   label-color="primary"
-                  :label-value="clap_amount/10000 +' EOS'"
+                  :label-value="clap_amount/10000 +' EOS/TLOS'"
                   color="primary"
                 />
                 <q-input :value="clap_amount/10000" outlined dense :readonly="true">
                   <template v-slot:append>
-                    EOS
+                    EOS/TLOS
                   </template>
                 </q-input>
                 <q-btn label="clap" class="q-mt-md full-width" color="primary" @click="transferClaps" :loading="getIsTransacting"/>
@@ -95,7 +95,7 @@ export default {
         data:{
           from: this.getAccountName,
           to: this.getAppConfig.groups_contract,
-          quantity: `${(this.clap_amount/10000).toFixed(4)} EOS`,
+          quantity: `${(this.clap_amount/10000).toFixed(4)} EOS/TLOS`,
           memo: `clap for group: ${this.getActiveGroup}`
         }
       };

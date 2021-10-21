@@ -14,6 +14,21 @@
             "url": "https://telos.api.animus.is"
         }
     },
+    "telosTest":{
+        "groups_contract": "daclifyhub11",
+        "system_token": {
+            "contract": "eosio.token",
+            "symbol": "TLOS",
+            "precision": 4
+        },
+        "social":{
+            "github": "https://github.com/Animus-Labs-Ltd/daclifyfrontend",
+            "telegram": "https://t.me/Boidcom_official"
+        },
+        "api":{
+            "url": "https://api.testnet.telosunlimited.io"
+        }
+    },
     "jungle":{
         "groups_contract": "daclifyhub11",
         "system_token": {

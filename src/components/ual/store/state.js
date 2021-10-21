@@ -80,5 +80,23 @@ export default {
         ]
       }
     },
+    telosTest: {
+      config: {
+        chainId:
+          "1eaa0824707c8c16bd25145493bf062aecddfeb56c736f6ba6397f3195f33c9f",
+        rpcEndpoints: [
+          {
+            protocol: "https",
+            host: "api.testnet.telosunlimited.io",
+            port: 443
+          },
+          {
+            protocol: "https",
+            host: "testnet-api.telosuk.io",
+            port: 443
+          }
+        ]
+      }
+    },
   }
 };
