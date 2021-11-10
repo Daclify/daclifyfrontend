@@ -148,12 +148,12 @@ export default {
           icon: "img:statics/images/networks/jungle.png",
           msg: "active: beta version"
         },
-        // {
-        //   label: "Kylin",
-        //   key:"kylin",
-        //   icon: "img:statics/images/networks/kylin.png",
-        //   msg: "coming soon"
-        // },
+        {
+          label: "WAX",
+          key:"wax",
+          icon: "img:statics/images/networks/wax.png",
+          msg: "active: beta version"
+        },
 
       ]
     };

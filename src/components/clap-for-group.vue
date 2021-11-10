@@ -30,7 +30,7 @@
                   :label-always="false"
                   :label="false"
                   label-color="primary"
-                  :label-value="clap_amount/10000 +' EOS/TLOS'"
+                  :label-value="clap_amount/10000 +' EOS/TLOS/WAX'"
                   color="primary"
                 />
                 <q-input :value="clap_amount/10000" outlined dense :readonly="true">
