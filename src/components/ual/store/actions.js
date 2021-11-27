@@ -9,6 +9,7 @@ import { Lynx } from "ual-lynx";
 import { TokenPocket } from "ual-token-pocket";
 //import { EOSIOAuth } from 'ual-eosio-reference-authenticator';
 import { Anchor } from "ual-anchor";
+import { Wax } from "@eosdacio/ual-wax";
 
 import { freeCpuPatch } from "../../../imports/cosign/ual_user_patch.js";
 
@@ -28,7 +29,8 @@ export async function initUAL({ state, commit, dispatch, getters }, network) {
     new Ledger(chains),
     new Lynx(chains, { appName: appName }),
     new TokenPocket(chains),
-    new Anchor(chains, { appName: appName })
+    new Anchor(chains, { appName: appName }),
+    new Wax(chains, { appName: appName })
     //new EOSIOAuth(chains, { appName, protocol: 'eosio' })
   ];
   let ual = new UAL(chains, appName, authenticators);
