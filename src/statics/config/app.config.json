@@ -1,0 +1,78 @@
+{
+    "telos":{
+        "groups_contract": "dacs.master",
+        "system_token": {
+            "contract": "eosio.token",
+            "symbol": "TLOS",
+            "precision": 4
+        },
+        "social":{
+            "github": "https://github.com/Animus-Labs-Ltd/daclifyfrontend",
+            "telegram": "https://t.me/Boidcom_official"
+        },
+        "api":{
+            "url": "https://telos.api.animus.is"
+        }
+    },
+    "telosTest":{
+        "groups_contract": "daclifyhub11",
+        "system_token": {
+            "contract": "eosio.token",
+            "symbol": "TLOS",
+            "precision": 4
+        },
+        "social":{
+            "github": "https://github.com/Animus-Labs-Ltd/daclifyfrontend",
+            "telegram": "https://t.me/Boidcom_official"
+        },
+        "api":{
+            "url": "https://api.testnet.telosunlimited.io"
+        }
+    },
+    "jungle":{
+        "groups_contract": "daclifyhub11",
+        "system_token": {
+            "contract": "eosio.token",
+            "symbol": "EOS",
+            "precision": 4
+        },
+        "social":{
+            "github": "https://github.com/Animus-Labs-Ltd/daclifyfrontend",
+            "telegram": "https://t.me/Boidcom_official"
+        },
+        "api":{
+            "url": "https://jungle.eosn.io"
+        }
+    },
+    "wax":{
+        "groups_contract": "daclifyhub11",
+        "system_token": {
+            "contract": "eosio.token",
+            "symbol": "WAX",
+            "precision": 8
+        },
+        "social":{
+            "github": "https://github.com/Animus-Labs-Ltd/daclifyfrontend",
+            "telegram": "https://t.me/Boidcom_official"
+        },
+        "api":{
+            "url": "https://wax.eosn.io"
+        }
+    },
+    "mainnet":{
+        "groups_contract": "daclifyhub11",
+        "system_token": {
+            "contract": "eosio.token",
+            "symbol": "EOS",
+            "precision": 4
+        },
+        "social":{
+            "github": "https://github.com/Animus-Labs-Ltd/daclifyfrontend",
+            "telegram": "https://t.me/Boidcom_official"
+        },
+        "api":{
+            "url": "https://eos.api.animus.is"
+        }
+    }
+
+}

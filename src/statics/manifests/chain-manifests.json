@@ -1,0 +1,24 @@
+{
+  "spec_version": "0.2.0",
+  "manifests": [
+
+    {
+      "chainId": "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473",
+      "manifest": {
+        "account": "piecesnbitss",
+        "domain": "https://croneos.io",
+        "appmeta": "https://croneos.io/app-metadata.json#a2249d3137239529cc7131c130958f3eacfc49dbf21a636e9cbf8ef4ba458ff2",
+        "whitelist": [
+          {
+            "contract": "",
+            "action": "transfer"
+          },
+          {
+            "contract": "piecestest12",
+            "action": ""
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "spec_version": "0.2.0",
+  "name": "CRONEOS",
+  "shortname": "CRONEOS",
+  "scope": "/",
+  "apphome": "/",
+  "icon": "/statics/app-logo-128x128.png#f89f67d808e06f250146159acd101c50016f0229bfe5e3b334dbc6b8a236d3f9",
+  "appIdentifiers": [],
+  "description": "Schedule future work on EOS (not active)",
+  "chains": []
+}
