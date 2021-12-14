@@ -12,7 +12,7 @@
             v-if="getNewCoreConfig"
             :true-value="1"
             :false-value="0"
-            :value="getNewCoreConfig.conf.member_registration"
+            v-model="getNewCoreConfig.conf.member_registration"
             color="positive"
             @input="
               $store.commit('group/setNewCoreConfigPath', {
@@ -33,7 +33,7 @@
             v-if="getNewCoreConfig"
             :true-value="1"
             :false-value="0"
-            :value="getNewCoreConfig.conf.userterms"
+            v-model="getNewCoreConfig.conf.userterms"
             color="positive"
             @input="
               $store.commit('group/setNewCoreConfigPath', {

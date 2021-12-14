@@ -4,7 +4,7 @@
       outlined
       label="Enable Withdrawals"
       type="number"
-      :value="getNewCoreConfig.conf.enable_withdraw"
+      v-model="getNewCoreConfig.conf.enable_withdraw"
       @input="
         $store.commit('group/setNewCoreConfigPath', {
           path: 'conf.enable_withdraw',
@@ -26,7 +26,7 @@
             v-if="getNewCoreConfig"
             :true-value="1"
             :false-value="0"
-            :value="getNewCoreConfig.conf.internal_transfers"
+            v-model="getNewCoreConfig.conf.internal_transfers"
             color="positive"
             @input="
               $store.commit('group/setNewCoreConfigPath', {
@@ -47,7 +47,7 @@
             v-if="getNewCoreConfig"
             :true-value="1"
             :false-value="0"
-            :value="getNewCoreConfig.conf.deposits"
+            v-model="getNewCoreConfig.conf.deposits"
             color="positive"
             @input="
               $store.commit('group/setNewCoreConfigPath', {
@@ -68,7 +68,7 @@
             v-if="getNewCoreConfig"
             :true-value="1"
             :false-value="0"
-            :value="getNewCoreConfig.conf.withdrawals"
+            v-model="getNewCoreConfig.conf.withdrawals"
             color="positive"
             @input="
               $store.commit('group/setNewCoreConfigPath', {

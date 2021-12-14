@@ -113,7 +113,7 @@ export default defineComponent({
           break;
         case "action":
           this.selected_action_name = value;
-          this.$refs; //.listactions.handleActionClick({icon:"", name:value,type:value})
+          this.$refs;
           break;
       }
       console.log(key, value);

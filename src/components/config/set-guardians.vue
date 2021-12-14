@@ -4,7 +4,7 @@
       outlined
       label="Max number of guardians"
       type="number"
-      :value="getNewCoreConfig.conf.max_guardians"
+      v-model="getNewCoreConfig.conf.max_guardians"
       @input="
         $store.commit('group/setNewCoreConfigPath', {
           path: 'conf.max_guardians',
@@ -22,7 +22,7 @@
       outlined
       label="Inactivate guardian after inactivity seconds"
       type="number"
-      :value="getNewCoreConfig.conf.inactivate_cust_after_sec"
+      v-model="getNewCoreConfig.conf.inactivate_cust_after_sec"
       @input="
         $store.commit('group/setNewCoreConfigPath', {
           path: 'conf.inactivate_cust_after_sec',

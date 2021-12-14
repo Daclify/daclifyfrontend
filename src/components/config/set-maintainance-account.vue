@@ -4,7 +4,7 @@
       <q-input
         style="min-width: 200px"
         class="q-mr-xs"
-        :value="getNewCoreConfig.conf.maintainer_account.actor"
+        v-model="getNewCoreConfig.conf.maintainer_account.actor"
         @input="
           $store.commit('group/setNewCoreConfigPath', {
             path: 'conf.maintainer_account.actor',
@@ -24,7 +24,7 @@
       <q-input
         style="width: 100%"
         ref="permission"
-        :value="getNewCoreConfig.conf.maintainer_account.permission"
+        v-model="getNewCoreConfig.conf.maintainer_account.permission"
         @input="
           $store.commit('group/setNewCoreConfigPath', {
             path: 'conf.maintainer_account.permission',

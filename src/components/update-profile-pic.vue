@@ -1,7 +1,7 @@
 <template>
   <q-input
     ref="input"
-    :value="new_avatar"
+    v-model="new_avatar"
     label="new avatar url"
     outlined
     bottom-slots

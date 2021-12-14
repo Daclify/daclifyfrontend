@@ -4,7 +4,7 @@
       outlined
       label="Proposal History Size"
       type="number"
-      :value="getNewCoreConfig.conf.proposal_archive_size"
+      v-model="getNewCoreConfig.conf.proposal_archive_size"
       @input="
         $store.commit('group/setNewCoreConfigPath', {
           path: 'conf.proposal_archive_size',
@@ -27,7 +27,7 @@
             v-if="getNewCoreConfig"
             :true-value="1"
             :false-value="0"
-            :value="getNewCoreConfig.conf.exec_on_threshold_zero"
+            v-model="getNewCoreConfig.conf.exec_on_threshold_zero"
             color="positive"
             @input="
               $store.commit('group/setNewCoreConfigPath', {

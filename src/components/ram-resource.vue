@@ -53,7 +53,6 @@
                 class="absolute-full flex flex-center text-black"
                 style="font-size: 11px"
               >
-                <!-- <q-badge color="primary-light" text-color="accent" :label="(getNETStats.perc_used).toFixed(2)+'%'" /> -->
                 {{ getRAMStats.perc_used.toFixed(2) + "%" }}
               </div>
             </q-linear-progress>

@@ -45,7 +45,7 @@
                     getElectionsConfig.allow_self_vote || getAccountName != candidate.cand
                   ),
                 }"
-                :value="candidate.vote"
+                v-model="candidate.vote"
                 @input="updateVote"
               />
             </div>

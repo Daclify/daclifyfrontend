@@ -16,8 +16,8 @@
           :nodes="getGroupTree()"
           node-key="label"
           selected-color="primary"
-          :selected.sync="selected"
-          :expanded.sync="expanded"
+          v-model:selected="selected"
+          v-model:expanded="expanded"
           :default-expand-all="false"
           :accordion="true"
         >

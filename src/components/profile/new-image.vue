@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-input
-      :value="newImage"
+      v-model="newImage"
       outlined
       class="q-mb-md"
       bottom-slots
