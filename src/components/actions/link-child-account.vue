@@ -42,12 +42,12 @@
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
-import { colors } from "quasar";
 import proposeBucketBtn from "components/actions/propose-bucket-btn";
 import { isValidAccountName, isExistingAccountName } from "../../imports/validators";
 // destructuring to keep only what is needed
-export default {
+export default defineComponent({
   name: 'updatecolor',
   components:{
     proposeBucketBtn
@@ -154,5 +154,5 @@ export default {
       }
     }
   }
-};
+});
 </script>

@@ -6,20 +6,29 @@
           <q-item-section avatar>
             <q-icon
               :name="getIconForAction(deserialized_action.name).name"
-              
-              :class="getIconForAction(deserialized_action.name).class ? getIconForAction(deserialized_action.name).class: ''"
+              :class="
+                getIconForAction(deserialized_action.name).class
+                  ? getIconForAction(deserialized_action.name).class
+                  : ''
+              "
             />
           </q-item-section>
 
-          <q-item-section style="margin-left:-15px" >
+          <q-item-section style="margin-left: -15px">
             <q-item-label>
-              {{deserialized_action.account}}<span class="text-primary q-mx-xs"><b>></b> </span>{{deserialized_action.name}}
-              <q-badge v-for="(auth) in action.authorization" :key="auth.actor+auth.permission" class="q-ml-xs">
-                {{`${auth.actor}@${auth.permission}`}}
+              {{ deserialized_action.account
+              }}<span class="text-primary q-mx-xs"><b>></b> </span
+              >{{ deserialized_action.name }}
+              <q-badge
+                v-for="auth in action.authorization"
+                :key="auth.actor + auth.permission"
+                class="q-ml-xs"
+              >
+                {{ `${auth.actor}@${auth.permission}` }}
               </q-badge>
             </q-item-label>
             <q-item-label v-if="!is_deserializing" caption>
-              <div >{{deserialized_action.data}}</div>
+              <div>{{ deserialized_action.data }}</div>
             </q-item-label>
             <q-item-label v-else caption>
               <q-spinner color="primary" />
@@ -35,29 +44,31 @@
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
 import { action_icon_map } from "../imports/action_icon_map";
-export default {
+
+export default defineComponent({
   name: "actionDisplay",
   props: {
     action: {
       type: Object,
       default: () => {
         return {};
-      }
-    }
+      },
+    },
   },
   data() {
     return {
       deserialized_action: false,
-      authorization:"",
-      is_deserializing: false
+      authorization: "",
+      is_deserializing: false,
     };
   },
   computed: {
     ...mapGetters({
-      getIsCustodian: "group/getIsCustodian"
-    })
+      getIsGuardian: "group/getIsGuardian",
+    }),
   },
   methods: {
     getIconForAction(action_name) {
@@ -79,20 +90,19 @@ export default {
       } else {
         return this.action.data;
       }
-    }
-
+    },
   },
   watch: {
     action: {
-      handler: async function(newVal, oldVal) {
+      handler: async function (newVal, oldVal) {
         if (newVal && newVal != oldVal) {
           if (typeof this.action.data == "string") {
             this.deserialized_action = await this.deserializeAction();
           }
         }
       },
-      immediate: true
-    }
-  }
-};
+      immediate: true,
+    },
+  },
+});
 </script>

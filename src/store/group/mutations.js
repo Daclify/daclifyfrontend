@@ -14,8 +14,8 @@ Object.byString = function(o, s) {
 }
 
 
-export function setCustodians(state, payload){
-    state.custodians = payload;
+export function setGuardians(state, payload){
+    state.guardians = payload;
 }
 
 export function setAvatars(state, payload){
@@ -61,9 +61,9 @@ export function setMyOldProfile(state, payload){
     
 }
 
-export function setCustodianLastActive(state, payload){
-    let {custodian, block_time} = payload;
-    let found_cust = state.custodians.find(c => c.account == custodian)
+export function setGuardianLastActive(state, payload){
+    let {guardian, block_time} = payload;
+    let found_cust = state.guardians.find(c => c.account == guardian)
     if(found_cust){
         found_cust.last_active = block_time.split('.')[0]
     }

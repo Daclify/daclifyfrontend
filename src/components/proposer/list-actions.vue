@@ -40,7 +40,7 @@
         <div
           v-for="action in getActionListWithFilter"
           :key="action.name"
-          style="width:157px"
+          style="width: 157px"
         >
           <q-item
             clickable
@@ -52,35 +52,35 @@
               <!-- <q-img :src="action.icon" style="width:16px" /> -->
               <q-icon name="check" color="white" />
             </q-item-section>
-            <q-item-section style="margin-left:-22px" class=" text-center">
-              <q-item-label
-                class="text-white text-uppercase"
-                style="font-size:12px"
-                >{{ action.name }}</q-item-label
-              >
+            <q-item-section style="margin-left: -22px" class="text-center">
+              <q-item-label class="text-white text-uppercase" style="font-size: 12px">{{
+                action.name
+              }}</q-item-label>
             </q-item-section>
           </q-item>
         </div>
       </transition-group>
     </div>
-    <div v-else class="row justify-center items-center" style="height:100px">
+    <div v-else class="row justify-center items-center" style="height: 100px">
       <q-spinner color="primary" size="48px" />
     </div>
   </div>
 </template>
 
 <script>
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "listActions",
   props: {
     contract: {
       type: String,
-      default: ""
+      default: "",
     },
     action_name: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   data() {
     return {
@@ -88,18 +88,18 @@ export default {
       abi_actions: [],
       selected_action: "",
       filter: "",
-      is_loading: false
+      is_loading: false,
     };
   },
   computed: {
     getActionListWithFilter() {
       if (this.filter) {
         this.filter = this.filter.toLowerCase();
-        return this.abi_actions.filter(aa => aa.name.includes(this.filter));
+        return this.abi_actions.filter((aa) => aa.name.includes(this.filter));
       } else {
         return this.abi_actions;
       }
-    }
+    },
   },
   methods: {
     async getActionsFromAbi(contract) {
@@ -110,7 +110,7 @@ export default {
       console.log(abi);
       if (abi && abi.account_name == contract && abi.abi) {
         this.abi = abi;
-        this.abi_actions = abi.abi.actions.map(aa => {
+        this.abi_actions = abi.abi.actions.map((aa) => {
           let r = {};
           r.name = aa.name;
           r.type = aa.type;
@@ -126,7 +126,7 @@ export default {
 
     getStructForAction(action) {
       let struct = this.abi.abi.structs.find(
-        st => st.name == action.name || st.name == action.type
+        (st) => st.name == action.name || st.name == action.type
       );
       if (struct) {
         return struct;
@@ -136,42 +136,42 @@ export default {
     },
     handleActionClick(action) {
       this.$emit("action-select", this.getStructForAction(action));
-    }
+    },
   },
 
   watch: {
     contract: {
-      handler: function(newVal) {
+      handler: function (newVal) {
         if (newVal) {
           this.getActionsFromAbi(newVal);
         }
       },
-      immediate: true
+      immediate: true,
     },
     action_name: {
-      handler: async function(newVal, oldVal) {
+      handler: async function (newVal, oldVal) {
         if (newVal && newVal != oldVal) {
           this.filter = newVal;
         }
       },
-      immediate: true
+      immediate: true,
     },
-    abi_actions:{
-      immediate:false,
-      handler: function(newV,oldV){
-        if(newV!=oldV && newV.length){
-          let uri = window.location.search.substring(1); 
+    abi_actions: {
+      immediate: false,
+      handler: function (newV, oldV) {
+        if (newV != oldV && newV.length) {
+          let uri = window.location.search.substring(1);
           let params = new URLSearchParams(uri);
           let a = params.get("action");
-          if(a){
-            let action = this.abi_actions.find(aa => aa.name == a);
-            if(action){
+          if (a) {
+            let action = this.abi_actions.find((aa) => aa.name == a);
+            if (action) {
               this.handleActionClick(action);
             }
           }
         }
-      }
-    }
-  }
-};
+      },
+    },
+  },
+});
 </script>

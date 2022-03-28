@@ -1,40 +1,44 @@
 <template>
   <div>
-    <q-icon v-if="iconOnly" name="mdi-theme-light-dark" size="24px" @click="toggleNightMode" class="cursor-pointer" :class="{'rotate-180': getIsDark }" />
+    <q-icon
+      v-if="iconOnly"
+      name="mdi-theme-light-dark"
+      size="24px"
+      @click="toggleNightMode"
+      class="cursor-pointer"
+      :class="{ 'rotate-180': getIsDark }"
+    />
     <q-btn v-else color="white" round @click="toggleNightMode" flat dense>
-      <q-icon name="mdi-theme-light-dark" :class="{'rotate-180': getIsDark }" />
+      <q-icon name="mdi-theme-light-dark" :class="{ 'rotate-180': getIsDark }" />
     </q-btn>
   </div>
 </template>
 
-
-
 <script>
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
-export default {
+
+export default defineComponent({
   // name: 'ComponentName',
-  props:{
-    iconOnly:{
+  props: {
+    iconOnly: {
       type: Boolean,
-      default:false
-    }
+      default: false,
+    },
   },
-  data () {
-    return {}
+  data() {
+    return {};
   },
   computed: {
     ...mapGetters({
       getIsDark: "user/getIsDark",
-
-    })
-
+    }),
   },
-  methods:{
-    toggleNightMode(){
+  methods: {
+    toggleNightMode() {
       this.$q.dark.toggle();
-      this.$store.commit('user/setIsDark', !this.getIsDark );
-    }
-  }
-
-}
+      this.$store.commit("user/setIsDark", !this.getIsDark);
+    },
+  },
+});
 </script>

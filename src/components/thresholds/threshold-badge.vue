@@ -1,62 +1,64 @@
 <template>
   <div v-if="THRESHOLD">
     <span v-if="label" class="text-caption text-grey-6 q-mr-xs">Threshold:</span>
-    <q-badge color="secondary" style="cursor:help">
-      {{THRESHOLD.threshold_name}}
-      <q-tooltip content-class="bg-secondary" :delay="300">
-        {{contract}}::{{action_name}} requires {{THRESHOLD.threshold}} approval votes
+    <q-badge color="secondary" style="cursor: help">
+      {{ THRESHOLD.threshold_name }}
+      <q-tooltip class="bg-secondary" :delay="300">
+        {{ contract }}::{{ action_name }} requires {{ THRESHOLD.threshold }} approval
+        votes
       </q-tooltip>
     </q-badge>
   </div>
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
 
-export default {
+export default defineComponent({
   name: "thresholdbadge",
-  components: {
-    
-  },
-  props:{
-    threshold:{
+  components: {},
+  props: {
+    threshold: {
       type: Object,
-      default: ()=>{return {}}
+      default: () => {
+        return {};
+      },
     },
-    label:{
+    label: {
       type: Boolean,
-      default: false
+      default: false,
     },
-    contract:{
+    contract: {
       type: String,
-      default: ''
+      default: "",
     },
-    action_name:{
-      type:String,
-      default: '' 
-    }
+    action_name: {
+      type: String,
+      default: "",
+    },
   },
   data() {
     return {
-      THRESHOLD: ''
+      THRESHOLD: "",
     };
   },
   computed: {
     ...mapGetters({
-      getLinkedThresholdForContractAction:"group/getLinkedThresholdForContractAction"
-    })
+      getLinkedThresholdForContractAction: "group/getLinkedThresholdForContractAction",
+    }),
   },
   mounted() {
-    if(Object.keys(this.threshold).length){
+    if (Object.keys(this.threshold).length) {
       this.THRESHOLD = this.threshold;
+    } else if (this.contract || this.action_name) {
+      this.THRESHOLD = this.getLinkedThresholdForContractAction(
+        this.contract,
+        this.action_name
+      );
+    } else {
+      throw new Error("Wrong props for threshold badge");
     }
-    else if(this.contract || this.action_name){
-      this.THRESHOLD = this.getLinkedThresholdForContractAction(this.contract, this.action_name);
-    }
-    else{
-      throw new Error('Wrong props for threshold badge');
-    }
-  }
-
-};
+  },
+});
 </script>

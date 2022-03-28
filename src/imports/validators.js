@@ -1,22 +1,22 @@
-import Vue from "vue";
-
-export function isValidAccountName(v) {
+export function isValidAccountName (v) {
   if (v == "") return true;
   v = v.toLowerCase();
   const re = /^[a-z1-5.]{1,12}$/;
   if (re.test(v)) {
     return true;
   } else {
-    if(v.length > 12){
+    if (v.length > 12) {
       return "Max 12 characters";
     }
     return "Allowed chars a-z, 1-5 and .";
   }
 }
 
-export async function isAvailableAccountName(v) {
-  v = v.toLowerCase();
-  let res = await Vue.prototype.$eos.api.rpc.get_account(v).catch(e => false);
+export async function isAvailableAccountName (payload) {
+  payload.v = payload.v.toLowerCase();
+  console.log(payload.v)
+  let res = await payload.vm.$eos.api.rpc.get_account(payload.v).catch(e => false);
+  console.log(res)
   if (!res) {
     //accountname not found
     return true;
@@ -26,9 +26,9 @@ export async function isAvailableAccountName(v) {
 }
 
 
-export async function isExistingAccountName(v) {
-  v = v.toLowerCase();
-  let res = await Vue.prototype.$eos.api.rpc.get_account(v).catch(e => false);
+export async function isExistingAccountName (payload) {
+  payload.value = payload.value.toLowerCase();
+  let res = await payload.vm.$eos.api.rpc.get_account(payload.value).catch(e => false);
   if (!res) {
     //accountname not found
     return 'Account does not exists';
@@ -37,8 +37,8 @@ export async function isExistingAccountName(v) {
   }
 }
 
-export function isHttps(v) {
-  v= v.toLowerCase();
+export function isHttps (v) {
+  v = v.toLowerCase();
   if (v.startsWith('https://')) {
     return true;
   } else {
@@ -46,7 +46,7 @@ export function isHttps(v) {
   }
 }
 
-export function isValidUrl(v) {
+export function isValidUrl (v) {
   if (v == "") return false;
   const re = /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
   if (re.test(v)) {
@@ -55,7 +55,7 @@ export function isValidUrl(v) {
     return "This is not a valid url";
   }
 }
-export function isValidSymbol(v) {
+export function isValidSymbol (v) {
   const re = /^[A-Z]{1,7}$/;
   if (re.test(v)) {
     return true;
@@ -63,18 +63,18 @@ export function isValidSymbol(v) {
     return "Token symbol can only have letters A-Z";
   }
 }
-export function isYouTubeUrl(url) {
+export function isYouTubeUrl (url) {
   var p = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
-  if(url.match(p)){
-      return true;
+  if (url.match(p)) {
+    return true;
   }
   return "This is not a valid youtube link";
 }
 
-export async function isAvailableSymbol(v) {
+export async function isAvailableSymbol (v) {
   v = v.toUpperCase();
   let contract = "kasdactokens";
-  let res = await Vue.prototype.$eos.apiapi
+  let res = await this.$eos.api
     .get_table_rows({
       json: true,
       code: contract,

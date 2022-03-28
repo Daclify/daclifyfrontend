@@ -1,48 +1,43 @@
 <template>
   <q-page padding class="constrain-page-width">
-    <page-header title="Group Wallet"/>
+    <pageHeader title="Group Wallet" />
 
-  <q-card>
-    <q-card-section>
-      <action-proposer>
-        <template slot-scope="scope">
-          <transfer  @propose="scope.propose" @addtobucket="scope.addtobucket"/>
-        </template>
-      </action-proposer>
-    </q-card-section>
-  </q-card>
-
+    <q-card>
+      <q-card-section>
+        <actionProposer>
+          <template v-slot="props">
+            <transfer @propose="props.propose" @addtobucket="props.addtobucket" />
+          </template>
+        </actionProposer>
+      </q-card-section>
+    </q-card>
   </q-page>
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
 import actionProposer from "components/actions/action-proposer";
 import transfer from "components/actions/transfer";
 import pageHeader from "components/page-header";
-export default {
+
+export default defineComponent({
   name: "groupWallet",
   components: {
     actionProposer,
     transfer,
-    pageHeader
+    pageHeader,
   },
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
     ...mapGetters({
-      getAccountName: "ual/getAccountName"
-
+      getAccountName: "ual/getAccountName",
     }),
-  
-    
   },
-  methods: {
-    
-  },
+  methods: {},
 
-  watch: {}
-};
+  watch: {},
+});
 </script>

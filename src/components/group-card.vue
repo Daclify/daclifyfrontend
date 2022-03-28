@@ -22,17 +22,17 @@
                 contain
                 v-if="group.ui.logo"
                 :src="group.ui.logo"
-                style=" max-width:70%; filter: brightness(0) invert(1); max-height:70px"
+                style="filter: brightness(0) invert(1); width: 100px;max-width: 70%; height: 100%"
                 spinner-color="white"
               >
-                <q-tooltip content-class="bg-secondary" :delay="500">
+                <q-tooltip class="bg-secondary" :delay="500">
                   account: {{ group.groupname }}
                 </q-tooltip>
               </q-img>
 
               <div v-else>{{ group.groupname }}</div>
             </div>
-            <group-tags :tags="group.tags" class="text-white q-mb-xs" />
+            <group-tags :tags="group.tags" content-class="text-white q-mb-xs" />
 
             <div
               style="background: rgba(0,0,0,0.1); height:60px"
@@ -53,7 +53,7 @@
               </div>
               <div>
                 <q-btn
-                  v-if="getUiUrl.startsWith('.')"
+                  v-if="getUiUrl.startsWith('/')"
                   label="Visit Group"
                   :to="getUiUrl"
                   flat
@@ -72,7 +72,7 @@
                   :style="{ backgroundColor: group.ui.hexcolor }"
                 >
                   <q-tooltip
-                    content-class="bg-secondary"
+                    class="bg-secondary"
                     :delay="500"
                     anchor="center left"
                     self="center right"
@@ -107,10 +107,12 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue';
 import { openURL } from "quasar";
 import { isValidUrl } from "../imports/validators.js";
 import groupTags from "components/group-tags";
-export default {
+
+export default defineComponent({
   name: 'groupCard',
   components: {
     groupTags
@@ -130,12 +132,11 @@ export default {
         about: ""
       },
       info_is_loading: false,
-    
     };
   },
   computed: {
     getUiUrl() {
-      let res = `./manage/${this.group.groupname}`;
+      let res = `/manage/${this.group.groupname}`;
       if (this.group.ui.custom_ui_url) {
         if (isValidUrl(this.group.ui.custom_ui_url)) {
           res = this.group.ui.custom_ui_url;
@@ -149,7 +150,6 @@ export default {
   },
   methods: {
     openURL,
-
     switchViewMode(){
       if(this.view_mode == 'main'){
         this.view_mode = 'info';
@@ -160,9 +160,7 @@ export default {
       }
     },
     fetchGroupInfo(){
-
       this.group_info.about = this.group.meta.about;
-
 
       this.info_is_loading = true;
       setTimeout(()=>{
@@ -170,5 +168,5 @@ export default {
       }, 500)
     }
   }
-};
+});
 </script>

@@ -1,40 +1,35 @@
 <template>
   <q-page padding class="constrain-page-width">
-   <page-header title="dashboard"/>
-   <div class="text-grey-7 text-h6">
-    <div v-if="getAccountName">Welcome {{getAccountName}}</div>
-    <div v-else>Please log in</div>
-   </div>
-
+    <page-header title="dashboard" />
+    <div class="text-grey-7 text-h6">
+      <div v-if="getAccountName">Welcome {{ getAccountName }}</div>
+      <div v-else>Please log in</div>
+    </div>
   </q-page>
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
 
 import pageHeader from "components/page-header";
 
-export default {
+export default defineComponent({
   name: "dashboard",
   components: {
-    pageHeader
+    pageHeader,
   },
   data() {
-    return {
-
-    };
+    return {};
   },
   computed: {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
       // getActiveGroup: "group/getActiveGroup",
       // getActiveGroupConfig: "group/getActiveGroupConfig",
-      // getNumberCustodians: "group/getNumberCustodians"
-    })
+      // getNumberGuardians: "group/getNumberGuardians"
+    }),
   },
-  methods: {
-
-  }
-
-};
+  methods: {},
+});
 </script>

@@ -5,12 +5,14 @@
     </div>
     <q-list v-else separator>
       <q-item v-for="file in files" :key="file.id" clickable dense>
-        <q-item-section avatar @click="$emit('loadfile', file)" >
+        <q-item-section avatar @click="$emit('loadfile', file)">
           <q-icon name="mdi-file-document" />
         </q-item-section>
-        <q-item-section style="margin-left:-25px">
-          <q-item-label  >
-            <span @click="$emit('loadfile', file)">{{file.title?file.title:`version ${file.id}`}}</span>
+        <q-item-section style="margin-left: -25px">
+          <q-item-label>
+            <span @click="$emit('loadfile', file)">{{
+              file.title ? file.title : `version ${file.id}`
+            }}</span>
           </q-item-label>
         </q-item-section>
         <q-item-section side>
@@ -27,52 +29,54 @@
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
 import dateString from "components/date-string";
-export default {
-  name: 'indexItems',
-  props:{
-    file_scope:""
+
+export default defineComponent({
+  name: "indexItems",
+  props: {
+    file_scope: "",
   },
-  components:{
-    dateString
+  components: {
+    dateString,
   },
-  data () {
+  data() {
     return {
       is_loading: false,
-      files: []
-    }
+      files: [],
+    };
   },
   computed: {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
       getActiveGroup: "group/getActiveGroup",
-    })
+    }),
   },
-  methods:{
-    async loadFiles(){
+  methods: {
+    async loadFiles() {
       this.is_loading = true;
-      let res  = await this.$eos.api.rpc.get_table_rows({
+      let res = await this.$eos.api.rpc.get_table_rows({
         json: true,
         code: this.getActiveGroup,
         scope: this.file_scope,
         table: "dacfiles",
-        limit: -1
+        limit: -1,
         // lower_bound : this.getAccountName,
         // upper_bound : this.getAccountName,
         // index_position : 2,
         // key_type : 'i64',
         // reverse : true,
         // show_payer : false,
-     });
-     if(res && res.rows && res.rows.length){
-       this.files = res.rows;
-     }
-     this.is_loading = false;
-    }
+      });
+      if (res && res.rows && res.rows.length) {
+        this.files = res.rows;
+      }
+      this.is_loading = false;
+    },
   },
-  mounted(){
+  mounted() {
     this.loadFiles();
-  }
-}
+  },
+});
 </script>

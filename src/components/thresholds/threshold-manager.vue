@@ -1,22 +1,20 @@
 <template>
-  <div>My component
+  <div>
+    My component
     <q-separator />
-    {{getThresholds}}
+    {{ getThresholds }}
   </div>
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
-export default {
-  name: 'thresholdManager',
-  components:{
 
-  },
-  data () {
-    return {
-
- 
-    }
+export default defineComponent({
+  name: "thresholdManager",
+  components: {},
+  data() {
+    return {};
   },
   computed: {
     ...mapGetters({
@@ -24,20 +22,19 @@ export default {
       getThresholds: "group/getThresholds",
       getActiveGroup: "group/getActiveGroup",
       getActiveGroupConfig: "group/getActiveGroupConfig",
-      getThresholdLinks: "group/getThresholdLinks"
+      getThresholdLinks: "group/getThresholdLinks",
     }),
-
   },
-  methods:{
-    manthreshold(){
+  methods: {
+    manthreshold() {
       let action = {
         account: this.getAppConfig.groups_contract,
         name: "manthreshold",
         data: {
           threshold_name: "",
           threshold: 1,
-          remove: false
-        }
+          remove: false,
+        },
       };
 
       const title = `Update Thresholds`;
@@ -46,9 +43,9 @@ export default {
       this.$store.dispatch("group/propose", {
         actions: [action],
         description: description,
-        title: title
+        title: title,
       });
-    }
-  }
-}
+    },
+  },
+});
 </script>

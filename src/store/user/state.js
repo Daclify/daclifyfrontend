@@ -17,11 +17,26 @@ export default {
       base: 'https://bloks.io/',
       trx: 'transaction/',
       account: 'account/'
+    },
+    wax:{
+      base: 'https://wax.bloks.io/',
+      trx: 'transaction/',
+      account: 'account/'
+    },
+    telosTest:{
+      base: 'https://telos-test.bloks.io/',
+      trx: 'transaction/',
+      account: 'account/'
+    },
+    telos:{
+      base: 'https://telos.bloks.io/',
+      trx: 'transaction/',
+      account: 'account/'
     }
 
   },
 
-  minifyCustodians: false,
+  minifyGuardians: false,
   isDark: false,
   isMember: false,
   hubDeposits: false,

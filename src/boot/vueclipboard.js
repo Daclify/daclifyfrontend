@@ -1,5 +1,6 @@
-import VueClipboard from 'vue-clipboard2';
+import VueClipboard from 'vue-clipboard3';
+import { boot } from 'quasar/wrappers'
 
-export default async ({ Vue }) => {
-  Vue.use(VueClipboard)
-};
+export default boot(({ app }) => {
+  app.use(VueClipboard)
+});

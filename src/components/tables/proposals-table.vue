@@ -13,7 +13,6 @@
       :fullscreen="false"
       :wrap-cells="true"
       no-data-label="Group doesn't have proposals"
-      
       selection="none"
       :selected.sync="selected"
     >
@@ -62,92 +61,90 @@
           <span>{{props.row.actions[0].name}}</span>
         </q-td>
       </template> -->
-
-
     </q-table>
   </div>
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
-export default {
-  name: 'proposalsTable',
-props:{
-  proposals:{
-    type: Array,
-    default: () => []
-  }
-},
 
-data () {
+export default defineComponent({
+  name: "proposalsTable",
+  props: {
+    proposals: {
+      type: Array,
+      default: () => [],
+    },
+  },
+
+  data() {
     return {
       selected: [],
       columns: [
-
         {
-          name: 'title',
+          name: "title",
           required: false,
-          label: 'Title',
-          align: 'left',
-          field: row => row.title,
+          label: "Title",
+          align: "left",
+          field: (row) => row.title,
           //format: val => `${new Date(val+'.000Z')}`,
-          sortable: true
+          sortable: true,
         },
         {
-          name: 'description',
+          name: "description",
           required: false,
-          label: 'Description',
-          align: 'left',
-          field: row => row.description,
+          label: "Description",
+          align: "left",
+          field: (row) => row.description,
           //format: val => `${new Date(val+'.000Z')}`,
-          sortable: false
+          sortable: false,
         },
         {
-          name: 'actions',
+          name: "actions",
           required: false,
-          label: 'action(s)',
-          align: 'center',
-          field: row => row.actions,
-          format: val => val.map(c =>c.account).join(', '),
-          sortable: false
+          label: "action(s)",
+          align: "center",
+          field: (row) => row.actions,
+          format: (val) => val.map((c) => c.account).join(", "),
+          sortable: false,
         },
         {
-          name: 'expiration',
+          name: "expiration",
           required: true,
-          label: 'Expire',
-          align: 'left',
-          field: row => row.expiration,
+          label: "Expire",
+          align: "left",
+          field: (row) => row.expiration,
           // format: val => `${new Date(val+'.000Z')}`,
-          sortable: true
+          sortable: true,
         },
 
-
         {
-          name: 'proposer',
+          name: "proposer",
           required: false,
-          label: 'Proposer',
-          align: 'left',
-          field: row => row.proposer,
+          label: "Proposer",
+          align: "left",
+          field: (row) => row.proposer,
           //format: val => `${new Date(val+'.000Z')}`,
-          sortable: false
+          sortable: false,
         },
         {
-          name: 'approvals',
+          name: "approvals",
           required: false,
-          label: 'Approvals',
-          align: 'left',
-          field: row => row.approvals,
-          format: val => val.join(', '),
-          sortable: false
+          label: "Approvals",
+          align: "left",
+          field: (row) => row.approvals,
+          format: (val) => val.join(", "),
+          sortable: false,
         },
         {
-          name: 'extra',
+          name: "extra",
           required: false,
-          label: '',
-          align: 'right',
+          label: "",
+          align: "right",
           //field: row => row.description,
           //format: val => `${new Date(val+'.000Z')}`,
-          sortable: false
+          sortable: false,
         },
         // { name: 'calories', align: 'center', label: 'Calories', field: 'calories', sortable: true },
         // { name: 'fat', label: 'Fat (g)', field: 'fat', sortable: true },
@@ -157,38 +154,38 @@ data () {
         // { name: 'calcium', label: 'Calcium (%)', field: 'calcium', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
         // { name: 'iron', label: 'Iron (%)', field: 'iron', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) }
       ],
-      data: this.proposals
-    }
+      data: this.proposals,
+    };
   },
   computed: {
     ...mapGetters({
-      getAccountName: "ual/getAccountName"
-    })
+      getAccountName: "ual/getAccountName",
+    }),
   },
-  methods:{
-    async cancelJob(id){
+  methods: {
+    async cancelJob(id) {
       let actions = [
         {
           account: "piecestest12",
           name: "cancel",
           data: {
             owner: this.getAccountName,
-            id: id
-          }
-        }
+            id: id,
+          },
+        },
       ];
       let res = await this.$store.dispatch("ual/transact", { actions: actions });
-      if(res){
+      if (res) {
         this.$emit("executed");
-        this.data = this.data.filter(d => d.id != id );
-        this.$store.dispatch('user/fetchDeposits', this.getAccountName);
+        this.data = this.data.filter((d) => d.id != id);
+        this.$store.dispatch("user/fetchDeposits", this.getAccountName);
       }
-    }
+    },
   },
-  watch:{
+  watch: {
     // proposals: function(){
     //   this.data = this.proposals;
     // }
-  }
-}
+  },
+});
 </script>

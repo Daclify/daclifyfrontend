@@ -14,12 +14,13 @@
         color="primary"
         @click="manage_module = !manage_module"
       >
-        <q-tooltip content-class="bg-secondary" :delay="500">
+        <q-tooltip class="bg-secondary" :delay="500">
           <span v-if="!manage_module">manage modules</span>
           <span v-else>Go back to modules</span>
         </q-tooltip>
       </q-btn>
     </q-toolbar>
+
     <transition
       enter-active-class="animated zoomIn"
       leave-active-class="animated zoomOut"
@@ -27,12 +28,8 @@
       tag="div"
     >
       <div v-if="!manage_module" key="modules">
-        <q-list
-          class="primary-hover-list"
-          separator
-          striped
-        >
-          <q-expansion-item 
+        <q-list class="primary-hover-list" separator striped>
+          <q-expansion-item
             v-for="module in getModulesWithFilter"
             :key="module.module_name"
             clickable
@@ -44,9 +41,9 @@
               </q-item-section>
               <q-item-section>
                 <q-item-label caption>
-                  slave permission {{module.slave_permission}}
+                  slave permission {{ module.slave_permission }}
                 </q-item-label>
-              </q-item-section> 
+              </q-item-section>
             </template>
             <q-separator />
             <div>
@@ -57,50 +54,59 @@
           </q-expansion-item>
           <no-items v-if="!getModulesWithFilter.length" text="No modules" />
         </q-list>
-
       </div>
-      <q-card-section  v-else class="relative-position" key="add">
-        <!-- <q-btn icon="close"  round dense  class="q-ma-md " @click="add_payment_view=false"/> -->
+
+      <q-card-section v-else class="relative-position" key="add">
         <q-tabs
           v-model="manage_module_view"
           dense
-          class=" text-primary"
+          class="text-primary"
           align="left"
           inline-label
-        > 
+        >
           <q-tab label="link module" name="link" />
           <q-tab label="new account" name="create" />
-          
         </q-tabs>
-        <q-separator/>
+        <q-separator />
         <q-tab-panels
           v-model="manage_module_view"
-          style="min-height:200px"
-          animated 
-          transition-prev="fade" 
+          style="min-height: 200px"
+          animated
+          transition-prev="fade"
           transition-next="fade"
           class="overflow-hidden"
         >
-          <q-tab-panel name="link" class="no-padding overflow-hidden" style="min-height:200px">
+          <q-tab-panel
+            name="link"
+            class="no-padding overflow-hidden"
+            style="min-height: 200px"
+          >
             <action-proposer>
-              <template slot-scope="scope">
-                <link-module @propose="scope.propose" @addtobucket="scope.addtobucket" :slave_permission="slave_permission"/>
+              <template v-slot="scope">
+                <link-module
+                  @propose="scope.propose"
+                  @addtobucket="scope.addtobucket"
+                  :slave_permission="slave_permission"
+                />
               </template>
             </action-proposer>
           </q-tab-panel>
-          <q-tab-panel name="create" class="no-padding overflow-hidden" style="min-height:200px">
+          <q-tab-panel
+            name="create"
+            class="no-padding overflow-hidden"
+            style="min-height: 200px"
+          >
             <new-account @requestLink="handleLinkRequest" />
           </q-tab-panel>
         </q-tab-panels>
-
       </q-card-section>
     </transition>
-
 
   </q-card>
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
 import actionProposer from "components/actions/action-proposer";
 import linkModule from "components/modules/link-module";
@@ -108,21 +114,20 @@ import newAccount from "components/modules/new-account";
 import codeDeployer from "components/deployer/code-deployer";
 import noItems from "components/no-items";
 
-export default {
+export default defineComponent({
   name: "manageModules",
   components: {
     actionProposer,
     linkModule,
     noItems,
     codeDeployer,
-    newAccount
-  
+    newAccount,
   },
   data() {
     return {
       manage_module: false,
-      manage_module_view:"link",
-      slave_permission: {actor:"", permission:""}
+      manage_module_view: "link",
+      slave_permission: { actor: "", permission: "" },
     };
   },
   computed: {
@@ -130,18 +135,16 @@ export default {
       getAccountName: "ual/getAccountName",
       getModules: "group/getModules",
       getActiveGroup: "group/getActiveGroup",
-
     }),
     getModulesWithFilter() {
       return this.getModules;
-    }
+    },
   },
   methods: {
-    handleLinkRequest(e){
+    handleLinkRequest(e) {
       this.slave_permission = e;
-      this.manage_module_view = "link"
-
-    }
-  }
-};
+      this.manage_module_view = "link";
+    },
+  },
+});
 </script>

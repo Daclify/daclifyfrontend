@@ -35,10 +35,10 @@
                 >
                   <q-list style="min-width: 100px" class="primary-hover-list">
                     <q-item clickable v-close-popup>
-                      <q-item-section>New Custodian</q-item-section>
+                      <q-item-section>New Guardian</q-item-section>
                     </q-item>
                     <q-item clickable v-close-popup>
-                      <q-item-section>Remove Custodian</q-item-section>
+                      <q-item-section>Remove Guardian</q-item-section>
                     </q-item>
                   </q-list>
                 </q-menu>
@@ -50,7 +50,7 @@
           <q-tabs
             v-model="tabfilter"
             dense
-            class=" text-primary"
+            class="text-primary"
             align="left"
             no-caps
             inline-label
@@ -69,15 +69,12 @@
       <transition
         appear
         enter-active-class="animated fadeInDown"
-        class="column q-gutter-md "
+        class="column q-gutter-md"
         tag="div"
       >
-        <span
-          class="row items-center text-grey-7"
-          v-if="!getGroupsWithFilter.length"
-        >
+        <span class="row items-center text-grey-7" v-if="!getGroupsWithFilter.length">
           <q-icon name="error_outline" size="24px" class="q-mr-sm" />
-          No Groups found on {{getActiveNetwork}}...
+          No Groups found on {{ getActiveNetwork }}...
         </span>
       </transition>
 
@@ -94,7 +91,6 @@
           class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3"
         >
           <group-card :group="group" class="full-height" />
-         
         </div>
       </transition-group>
       <!-- <div v-else class="row justify-center items-center" style="200px">
@@ -105,20 +101,21 @@
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
-import groupCard from "components/group-card"
+import groupCard from "components/group-card";
 
-export default {
+export default defineComponent({
   // name: 'LayoutName',
   components: {
-    groupCard
+    groupCard,
   },
   data() {
     return {
       searchfilter: "",
       menu_visible: false,
       tabfilter: "favourites",
-      location_hash: ""
+      location_hash: "",
     };
   },
   computed: {
@@ -131,41 +128,41 @@ export default {
     getGroupsWithFilter() {
       let res = this.getGroups;
       if (!res) return [];
-      res = res.filter(g=> g.state > 0);
+      res = res.filter((g) => g.state > 0);
       if (this.tabfilter == "all") {
         // return res;
       } else if (this.tabfilter == "favourites") {
-        res = res.filter(g => g.is_fav);
+        res = res.filter((g) => g.is_fav);
       }
 
       if (this.searchfilter) {
         return res.filter(
-          g =>
+          (g) =>
             g.groupname.includes(this.searchfilter) ||
             g.meta.about.includes(this.searchfilter) ||
-            this.arrayStartsWith(g.tags, this.searchfilter )
+            this.arrayStartsWith(g.tags, this.searchfilter)
         );
       } else {
         return res;
       }
-    }
+    },
   },
   methods: {
-    arrayStartsWith(arr, needle){
+    arrayStartsWith(arr, needle) {
       let test = false;
-      for(let i = 0; i < arr.length; i++){
-        if(arr[i].startsWith(needle)){
-          test =  true;
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i].startsWith(needle)) {
+          test = true;
           break;
         }
       }
       return test;
     },
-    async loadGroups(){
+    async loadGroups() {
       this.is_loading_groups = true;
-      await this.$store.dispatch("app/fetchGroups");
+      await this.$store.dispatch("app/fetchGroups", { vm: this });
       this.is_loading_groups = false;
-    }
+    },
   },
   mounted() {
     let hash = window.location.hash;
@@ -176,18 +173,15 @@ export default {
     }
 
     console.log(this.location_hash);
-    
-    // this.$store.dispatch("app/fetchGroups");
-    
   },
   watch: {
-    getActiveNetwork:{
+    getActiveNetwork: {
       immediate: true,
-      handler:function (newV, oldV){
-        if(newV != oldV){
+      handler: function (newV, oldV) {
+        if (newV != oldV) {
           this.loadGroups();
         }
-      }
+      },
     },
     location_hash: {
       immediate: true,
@@ -195,7 +189,7 @@ export default {
         if (newVal != oldVal) {
           this.tabfilter = newVal.substr(1);
         }
-      }
+      },
     },
     tabfilter: {
       immediate: false,
@@ -203,8 +197,8 @@ export default {
         if (newVal != oldVal && newVal) {
           window.location.hash = `#${newVal}`;
         }
-      }
-    }
-  }
-};
+      },
+    },
+  },
+});
 </script>

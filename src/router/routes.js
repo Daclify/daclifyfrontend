@@ -1,3 +1,4 @@
+
 const routes = [
   {
     path: '/',
@@ -25,11 +26,11 @@ const routes = [
     component: () => import('layouts/GroupLayout.vue'),
     children: [
       { path: '', component: () => import('pages/manage/info.vue') },
-      { path: 'custodians', component: () => import('pages/manage/custodians.vue') },
+      { path: 'guardians', component: () => import('pages/manage/guardians.vue') },
       { path: 'proposals', component: () => import('pages/manage/proposals.vue') },
       { path: 'new-proposal', component: () => import('pages/manage/new-proposal.vue') },
       { path: 'settings', component: () => import('pages/manage/settings.vue') },
-      { path: 'wallet', component: () => import('pages/manage/wallet.vue') },
+      { path: 'wallet', component: () => import('src/pages/manage/wallet.vue') },
       { path: 'resources', component: () => import('pages/manage/resources.vue') },
       { path: 'thresholds', component: () => import('pages/manage/thresholds.vue') },
       { path: 'modules', component: () => import('pages/manage/modules.vue') },
@@ -50,19 +51,14 @@ const routes = [
       { path: 'register', component: () => import('pages/members/register.vue') },
       { path: 'my-tokens', component: () => import('pages/members/my-tokens.vue') },
       { path: 'profile/:accountname', component: () => import('pages/members/profile.vue') }
-
     ]
   },
-
-
-]
-
-// Always leave this as last one
-if(process.env.MODE !== 'ssr') {
-  routes.push({
-    path: '*',
+  // Always leave this as last one,
+  // but you can also remove it
+  {
+    path: '/:catchAll(.*)*',
     component: () => import('pages/Error404.vue')
-  })
-}
+  }
+]
 
 export default routes

@@ -1,17 +1,14 @@
 <template>
-  <div >
-
-
-
-      <div class="row items-center justify-between no-wrap">
+  <div>
+    <div class="row items-center justify-between no-wrap">
       <q-input
-        style="min-width:200px"
+        style="min-width: 200px"
         class="q-mr-xs"
-        :value="getNewCoreConfig.conf.maintainer_account.actor"
+        v-model="getNewCoreConfig.conf.maintainer_account.actor"
         @input="
           $store.commit('group/setNewCoreConfigPath', {
             path: 'conf.maintainer_account.actor',
-            value: $event
+            value: $event,
           })
         "
         label="Actor"
@@ -25,13 +22,13 @@
       </q-input>
 
       <q-input
-        style="width:100%"
+        style="width: 100%"
         ref="permission"
-        :value="getNewCoreConfig.conf.maintainer_account.permission"
+        v-model="getNewCoreConfig.conf.maintainer_account.permission"
         @input="
           $store.commit('group/setNewCoreConfigPath', {
             path: 'conf.maintainer_account.permission',
-            value: $event
+            value: $event,
           })
         "
         label="Permission"
@@ -40,27 +37,25 @@
         placeholder="permission to use"
         no-error-icon
       >
-        <template v-slot:prepend>
-            @
-        </template>
+        <template v-slot:prepend> @ </template>
       </q-input>
-      </div>
-
-
+    </div>
   </div>
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
-export default {
+
+export default defineComponent({
   // name: 'ComponentName',
   data() {
     return {};
   },
   computed: {
     ...mapGetters({
-      getNewCoreConfig: "group/getNewCoreConfig"
-    })
+      getNewCoreConfig: "group/getNewCoreConfig",
+    }),
   },
-};
+});
 </script>

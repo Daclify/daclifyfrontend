@@ -2,23 +2,25 @@
   <q-item>
     <q-item-section>
       <q-item-label caption>
-        {{text}}
+        {{ text }}
       </q-item-label>
     </q-item-section>
   </q-item>
 </template>
 
 <script>
-export default {
-  name: 'noItems',
-  props:{
-    text:{
-      type:String,
-      default: "No items"
-    }
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "noItems",
+  props: {
+    text: {
+      type: String,
+      default: "No items",
+    },
   },
-  data () {
-    return {}
-  }
-}
+  data() {
+    return {};
+  },
+});
 </script>

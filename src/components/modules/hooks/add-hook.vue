@@ -1,44 +1,36 @@
 <template>
-<q-card-section>
-  <div class="row  q-col-gutter-md q-pb-xs q-mt-md">
-    <!-- {{payroll}} -->
-    <div class="col-xs-12 col-sm-6">
-      <q-input
-        ref="hookedaction"
-        v-model="action.data.hooked_action" 
-        label="Action"
-        placeholder="action"
-        outlined 
-        bottom-slots
-        maxlength="12"
-        :rules="[
-          val => !!val || '* Required',
-          isValidAccountName
-          ]"
-      >
-        <!-- <template v-slot:prepend>
+  <q-card-section>
+    <div class="row q-col-gutter-md q-pb-xs q-mt-md">
+      <!-- {{payroll}} -->
+      <div class="col-xs-12 col-sm-6">
+        <q-input
+          ref="hookedaction"
+          v-model="action.data.hooked_action"
+          label="Action"
+          placeholder="action"
+          outlined
+          bottom-slots
+          maxlength="12"
+          :rules="[(val) => !!val || '* Required', isValidAccountName]"
+        >
+          <!-- <template v-slot:prepend>
           <profile-pic :account="action.data.receiver" :size="36"/>
         </template> -->
+        </q-input>
+      </div>
 
-      </q-input>
-    </div>
-
-    
-    <div class="col-xs-12 col-sm-6">
-      <q-input
-        ref="hookedcontract"
-        v-model="action.data.hooked_contract"
-        label="Contract"
-        outlined
-        bottom-slots
-        placeholder="contract"
-        no-error-icon
-        :rules="[
-          val => !!val || '* Required',
-
-          ]"
-      >
-        <!-- <template v-slot:append>
+      <div class="col-xs-12 col-sm-6">
+        <q-input
+          ref="hookedcontract"
+          v-model="action.data.hooked_contract"
+          label="Contract"
+          outlined
+          bottom-slots
+          placeholder="contract"
+          no-error-icon
+          :rules="[(val) => !!val || '* Required']"
+        >
+          <!-- <template v-slot:append>
           {{payroll.total_paid.quantity.split(' ')[1]}}
         </template>
         <template  v-slot:hint>
@@ -48,97 +40,97 @@
             </div>
           </transition>
         </template> -->
-      </q-input>
+        </q-input>
+      </div>
+
+      <div class="col-xs-12 col-sm-6">
+        <q-select
+          ref="hookactionname"
+          v-model="action.data.hook_action_name"
+          :options="hookOptions"
+          outlined
+          label="Hook"
+          emit-value
+          bottom-slots
+          :rules="[(val) => !!val || '* Required']"
+        >
+        </q-select>
+      </div>
+
+      <div class="col-xs-12"></div>
+
+      <div class="row justify-between full-width items-center">
+        <threshold-badge label :contract="action.account" :action_name="action.name" />
+        <propose-bucket-btn
+          @click-propose="emitPropose"
+          @click-bucket="emitBucket"
+          label="Add hook"
+          :disabled="false"
+        />
+      </div>
+      <!-- <pre>{{action}}</pre> -->
     </div>
-
-    <div class="col-xs-12 col-sm-6">
-      <q-select
-        ref="hookactionname"
-        v-model="action.data.hook_action_name"
-        :options="hookOptions"
-        outlined 
-        label="Hook"
-        emit-value
-        bottom-slots
-        :rules="[
-          val => !!val || '* Required',
-          ]"
-      >
-      </q-select>     
-    </div>
-
-    <div class="col-xs-12" >
-
-    </div>
-
-
-
-    <div class="row justify-between full-width items-center" >
-      <threshold-badge  label :contract="action.account" :action_name="action.name"/>
-      <propose-bucket-btn @click-propose="emitPropose" @click-bucket="emitBucket" label="Add hook" :disabled="false" />
-    </div>
-    <!-- <pre>{{action}}</pre> -->
-  </div>
-</q-card-section>
+  </q-card-section>
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
 import thresholdBadge from "components/thresholds/threshold-badge";
 import proposeBucketBtn from "components/actions/propose-bucket-btn";
-import {
-  isValidAccountName,
-  isExistingAccountName
-} from "../../../imports/validators";
+import { isValidAccountName, isExistingAccountName } from "../../../imports/validators";
 
-
-
-export default {
+export default defineComponent({
   name: "addHook",
-  components:{
+  components: {
     proposeBucketBtn,
-    thresholdBadge
+    thresholdBadge,
   },
   data() {
     return {
-      action:{
+      action: {
         account: "",
         name: "hookreg",
         data: {
-          hooked_action:"",
-          hooked_contract:"",
-          hook_action_name:"",
-          description:""
+          hooked_action: "",
+          hooked_contract: "",
+          hook_action_name: "",
+          description: "",
         },
         //authorization:[]
       },
-      hookOptions:[]
-
-    }
+      hookOptions: [],
+    };
   },
   computed: {
     ...mapGetters({
-      getHooksContract: 'hooks/getHooksContract'
-    })
+      getHooksContract: "hooks/getHooksContract",
+    }),
   },
   methods: {
     isValidAccountName,
-    async getHookOptions(){
-      const system_actions=["hookreg", "hookdel", "hookenable", "hookedit"];
+    async getHookOptions() {
+      const system_actions = ["hookreg", "hookdel", "hookenable", "hookedit"];
       let abi = await this.$eos.api.rpc.get_abi(this.getHooksContract);
-      let actions = abi.abi.actions.filter(a=> !system_actions.includes(a.name));
-      let hooks = actions.map(a=>{ return {value: a.name, label:a.name} });
+      let actions = abi.abi.actions.filter((a) => !system_actions.includes(a.name));
+      let hooks = actions.map((a) => {
+        return { value: a.name, label: a.name };
+      });
       this.hookOptions = hooks || [];
     },
 
-    emitPropose(){
+    emitPropose() {
       this.$refs.hookedaction.validate();
       this.$refs.hookedcontract.validate();
       this.$refs.hookactionname.validate();
-      if(this.$refs.hookedaction.hasError || this.$refs.hookedcontract.hasError || this.$refs.hookactionname.hasError){
+      if (
+        this.$refs.hookedaction.hasError ||
+        this.$refs.hookedcontract.hasError ||
+        this.$refs.hookactionname.hasError
+      ) {
         return;
       }
-      let action = JSON.parse(JSON.stringify(this.action))
+      let action = JSON.parse(JSON.stringify(this.action));
 
       let title = `Add new hook ${action.data.hook_action_name}`;
       let description = `Add new hook ${action.data.hook_action_name} to ${action.data.hooked_contract}::${action.data.hooked_action}`;
@@ -146,27 +138,30 @@ export default {
       const payload = {
         actions: [action],
         description: description,
-        title: title     
-      }
-      this.$emit('propose', payload);
+        title: title,
+      };
+      this.$emit("propose", payload);
     },
-    emitBucket(){
+    emitBucket() {
       this.$refs.hookedaction.validate();
       this.$refs.hookedcontract.validate();
       this.$refs.hookactionname.validate();
-      if(this.$refs.hookedaction.hasError || this.$refs.hookedcontract.hasError || this.$refs.hookactionname.hasError){
+      if (
+        this.$refs.hookedaction.hasError ||
+        this.$refs.hookedcontract.hasError ||
+        this.$refs.hookactionname.hasError
+      ) {
         return;
       }
-      let action = JSON.parse(JSON.stringify(this.action))
+      let action = JSON.parse(JSON.stringify(this.action));
 
-      this.$emit('addtobucket', action);     
-    }
+      this.$emit("addtobucket", action);
+    },
   },
-  mounted(){
+  mounted() {
     this.action.account = this.getHooksContract;
     this.getHookOptions();
     //this.action.authorization.push(payroll_module.slave_permission);
-  }
-
-};
+  },
+});
 </script>

@@ -10,16 +10,12 @@
           color="primary"
         >
           <q-tooltip
-            content-class="bg-primary"
+            class="bg-primary"
             :delay="500"
             anchor="center left"
             self="center right"
           >
-            {{
-              mode == "carousel"
-                ? "switch to grid mode"
-                : "switch carousel mode"
-            }}
+            {{ mode == "carousel" ? "switch to grid mode" : "switch carousel mode" }}
           </q-tooltip>
         </q-btn>
       </div>
@@ -57,48 +53,46 @@
               {{ photo.caption }}
             </div>
             <template v-slot:error>
-              <div
-                class="absolute-full flex flex-center bg-negative text-white"
-              >
+              <div class="absolute-full flex flex-center bg-negative text-white">
                 Cannot load image
               </div>
             </template>
           </q-img>
-          <!-- </div> -->
         </q-carousel-slide>
       </q-carousel>
 
-      <!-- <div  class="q-gutter-md row items-start"> -->
       <transition-group
-        v-if="mode == 'grid'"
+        v-else-if="mode == 'grid'"
+        class="q-gutter-md row items-start"
         appear
         enter-active-class="animated zoomIn"
         leave-active-class="animated zoomOut"
-        class="q-gutter-md row items-start"
         mode="out-in"
+        tag="div"
       >
         <div
           v-for="(photo, i) in profile_data.gallery"
           :key="photo.url + i"
           class="relative-position"
-          style="height:120px; width:220px"
+          style="height: 120px; width: 220px"
         >
-          <q-video v-if="isYouTubeUrl(photo.url) === true" :src="photo.url" style="object-fit: cover;  height:100%" />
+          <q-video
+            v-if="isYouTubeUrl(photo.url) === true"
+            :src="photo.url"
+            style="object-fit: cover; height: 100%"
+          />
           <q-img
             v-else
             :src="photo.url"
             spinner-color="primary"
-            style="object-fit: contain;  height:120px; width:220px; cursor:pointer"
-            @click="slide=i; mode='carousel'; "
-            
+            style="object-fit: contain; height: 120px; width: 220px; cursor: pointer"
+            @click="
+              slide = i;
+              mode = 'carousel';
+            "
           >
-            <!-- <div class="absolute-bottom text-subtitle1 text-center">
-              {{ photo.caption }}
-            </div> -->
             <template v-slot:error>
-              <div
-                class="absolute-full flex flex-center bg-negative text-white"
-              >
+              <div class="absolute-full flex flex-center bg-negative text-white">
                 Cannot load image
               </div>
             </template>
@@ -114,9 +108,6 @@
           />
         </div>
       </transition-group>
-      <!--</div> -->
-
-      <!-- <pre>{{profile_data.gallery}}</pre> -->
     </div>
     <new-image
       class="q-mt-md"
@@ -127,41 +118,42 @@
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
 import { isYouTubeUrl } from "../../imports/validators";
 import newImage from "components/profile/new-image";
-export default {
-  // name: 'ComponentName',
+
+export default defineComponent({
   name: "profileGallery",
   props: {
     account: {
       type: String,
-      default: ""
+      default: "",
     },
     profile_data: {
       type: Object,
       default: () => {
         return {};
-      }
-    }
+      },
+    },
   },
   components: {
-    newImage
+    newImage,
   },
   data() {
     return {
       slide: 0,
-      mode: "grid"
+      mode: "grid",
     };
   },
   computed: {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
-      getActiveGroup: "group/getActiveGroup"
+      getActiveGroup: "group/getActiveGroup",
 
       // getActiveGroupConfig: "group/getActiveGroupConfig",
-      // getNumberCustodians: "group/getNumberCustodians"
-    })
+      // getNumberGuardians: "group/getNumberGuardians"
+    }),
   },
   methods: {
     isYouTubeUrl,
@@ -171,7 +163,7 @@ export default {
     },
     removeImage(i) {
       this.profile_data.gallery.splice(i, 1);
-    }
-  }
-};
+    },
+  },
+});
 </script>

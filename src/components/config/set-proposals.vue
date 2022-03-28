@@ -1,14 +1,14 @@
 <template>
-  <div >
+  <div>
     <q-input
       outlined
       label="Proposal History Size"
       type="number"
-      :value="getNewCoreConfig.conf.proposal_archive_size"
+      v-model="getNewCoreConfig.conf.proposal_archive_size"
       @input="
         $store.commit('group/setNewCoreConfigPath', {
           path: 'conf.proposal_archive_size',
-          value: Number($event)
+          value: Number($event),
         })
       "
     >
@@ -18,44 +18,43 @@
     </q-input>
 
     <q-list separator class="q-mt-md">
-
       <q-item clickable>
         <q-item-section>
-         <q-item-label>Auto execute "immediate" threshold</q-item-label>
+          <q-item-label>Auto execute "immediate" threshold</q-item-label>
         </q-item-section>
         <q-item-section side>
           <q-toggle
             v-if="getNewCoreConfig"
             :true-value="1"
             :false-value="0"
-            :value="getNewCoreConfig.conf.exec_on_threshold_zero"
+            v-model="getNewCoreConfig.conf.exec_on_threshold_zero"
             color="positive"
             @input="
               $store.commit('group/setNewCoreConfigPath', {
                 path: 'conf.exec_on_threshold_zero',
-                value: Number($event)
+                value: Number($event),
               })
             "
           />
         </q-item-section>
       </q-item>
     </q-list>
-
-
   </div>
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
-export default {
+
+export default defineComponent({
   // name: 'ComponentName',
   data() {
     return {};
   },
   computed: {
     ...mapGetters({
-      getNewCoreConfig: "group/getNewCoreConfig"
-    })
+      getNewCoreConfig: "group/getNewCoreConfig",
+    }),
   },
-};
+});
 </script>

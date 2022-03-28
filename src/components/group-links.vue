@@ -6,6 +6,7 @@
       enter-active-class="animated zoomIn"
       leave-active-class="animated zoomOut"
       class="row text-caption text-weight-light justify-center items-center"
+      tag="div"
     >
       <q-btn
         class="q-mr-sm q-my-xs"
@@ -19,36 +20,34 @@
         color="primary"
         @click="openURL(link.url)"
       >
-        <q-tooltip content-class="bg-secondary" :delay="500">{{
-          link.url
-        }}</q-tooltip>
+        <q-tooltip class="bg-secondary" :delay="500">{{ link.url }}</q-tooltip>
       </q-btn>
     </transition-group>
 
-    <div v-else>
-      Group has no links
-    </div>
+    <div v-else>Group has no links</div>
   </div>
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import { isValidUrl } from "../imports/validators.js";
 import { openURL } from "quasar";
-export default {
-  // name: 'ComponentName',
+
+export default defineComponent({
+  name: 'groupLinks',
   props: {
     links: {
       default: () => [],
-      type: Array
-    }
+      type: Array,
+    },
   },
   data() {
     return {};
   },
   methods: {
     isValidUrl,
-    openURL
-  }
-};
+    openURL,
+  },
+});
 </script>
 <style></style>

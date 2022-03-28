@@ -1,9 +1,9 @@
 <template>
-  <q-expansion-item 
+  <q-expansion-item
     group="bucketitem"
     clickable
     class="cursor-default"
-    style="border-bottom:1px solid grey"
+    style="border-bottom: 1px solid grey"
   >
     <template v-slot:header>
       <q-item-section side>
@@ -31,11 +31,9 @@
             dense
             size="sm"
             color="negative"
-            @click="$store.commit('bucket/removeFromActionBucketByIndex', i)"
+            @click="$store.commit('bucket/removeFromActionBucketByIndex', key)"
           >
-            <q-tooltip :delay="400" content-class="bg-secondary"
-              >Delete</q-tooltip
-            >
+            <q-tooltip :delay="400" class="bg-secondary">Delete</q-tooltip>
           </q-btn>
         </div>
       </q-item-section>
@@ -45,43 +43,40 @@
       <q-card-section>
         <q-item>
           <q-item-section>
-            <q-item-label >Action data</q-item-label>
+            <q-item-label>Action data</q-item-label>
             <q-item-label caption>{{ action.data }}</q-item-label>
           </q-item-section>
         </q-item>
         <q-item>
           <q-item-section>
-            <q-item-label >Autorization</q-item-label>
+            <q-item-label>Autorization</q-item-label>
             <q-item-label caption>
-              <authorization-display
-                :action="action"
-                :edit="true"
-              />
+              <authorization-display :action="action" :edit="true" />
             </q-item-label>
           </q-item-section>
         </q-item>
-        
       </q-card-section>
     </q-card>
   </q-expansion-item>
-
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import authorizationDisplay from "components/proposer/authorization-display";
 import thresholdBadge from "components/thresholds/threshold-badge";
-export default {
+
+export default defineComponent({
   name: "bucketItem",
   components: {
     authorizationDisplay,
-    thresholdBadge
+    thresholdBadge,
   },
   props: {
     action: {},
-    i: 0
+    key: '',
   },
   data() {
     return {};
-  }
-};
+  },
+});
 </script>

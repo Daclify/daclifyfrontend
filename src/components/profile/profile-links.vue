@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div v-if="profile_data.links.length">
       <div
         v-for="(link, i) in profile_data.links"
@@ -27,38 +26,39 @@
       bottom-slots
       hint=""
       placeholder="add new link"
-      
     >
       <template v-slot:after>
-        <q-btn icon="mdi-plus" @click="addLink" color="primary" round/>
+        <q-btn icon="mdi-plus" @click="addLink" color="primary" round />
       </template>
     </q-input>
   </div>
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
 import { isValidUrl } from "../../imports/validators.js";
 import { openURL } from "quasar";
-export default {
+
+export default defineComponent({
   // name: 'ComponentName',
   name: "profileLinks",
   props: {
     account: {
       type: String,
-      default: ""
+      default: "",
     },
     profile_data: {
       type: Object,
       default: () => {
         return {};
-      }
-    }
+      },
+    },
   },
   components: {},
   data() {
     return {
-      newLink: ""
+      newLink: "",
     };
   },
   methods: {
@@ -70,16 +70,16 @@ export default {
     },
     removeLink(i) {
       this.profile_data.links.splice(i, 1);
-    }
+    },
   },
   computed: {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
-      getActiveGroup: "group/getActiveGroup"
+      getActiveGroup: "group/getActiveGroup",
 
       // getActiveGroupConfig: "group/getActiveGroupConfig",
-      // getNumberCustodians: "group/getNumberCustodians"
-    })
-  }
-};
+      // getNumberGuardians: "group/getNumberGuardians"
+    }),
+  },
+});
 </script>

@@ -1,9 +1,7 @@
 <template>
   <div class="row q-col-gutter-md">
-    <div class="col-xs-12">
-      Compose content
-    </div>
-    
+    <div class="col-xs-12">Compose content</div>
+
     <q-input
       class="col-xs-12 col-md-6"
       ref="filescope"
@@ -14,10 +12,7 @@
       maxlength="12"
       v-model.trim="upload_action.data.file_scope"
       placeholder="Choose a file category (ex. userterms)"
-      :rules="[
-        val => !!val || '* Required',
-        isValidAccountName
-      ]"
+      :rules="[(val) => !!val || '* Required', isValidAccountName]"
     >
       <template v-slot:prepend>
         <q-icon name="mdi-shape" />
@@ -34,8 +29,7 @@
       maxlength="60"
       v-model.trim="publish_action.data.title"
       placeholder="Title (optional)"
-      :rules="[
-      ]"
+      :rules="[]"
     >
       <template v-slot:prepend>
         <q-icon name="mdi-file-document" />
@@ -47,19 +41,32 @@
       <q-input
         :outlined="false"
         :autogrow="true"
-        label="Content" 
-        v-model="upload_action.data.content" 
-        
+        label="Content"
+        v-model="upload_action.data.content"
         type="textarea"
         placeholder="Markdown supported"
       />
     </div>
 
     <div class="col-xs-12 row justify-between items-center">
-      <threshold-badge v-if="publish_action.account" label :threshold="getLinkedThresholdForContractAction(publish_action.account, publish_action.name)"/>
+      <threshold-badge
+        v-if="publish_action.account"
+        label
+        :threshold="
+          getLinkedThresholdForContractAction(publish_action.account, publish_action.name)
+        "
+      />
       <div class="row justify-end items-center">
-        <q-badge v-if="is_uploading" color="secondary" class="q-mr-xs">waiting for upload signature</q-badge>
-        <propose-bucket-btn @click-propose="emitPropose" @click-bucket="emitBucket" label="publish" :disabled="false" :loading="is_uploading"/>
+        <q-badge v-if="is_uploading" color="secondary" class="q-mr-xs"
+          >waiting for upload signature</q-badge
+        >
+        <propose-bucket-btn
+          @click-propose="emitPropose"
+          @click-bucket="emitBucket"
+          label="publish"
+          :disabled="false"
+          :loading="is_uploading"
+        />
       </div>
     </div>
 
@@ -69,22 +76,21 @@
 </template>
 
 <script>
-import {
-  isValidAccountName
-} from "../../imports/validators";
+import { defineComponent } from "vue";
+import { isValidAccountName } from "../../imports/validators";
 import { mapGetters } from "vuex";
 import thresholdBadge from "components/thresholds/threshold-badge";
 import proposeBucketBtn from "components/actions/propose-bucket-btn";
-import {get_content_from_trace} from "../../imports/helpers.js"; //get_content_from_trace(trxid, block_num, actionname, datakey )
+import { get_content_from_trace } from "../../imports/helpers.js"; //get_content_from_trace(trxid, block_num, actionname, datakey )
 
-export default {
+export default defineComponent({
   name: "filePublisher",
-  props:{
-    content:""
+  props: {
+    content: "",
   },
-  components:{
+  components: {
     thresholdBadge,
-    proposeBucketBtn
+    proposeBucketBtn,
   },
   data() {
     return {
@@ -92,26 +98,25 @@ export default {
       is_uploading: false,
       is_publishing: false,
 
-      upload_action:{
-        account:"",
-        name:"fileupload",
-        data:{
-          uploader:"",
-          file_scope:"",
-          content:""
-        }
-
+      upload_action: {
+        account: "",
+        name: "fileupload",
+        data: {
+          uploader: "",
+          file_scope: "",
+          content: "",
+        },
       },
-      publish_action:{
-        account:"",
-        name:"filepublish",
-        data:{
-          file_scope:"",
-          trx_id:"",
-          title:"",
-          block_num:""
-        }
-      }
+      publish_action: {
+        account: "",
+        name: "filepublish",
+        data: {
+          file_scope: "",
+          trx_id: "",
+          title: "",
+          block_num: "",
+        },
+      },
     };
   }, //getActiveGroup: "group/getActiveGroup",
   computed: {
@@ -119,37 +124,45 @@ export default {
       getAccountName: "ual/getAccountName",
       getActiveGroup: "group/getActiveGroup",
       getIsMember: "user/getIsMember",
-      getLinkedThresholdForContractAction:"group/getLinkedThresholdForContractAction"
-    })
+      getLinkedThresholdForContractAction: "group/getLinkedThresholdForContractAction",
+    }),
   },
   methods: {
     isValidAccountName,
-    async upload(){
-
-      this.is_uploading= true;
-      let res = await this.$store.dispatch("ual/transact", { actions: [this.upload_action], disable_signing_overlay: true });
-      if(res && res.trxid){
+    async upload() {
+      this.is_uploading = true;
+      let res = await this.$store.dispatch("ual/transact", {
+        actions: [this.upload_action],
+        disable_signing_overlay: true,
+      });
+      if (res && res.trxid) {
         // console.log(res)
         this.publish_action.data.block_num = res.block_num;
         this.publish_action.data.trx_id = res.trxid;
         this.publish_action.data.file_scope = this.upload_action.data.file_scope;
-        await new Promise((resolve) => {setTimeout(resolve, 2000)});
-        let x = await get_content_from_trace(res.trxid, res.block_num, "fileupload", "content" );
-        console.log("receipt",res.block_num, "fetched",x.block_num);
+        await new Promise((resolve) => {
+          setTimeout(resolve, 2000);
+        });
+        let x = await get_content_from_trace(
+          res.trxid,
+          res.block_num,
+          "fileupload",
+          "content",
+          this
+        );
+        console.log("receipt", res.block_num, "fetched", x.block_num);
 
-        if(x && x.found){
-          this.publish_action.data.block_num = x.block_num
+        if (x && x.found) {
+          this.publish_action.data.block_num = x.block_num;
         }
         //do publishing here
-        
       }
 
-      this.is_uploading= false;
-
+      this.is_uploading = false;
     },
-    async emitPropose(){
-      this.$refs.filescope.validate()
-      if(this.$refs.filescope.hasError){
+    async emitPropose() {
+      this.$refs.filescope.validate();
+      if (this.$refs.filescope.hasError) {
         return;
       }
       await this.upload();
@@ -157,38 +170,35 @@ export default {
       const payload = {
         actions: [action],
         title: `Add new file in category "${action.data.file_scope}"`,
-        description: 'todo'     
-      }
-      console.log('file publish', payload)
-      this.$emit('propose', payload);
+        description: "todo",
+      };
+      console.log("file publish", payload);
+      this.$emit("propose", payload);
     },
-    async emitBucket(){
-      this.$refs.filescope.validate()
-      if(this.$refs.filescope.hasError){
+    async emitBucket() {
+      this.$refs.filescope.validate();
+      if (this.$refs.filescope.hasError) {
         return;
       }
       await this.upload();
-      let action = JSON.parse(JSON.stringify(this.publish_action))
-      this.$emit('addtobucket', action);     
+      let action = JSON.parse(JSON.stringify(this.publish_action));
+      this.$emit("addtobucket", action);
     },
   },
-  mounted(){
-
-  },
-  watch:{
+  mounted() {},
+  watch: {
     getAccountName: {
       immediate: true,
-      handler:function (newV, oldV){
-        if(this.getAccountName){
+      handler: function (newV, oldV) {
+        if (this.getAccountName) {
           this.upload_action.account = this.publish_action.account = this.getActiveGroup;
           this.upload_action.data.uploader = this.getAccountName;
-          if(this.content){
+          if (this.content) {
             this.upload_action.data.content = this.content;
           }
         }
-      }
-    }
-
-  }
-};
+      },
+    },
+  },
+});
 </script>

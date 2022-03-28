@@ -16,7 +16,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   // name: 'ComponentName',
   props:{
     tags:{
@@ -31,7 +33,7 @@ export default {
   data() {
     return {};
   }
-};
+});
 </script>
 <style>
   .bg-transparent-black{

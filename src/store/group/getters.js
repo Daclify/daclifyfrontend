@@ -27,18 +27,18 @@ export function getActiveGroup(state){
     return state.activeGroup;
 }
 
-export function getCustodians(state){
-    return state.custodians;
+export function getGuardians(state){
+    return state.guardians;
 }
 
-export function getNumberCustodians(state){
-    return state.custodians.length;
+export function getNumberGuardians(state){
+    return state.guardians.length;
 }
 
-export function getIsCustodian(state) {
+export function getIsGuardian(state) {
     return accountname => {
-        let custodian = state.custodians.find(c => accountname == c.account);
-        return custodian;
+        let guardian = state.guardians.find(c => accountname == c.account);
+        return guardian;
     };
 }
 

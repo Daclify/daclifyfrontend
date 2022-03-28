@@ -1,12 +1,12 @@
 <template>
-<div>
+  <div>
     <q-btn-dropdown
       color="primary"
       :label="label"
       split
       v-model="dropdown_open"
       :disable="disabled"
-      @click="dropdown_open=true"
+      @click="dropdown_open = true"
     >
       <q-list class="primary-hover-list">
         <q-item clickable v-close-popup @click="$emit('click-propose')">
@@ -36,27 +36,28 @@
         </q-item>
       </q-list>
     </q-btn-dropdown>
-</div>
-
+  </div>
 </template>
 
 <script>
-export default {
-  name: 'proposeBucketBtn',
-  props:{
-    label:{
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "proposeBucketBtn",
+  props: {
+    label: {
       type: String,
-      default: 'propose'
+      default: "propose",
     },
-    disabled:{
+    disabled: {
       type: Boolean,
-      default:true
-    }
+      default: true,
+    },
   },
-  data () {
+  data() {
     return {
-      dropdown_open: false
-    }
-  }
-}
+      dropdown_open: false,
+    };
+  },
+});
 </script>

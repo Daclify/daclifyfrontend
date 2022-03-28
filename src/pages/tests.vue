@@ -5,12 +5,13 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue';
 import groupNotificationManager from "components/group-notification-manager";
-export default {
+export default defineComponent({
 
   components: {
     groupNotificationManager
   },
   // name: 'PageName',
-}
+})
 </script>

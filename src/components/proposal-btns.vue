@@ -1,10 +1,9 @@
 <template>
   <div>
     <div
-      v-if="getAccountName && proposal && getIsCustodian(getAccountName)"
-      class="row justify-end "
+      v-if="getAccountName && proposal && getIsGuardian(getAccountName)"
+      class="row justify-end"
     >
-
       <q-btn
         v-if="isProposer"
         label="cancel"
@@ -39,26 +38,25 @@
         @click="$emit('useraction', { type: 'exec', id: proposal.id })"
         :disabled="getIsTransacting"
       />
-
     </div>
-    <div v-else class="row justify-end ">
+    <div v-else class="row justify-end">
       <q-btn
-        label="login as custodian"
+        label="login as guardian"
         size="sm"
         flat
         @click="$store.dispatch('ual/renderLoginModal')"
         color="primary"
         :disabled="getIsTransacting"
-
       />
     </div>
   </div>
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
 
-export default {
+export default defineComponent({
   name: "proposalBtns",
   components: {},
   props: {
@@ -66,8 +64,8 @@ export default {
       type: Object,
       default: () => {
         return {};
-      }
-    }
+      },
+    },
   },
   data() {
     return {};
@@ -75,10 +73,10 @@ export default {
   computed: {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
-      getIsCustodian: "group/getIsCustodian",
+      getIsGuardian: "group/getIsGuardian",
       getThresholdByName: "group/getThresholdByName",
       getThresholds: "group/getThresholds",
-      getIsTransacting: "ual/getIsTransacting"
+      getIsTransacting: "ual/getIsTransacting",
     }),
 
     getUserHasApproved() {
@@ -87,14 +85,19 @@ export default {
       }
     },
     getIsExecutable() {
-      if (this.proposal && this.proposal.approvals && this.getAccountName && this.getThresholds.length) {
+      if (
+        this.proposal &&
+        this.proposal.approvals &&
+        this.getAccountName &&
+        this.getThresholds.length
+      ) {
         const required_threshold_value = this.getThresholdByName(
           this.proposal.required_threshold
         ).threshold;
 
         let approved_weight = 0;
-        this.proposal.approvals.forEach(approver => {
-          const cust = this.getIsCustodian(approver);
+        this.proposal.approvals.forEach((approver) => {
+          const cust = this.getIsGuardian(approver);
           if (cust) {
             approved_weight += cust.weight;
           }
@@ -106,8 +109,8 @@ export default {
       if (this.proposal && this.proposal.proposer && this.getAccountName) {
         return this.getAccountName == this.proposal.proposer;
       }
-    }
+    },
   },
-  methods: {}
-};
+  methods: {},
+});
 </script>

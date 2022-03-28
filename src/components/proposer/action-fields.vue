@@ -1,11 +1,11 @@
 <template>
-  <div >
+  <div>
     <div class="text-grey-7 text-h6 q-mb-md">
       <span>{{ fields.contract }}</span>
       <span class="text-primary q-mx-xs">></span>
       <span>{{ fields.name }}</span>
     </div>
-    <div class="row q-col-gutter-md" style="min-height:50px">
+    <div class="row q-col-gutter-md" style="min-height: 50px">
       <div
         v-for="field in action_fields.fields"
         :key="field.name"
@@ -21,7 +21,7 @@
             emit-value
             :options="[
               { value: true, label: 'true' },
-              { value: false, label: 'false' }
+              { value: false, label: 'false' },
             ]"
           />
         </div>
@@ -51,7 +51,7 @@
       </div>
     </div>
     <div class="row justify-between full-width items-center q-pb-xs">
-      <threshold-badge  label :contract="fields.contract" :action_name="fields.name"/>
+      <threshold-badge label :contract="fields.contract" :action_name="fields.name" />
       <q-btn
         icon="mdi-plus"
         :disabled="addToBucketAllowed"
@@ -65,11 +65,10 @@
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
 import thresholdBadge from "components/thresholds/threshold-badge";
-import {
-  isValidAccountName
-} from "../../imports/validators";
+import { isValidAccountName } from "../../imports/validators";
 
 const numberTypes = [
   "uint8",
@@ -86,32 +85,33 @@ const numberTypes = [
   "int128",
   "float32",
   "float64",
-  "float128"
+  "float128",
 ];
-export default {
+
+export default defineComponent({
   name: "actionFields",
   components: {
-    thresholdBadge
+    thresholdBadge,
   },
   props: {
     fields: {
       type: Object,
       default: () => {
         return {};
-      }
-    }
+      },
+    },
   },
   data() {
     return {
-      action_fields: ""
+      action_fields: "",
     };
   },
   computed: {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
       getActiveGroup: "group/getActiveGroup",
-      getLinkedThresholdForContractAction:"group/getLinkedThresholdForContractAction",
-      getModules: "group/getModules"
+      getLinkedThresholdForContractAction: "group/getLinkedThresholdForContractAction",
+      getModules: "group/getModules",
     }),
     addToBucketAllowed() {
       let disabled = false;
@@ -125,7 +125,7 @@ export default {
       //   }
       // }
       return disabled;
-    }
+    },
   },
   methods: {
     async addToBucket() {
@@ -133,18 +133,20 @@ export default {
         account: this.fields.contract,
         name: this.fields.name,
         authorization: [{ actor: this.getActiveGroup, permission: "owner" }],
-        data: {}
+        data: {},
       };
       let is_action_from_module = false;
-      if(this.getModules && this.getModules.length){
-        is_action_from_module = this.getModules.find(m=> m.slave_permission.actor ==  this.fields.contract);
+      if (this.getModules && this.getModules.length) {
+        is_action_from_module = this.getModules.find(
+          (m) => m.slave_permission.actor == this.fields.contract
+        );
       }
 
-      if(is_action_from_module){
+      if (is_action_from_module) {
         action.authorization = [is_action_from_module.slave_permission];
       }
 
-      this.action_fields.fields.forEach(af => {
+      this.action_fields.fields.forEach((af) => {
         let parsed_value = String(af.value).trim();
 
         if (
@@ -160,7 +162,7 @@ export default {
         action.data[af.name] = parsed_value;
       });
 
-      this.$store.dispatch("bucket/addToBucket", action);
+      this.$store.dispatch("bucket/addToBucket", {action:action, vm:this});
     },
     isNumberType(type) {
       return numberTypes.includes(type);
@@ -168,19 +170,19 @@ export default {
     getValidationRulesForType(type) {
       let rules = [];
       switch (type) {
-        case 'name':
+        case "name":
           rules.push(isValidAccountName);
           break;
-      
+
         default:
           break;
       }
-      return rules
-    }
+      return rules;
+    },
   },
 
   mounted() {
     this.action_fields = JSON.parse(JSON.stringify(this.fields));
-  }
-};
+  },
+});
 </script>

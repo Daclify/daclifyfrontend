@@ -1,7 +1,7 @@
 
 export default {
   activeGroup:'',
-  custodians:[],
+  guardians:[],
   proposals:{
     active:false,
     executed:false,

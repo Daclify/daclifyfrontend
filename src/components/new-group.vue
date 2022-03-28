@@ -1,22 +1,16 @@
 <template>
   <div class="row justify-center">
     <div class="create-group-width">
-      <div class="q-mb-md text-grey-5 text-h6 text-weight-light ">
-        <div
-          v-if="step == 'request_account_name'"
-          class="row justify-between  "
-        >
+      <div class="q-mb-md text-grey-5 text-h6 text-weight-light">
+        <div v-if="step === 'request_account_name'" class="row justify-between">
           <div>GROUP NAME</div>
           <div>1/{{ number_of_steps }}</div>
         </div>
-        <div v-if="step == 'create_account'" class="row justify-between  ">
+        <div v-if="step === 'create_account'" class="row justify-between">
           <div>CREATE ACCOUNT</div>
           <div>2/{{ number_of_steps }}</div>
         </div>
-        <div
-          v-else-if="step == 'request_signature'"
-          class="row justify-between  "
-        >
+        <div v-else-if="step === 'request_signature'" class="row justify-between">
           <div>CREATING</div>
           <div class="text-uppercase text-primary">
             {{ new_group_account_name }}
@@ -40,7 +34,7 @@
       >
         <q-carousel-slide :name="`request_account_name`" class="no-padding">
           <div>
-            <!-- account input -->
+
             <div class="rounded-borders overflow-hidden">
               <q-input
                 :dark="false"
@@ -55,12 +49,10 @@
                 v-model="new_group_account_name"
                 placeholder="Choose new group name"
                 :rules="[
-                  val => !!val || '* Required',
+                  (val) => !!val || '* Required',
                   isValidAccountName,
-                  val =>
-                    val.length == 12 || 'Group name must be min 12  chars.',
-
-                  isavailableAccountNameWrapper
+                  (val) => val.length == 12 || 'Group name must be min 12  chars.',
+                  isavailableAccountNameWrapper,
                 ]"
                 @input="account_name_validated = false"
               >
@@ -68,28 +60,22 @@
                   <q-icon name="people" />
                 </template>
                 <template v-slot:append>
-                  <q-icon
-                    v-if="account_name_validated"
-                    name="check"
-                    color="positive"
-                  />
+                  <q-icon v-if="account_name_validated" name="check" color="positive" />
                 </template>
                 <template v-slot:hint>
                   <span class="text-grey-8 row" v-if="account_name_validated">
-                    <!-- <q-icon name="check"/> -->
                     <span>Account name available!</span>
                   </span>
                   <span v-else>12 char account name</span>
                 </template>
               </q-input>
             </div>
-            <!-- account input -->
-            <!-- next button -->
+
             <div class="column justify-center items-center q-mt-lg">
               <q-btn
                 color="primary"
                 label="next"
-                style="width:150px"
+                style="width: 150px"
                 :disabled="!account_name_validated"
                 @click="next('')"
               />
@@ -103,25 +89,23 @@
                   class="column q-gutter-sm"
                   tag="div"
                 >
-                <q-btn
-                  icon="mdi-alert"
-                  :label="group.groupname"
-                  v-for="group in groups_by_creator.filter(
-                    gbc => gbc.state === 0
-                  )"
-                  :key="group.groupname"
-                  color="secondary"
-                  @click="next(group.groupname)"
-                >
-                  <q-tooltip content-class="bg-secondary" :delay="500">
-                    This group isn't activated yet. Proceed to activation by
-                    clicking the button.
-                  </q-tooltip>
-                </q-btn>
+                  <q-btn
+                    icon="mdi-alert"
+                    :label="group.groupname"
+                    v-for="group in groups_by_creator.filter((gbc) => gbc.state === 0)"
+                    :key="group.groupname"
+                    color="secondary"
+                    @click="next(group.groupname)"
+                  >
+                    <q-tooltip class="bg-secondary" :delay="500">
+                      This group isn't activated yet. Proceed to activation by clicking
+                      the button.
+                    </q-tooltip>
+                  </q-btn>
                 </transition-group>
               </div>
             </div>
-            <!-- next button -->
+
           </div>
         </q-carousel-slide>
 
@@ -145,54 +129,21 @@
               </q-tooltip>
             </q-btn>
           </div>
-          <!-- voice toggle -->
-          <!-- <div class="row">
-            <div class="text-grey-6">
-              <q-toggle
-              :dark="false"
-                v-model="voice_only"
-                left-label
-                :disable="true"
-              >
-              <div class="row items-center">
-                <q-icon name="img:statics/images/voice.png" class="q-mr-xs"/>
-                Voice Only
-              </div>
-              </q-toggle>
-              <q-tooltip
-              content-class="bg-secondary"
-                :delay="500"
-                anchor="center right"
-                self="center left"
-                :offset="[0, -5]"
-              >
-                Voice only groups will be available when Voice has launched. You'll be able to switch an existing group to voice only.
-              </q-tooltip>
-            </div>
-          </div> -->
-          <!-- voice toggle -->
+
           <div class="text-grey-6">
             <div>
-              Account will be created. Estimated RAM cost is {{getResourceEstimation}}
+              Account will be created. Estimated RAM cost is {{ getResourceEstimation }}
             </div>
-
-            
-            
           </div>
 
           <div class="column justify-center items-center q-mt-md">
             <q-btn
               color="primary"
               label="create"
-              style="width:150px"
+              style="width: 150px"
               :disabled="!account_name_validated"
               @click="createGroup"
             />
-            <!-- <q-btn @click="deploycontract" /> -->
-
-            <!-- <router-link to="/manage/piecestest55" tag="a" class="text-link text-caption" style="display:block">
-            Go to test group
-          </router-link> -->
           </div>
         </q-carousel-slide>
         <q-carousel-slide :name="`request_activation`" class="no-padding">
@@ -201,7 +152,7 @@
             <q-btn
               color="primary"
               label="activate"
-              style="width:150px"
+              style="width: 150px"
               :disabled="!account_name_validated"
               @click="activateGroup"
             />
@@ -232,34 +183,32 @@
         </q-carousel-slide>
       </q-carousel>
     </div>
-    <wasm-compiler ref="wasm_compiler" />
+    <wasmCompiler ref="wasm_compiler" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import { defineComponent } from "vue";
 
 import wasmCompiler from "components/wasm-compiler";
 
-import {
-  isValidAccountName,
-  isAvailableAccountName
-} from "../imports/validators";
+import { isValidAccountName, isAvailableAccountName } from "../imports/validators";
 
-export default {
-  name: "create",
+export default defineComponent({
+  name: "newGroup",
   components: {
-    wasmCompiler
+    wasmCompiler,
   },
   props: {
     prefill: {
       type: Object,
       default: () => {
         return {
-          group_account_name: ""
+          group_account_name: "",
         };
-      }
-    }
+      },
+    },
   },
   data() {
     return {
@@ -271,7 +220,7 @@ export default {
       wasmhex: "",
       abihex: "",
       groups_by_creator: [],
-      required_bytes: 1600000
+      required_bytes: 1600000,
     };
   },
   computed: {
@@ -279,29 +228,57 @@ export default {
       getAccountName: "ual/getAccountName",
       getAppConfig: "app/getAppConfig",
       getHubDeposits: "user/getHubDeposits",
-      getRamPricePerByte: "app/getRamPricePerByte"
+      getRamPricePerByte: "app/getRamPricePerByte",
     }),
-    getResourceEstimation(){
-      if(this.getRamPricePerByte){
-        return ((this.getRamPricePerByte*this.required_bytes)+2).toFixed(4)+ ` ${this.getAppConfig.system_token.symbol}`;
+    getResourceEstimation() {
+      if (this.getRamPricePerByte) {
+        return (
+          (this.getRamPricePerByte * this.required_bytes + 2).toFixed(4) +
+          ` ${this.getAppConfig.system_token.symbol}`
+        );
       }
     },
-    has_enough_deposits(){
-      let res = false
-      if(this.getResourceEstimation && this.getHubDeposits.length){
-        let eos_deposit = this.getHubDeposits.find(d => d.symbol == this.getAppConfig.system_token.symbol).quantity;
-        if(eos_deposit){
+    has_enough_deposits() {
+      let res = false;
+      if (this.getResourceEstimation && this.getHubDeposits.length) {
+        let eos_deposit = this.getHubDeposits.find(
+          (d) => d.symbol == this.getAppConfig.system_token.symbol
+        ).quantity;
+        if (eos_deposit) {
           return parseFloat(this.getResourceEstimation) <= parseFloat(eos_deposit);
         }
       }
       return res;
+    },
+  },
+ 
+  async mounted() {
+    this.$store.dispatch("app/fetchRamPricePerByte", { vm: this });
+
+    await this.get_wasm_and_abi_from_github();
+
+    if (this.prefill.group_account_name) {
+      this.new_group_account_name = this.prefill.group_account_name;
     }
   },
-  methods: {
+  watch: {
+    new_group_account_name: function () {
+      console.log(this.$refs.accountinput.hasError);
+    },
+    getAccountName: {
+      immediate: true,
+      handler: function (newV, oldV) {
+        if (this.getAccountName) {
+          this.getGroupsByCreator();
+        }
+      },
+    },
+  },
+   methods: {
     isValidAccountName,
     isAvailableAccountName,
     async isavailableAccountNameWrapper(v) {
-      const test = await isAvailableAccountName(v);
+      const test = await isAvailableAccountName({ v: v, vm: this });
       console.log(test);
       if (test === true) {
         this.account_name_validated = true;
@@ -312,53 +289,46 @@ export default {
       }
     },
     async activateGroup() {
-      // if (this.getAccountName != "piecesnbits1") {
-      //   alert(
-      //     "Creating groups is disabled. Daclify is making the last core changes to prepare for mainnet! Sorry no timelines avaiable!"
-      //   );
-      //   return;
-      // }
-
       this.deploycontract(this.new_group_account_name);
     },
     async createGroup() {
-      // if (this.getAccountName != "piecesnbits1") {
-      //   alert(
-      //     "Creating groups is disabled. Daclify is making the last core changes to prepare for mainnet! Sorry no timelines avaiable!"
-      //   );
-      //   return;
-      // }
+      if (!this.has_enough_deposits) {
+        this.openHubWallet();
+        return;
+      }
 
-        if(!this.has_enough_deposits){
-          this.openHubWallet();
-          return;
-        }
+      await this.$store.dispatch("app/fetchRamPricePerByte");
 
-
-      await this.$store.dispatch('app/fetchRamPricePerByte');
       this.step = "request_signature";
+
       let create_group = {
         account: this.getAppConfig.groups_contract,
         name: "creategroup",
         data: {
           groupname: this.new_group_account_name,
           creator: this.getAccountName,
-          resource_estimation: this.getResourceEstimation
-        }
+          resource_estimation: this.getResourceEstimation,
+        },
       };
 
       let res = await this.$store.dispatch("ual/transact", {
         actions: [create_group],
-        disable_signing_overlay: true
+        disable_signing_overlay: true,
       });
-      setTimeout(()=>{this.$store.dispatch("user/fetchHubDeposits", this.getAccountName)}, 2000);
+
+      setTimeout(() => {
+        this.$store.dispatch("user/fetchHubDeposits", {
+          accountname: this.getAccountName,
+          vm: this,
+        });
+      }, 2000);
+
       if (res && res.trxid) {
         this.step = "request_activation";
       } else {
-        this.step = "create_account"
+        this.step = "create_account";
         return false;
       }
-      
     },
     async deploycontract(new_group) {
       this.step = "request_signature";
@@ -370,9 +340,12 @@ export default {
           account: new_group,
           vmtype: 0,
           vmversion: 0,
-          code: this.wasmhex
+          code: this.wasmhex,
         },
-        authorization: [{ actor: this.getAccountName, permission: "active" }, { actor: new_group, permission: "active" }]
+        authorization: [
+          { actor: this.getAccountName, permission: "active" },
+          { actor: new_group, permission: "active" },
+        ],
       };
 
       let setabi = {
@@ -380,9 +353,12 @@ export default {
         name: "setabi",
         data: {
           account: new_group,
-          abi: this.abihex
+          abi: this.abihex,
         },
-        authorization: [{ actor: this.getAccountName, permission: "active" }, { actor: new_group, permission: "active" }]
+        authorization: [
+          { actor: this.getAccountName, permission: "active" },
+          { actor: new_group, permission: "active" },
+        ],
       };
 
       let activate = {
@@ -390,16 +366,22 @@ export default {
         name: "activate",
         data: {
           groupname: new_group,
-          creator: this.getAccountName
-        }
+          creator: this.getAccountName,
+        },
       };
-
 
       let res = await this.$store.dispatch("ual/transact", {
         actions: [setabi, setcode, activate],
-        disable_signing_overlay: true
+        disable_signing_overlay: true,
       });
-      setTimeout(()=>{this.$store.dispatch("user/fetchHubDeposits", this.getAccountName)}, 1000);
+
+      setTimeout(() => {
+        this.$store.dispatch("user/fetchHubDeposits", {
+          accountname: this.getAccountName,
+          vm: this,
+        });
+      }, 1000);
+
       if (res && res.trxid) {
         this.step = "group_created";
         return true;
@@ -407,35 +389,35 @@ export default {
         this.step = "request_activation";
         return false;
       }
-
     },
-    openHubWallet(){
-          let msg = `You don't have enough EOS deposits to pay for RAM. Daclify calculated you need a minimum of ${this.getResourceEstimation} to deploy the daclify core contract. Excess deposits will be used to buy extra RAM. Daclify takes no fees.`
-          this.$root.$emit('showHubDeposits', msg);
+    openHubWallet() {
+      let msg = `You don't have enough EOS/TLOS/WAX deposits to pay for RAM. Daclify calculated you need a minimum of ${this.getResourceEstimation} to deploy the daclify core contract. Excess deposits will be used to buy extra RAM. Daclify takes no fees.`;
+      this.emitter.emit("showHubDeposits", msg);
     },
     async next(resume_account_name = "") {
-      
-      if (resume_account_name !="") {
+      if (resume_account_name != "") {
         this.step = "request_activation";
         this.account_name_validated = true;
         this.new_group_account_name = resume_account_name;
-      }
-      else{
+      } else {
         this.step = "create_account";
-        if(!this.has_enough_deposits){
+        if (!this.has_enough_deposits) {
           this.openHubWallet();
         }
       }
     },
-    async get_wasm_and_abi_from_github(){
-      console.log("retrieving code from github")
-      let wasm = await this.$refs.wasm_compiler.loadRemoteWasm("https://raw.githubusercontent.com/Daclify/daclifycore/master/daclifycore.wasm");
-      let abi = await this.$refs.wasm_compiler.loadRemoteAbi("https://raw.githubusercontent.com/Daclify/daclifycore/master/daclifycore.abi");
+    async get_wasm_and_abi_from_github() {
+      console.log("retrieving code from github");
+      let wasm = await this.$refs.wasm_compiler.loadRemoteWasm(
+        "https://raw.githubusercontent.com/Daclify/daclifycore/master/daclifycore.wasm"
+      );
+      let abi = await this.$refs.wasm_compiler.loadRemoteAbi(
+        "https://raw.githubusercontent.com/Daclify/daclifycore/master/daclifycore.abi"
+      );
 
       this.wasmhex = wasm.wasm;
       this.abihex = abi;
     },
-
 
     async get_wasm_and_abi_from_block(query) {
       let blocks = [];
@@ -447,11 +429,11 @@ export default {
       abiblock = abiblock || wasmblock;
 
       let wasmhex = wasmblock.transactions
-        .find(trx => trx.trx.id == query.wasm[1])
-        .trx.transaction.actions.find(a => a.name == "setcode").data.code;
+        .find((trx) => trx.trx.id == query.wasm[1])
+        .trx.transaction.actions.find((a) => a.name == "setcode").data.code;
       let abihex = abiblock.transactions
-        .find(trx => trx.trx.id == query.abi[1])
-        .trx.transaction.actions.find(a => a.name == "setabi").data.abi;
+        .find((trx) => trx.trx.id == query.abi[1])
+        .trx.transaction.actions.find((a) => a.name == "setabi").data.abi;
       this.wasmhex = wasmhex;
       this.abihex = abihex;
       //return {wasmhex: wasmhex, abihex: abihex};
@@ -466,11 +448,14 @@ export default {
         index_position: 3,
         lower_bound: this.getAccountName,
         upper_bound: this.getAccountName,
-        limit: -1
+        limit: -1,
       });
 
-
-      if (groups_by_creator && groups_by_creator.rows.length && groups_by_creator.rows[0].creator == this.getAccountName) {
+      if (
+        groups_by_creator &&
+        groups_by_creator.rows.length &&
+        groups_by_creator.rows[0].creator == this.getAccountName
+      ) {
         groups_by_creator = groups_by_creator.rows;
       } else {
         groups_by_creator = [];
@@ -479,44 +464,8 @@ export default {
       //this.groups_by_creator = [{groupname:"test", state:0}, {groupname:"test1", state:0}];
       this.groups_by_creator = groups_by_creator;
     },
-    // async calculateRequiredResources(){
-    //   await this.fetchRamPrice
-    // },
-
   },
-  async mounted() {
-    
-    this.$store.dispatch('app/fetchRamPricePerByte');
-    // await this.get_wasm_and_abi_from_block({
-    //   wasm: [
-    //     26584888,
-    //     "433202ae4a84c6f13ec458f690acc844c0b81007770dfcfce586e4937e3c1ce9"
-    //   ],
-    //   abi: [
-    //     26584889,
-    //     "5d34750ee2f3db76f938c962f67709fb57486635030594b67849d49dc56c162c"
-    //   ]
-    // });
-    await this.get_wasm_and_abi_from_github();
-
-    if (this.prefill.group_account_name) {
-      this.new_group_account_name = this.prefill.group_account_name;
-    }
-  },
-  watch: {
-    new_group_account_name: function() {
-      console.log(this.$refs.accountinput.hasError);
-    },
-    getAccountName: {
-      immediate: true,
-      handler: function(newV, oldV){
-        if(this.getAccountName){
-          this.getGroupsByCreator();
-        }
-      }
-    }
-  }
-};
+});
 </script>
 <style>
 .create-group-width {

@@ -32,7 +32,7 @@ export default {
           },
           {
             protocol: "https",
-            host: "api.eossweden.org",
+            host: "eos.api.animus.is",
             port: "443"
           },
 
@@ -67,14 +67,50 @@ export default {
         ]
       }
     },
-    kylin: {
+    wax: {
       config: {
         chainId:
-          "5fff1dae8dc8e2fc4d5b23b2c7665c97f9e9d8edf2b6485a86ba311c25639191",
+          "1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4",
         rpcEndpoints: [
           {
             protocol: "https",
-            host: "api.kylin.alohaeos.com",
+            host: "wax.eosn.io",
+            port: 443
+          },
+          {
+            protocol: "https",
+            host: "wax.cryptolions.io",
+            port: 443
+          }
+        ]
+      }
+    },
+    telos: {
+      config: {
+        chainId:
+          "4667b205c6838ef70ff7988f6e8257e8be0e1284a2f59699054a018f743b1d11",
+        rpcEndpoints: [
+          {
+            protocol: "https",
+            host: "telos.api.animus.is",
+            port: 443
+          }
+        ]
+      }
+    },
+    telosTest: {
+      config: {
+        chainId:
+          "1eaa0824707c8c16bd25145493bf062aecddfeb56c736f6ba6397f3195f33c9f",
+        rpcEndpoints: [
+          {
+            protocol: "https",
+            host: "api.testnet.telosunlimited.io",
+            port: 443
+          },
+          {
+            protocol: "https",
+            host: "testnet-api.telosuk.io",
             port: 443
           }
         ]

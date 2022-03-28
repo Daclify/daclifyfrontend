@@ -1,7 +1,6 @@
-# Daclify frontend
+# Daclify by Animus (daclifyfrontend)
 
-This is the frontend for eosgroups.
-See [eosgroups.io](https://eosgroups.io)
+Manage eosio accounts in group and serve your community as a DAC.
 
 ## Install the dependencies
 ```bash

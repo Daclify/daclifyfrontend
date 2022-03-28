@@ -21,7 +21,7 @@
         </transition>
         <transition appear enter-active-class="animated zoomIn" mode="out-in" tag="div" >
         <q-btn icon="close"  round color="secondary" text-color="primary" @click="isSplit = false">
-          <q-tooltip content-class="bg-secondary" :delay="500">
+          <q-tooltip class="bg-secondary" :delay="500">
             close
           </q-tooltip>
         </q-btn>
@@ -42,12 +42,14 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   // name: 'ComponentName',
   data() {
     return {
       isSplit: false
     };
   }
-};
+});
 </script>

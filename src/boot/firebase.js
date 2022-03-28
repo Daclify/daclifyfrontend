@@ -1,3 +1,4 @@
+import { boot } from 'quasar/wrappers'
 import firebase from "firebase/app";
 // import * as firebase from 'firebase';
 import "firebase/messaging";
@@ -19,16 +20,16 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 let messaging;
-if (firebase.messaging.isSupported()){
+if (firebase.messaging.isSupported()) {
   messaging = firebase.messaging();
   messaging.usePublicVapidKey(PublicVapidKey);
 
 
 
   navigator.serviceWorker.register('./statics/service-workers/firebase-messaging-sw.js')
-  .then((registration) => {
-    messaging.useServiceWorker(registration);
-  });
+    .then((registration) => {
+      messaging.useServiceWorker(registration);
+    });
 
   // Callback fired if Instance ID token is updated.
   messaging.onTokenRefresh(() => {
@@ -46,13 +47,12 @@ if (firebase.messaging.isSupported()){
     });
   });
 }
-else{
+else {
   messaging = false;
 }
 
 
-export default ({ Vue }) => {
+export default boot(({ app }) => {
   // something to do
-  Vue.prototype.$messaging = messaging;
-
-};
+  app.config.globalProperties.$messaging = messaging;
+});

@@ -1,35 +1,36 @@
 <template>
   <div v-if="profile_data.files.length">
-    <div v-for="(f,i) in profile_data.files" :key="i"></div>
-    <pre>{{profile_data.profile.files}}</pre>
+    <div v-for="(f, i) in profile_data.files" :key="i"></div>
+    <pre>{{ profile_data.profile.files }}</pre>
   </div>
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
 import fileLink from "components/file-link";
-export default {
+
+export default defineComponent({
   // name: 'ComponentName',
   name: "profileFiles",
-  components:{
-
-  },
-  props:{
-    account:{
+  components: {},
+  props: {
+    account: {
       type: String,
-      default:""
+      default: "",
     },
     profile_data: {
       type: Object,
-      default:()=>{return {} }
-    }
+      default: () => {
+        return {};
+      },
+    },
   },
   components: {
-    fileLink
+    fileLink,
   },
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
     ...mapGetters({
@@ -37,8 +38,8 @@ export default {
       getActiveGroup: "group/getActiveGroup",
 
       // getActiveGroupConfig: "group/getActiveGroupConfig",
-      // getNumberCustodians: "group/getNumberCustodians"
-    })
-  }
-}
+      // getNumberGuardians: "group/getNumberGuardians"
+    }),
+  },
+});
 </script>

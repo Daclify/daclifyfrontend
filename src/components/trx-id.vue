@@ -1,33 +1,38 @@
 <template>
   <div>
-    
-    <a :href="getSelectedBlockExplorer.base+getSelectedBlockExplorer.trx+trxid" target="_blank" class="text-link row items-center">
-      <q-icon name="search" size="16px"/>
+    <a
+      :href="getSelectedBlockExplorer.base + getSelectedBlockExplorer.trx + trxid"
+      target="_blank"
+      class="text-link row items-center"
+    >
+      <q-icon name="search" size="16px" />
       <span>explore</span>
     </a>
   </div>
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
-export default {
+
+export default defineComponent({
   name: "trxId",
   props: {
     trxid: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   data() {
     return {
-      blok_explorer: 'https://jungle.eosq.app/tx/'
+      blok_explorer: "https://jungle.eosq.app/tx/",
     };
   },
   computed: {
     ...mapGetters({
-      getIsCustodian: "group/getIsCustodian",
-      getSelectedBlockExplorer: "user/getSelectedBlockExplorer"
-    })
-  }
-};
+      getIsGuardian: "group/getIsGuardian",
+      getSelectedBlockExplorer: "user/getSelectedBlockExplorer",
+    }),
+  },
+});
 </script>

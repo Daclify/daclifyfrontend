@@ -1,94 +1,103 @@
 <template>
-          <q-avatar :size="`${size}px`" :class="$q.dark.isActive ? 'bg-secondary' :'bg-grey-3'" >
-            
-            <q-img v-if="profilepic" :class="{'cursor-pointer': tooltip}"  class="fit" :src="profilepic" spinner-color="primary" :spinner-size="`${size*0.8}px`" @load="$emit('loaded')" @error="$emit('error')" >
-              <q-tooltip v-if="tooltip" :delay="250" content-class="bg-secondary">
-                {{account}}
-              </q-tooltip>
-            </q-img>
-            <q-icon v-else name="person" color="primary" :size="`${size*0.8}px`"/>
-            <transition enter-active-class="animated zoomIn" leave-active-class="animated zoomOut">
-              <q-icon
-                v-if="icon"
-                :name="icon"
-                :color="iconColor"
-                class="absolute-bottom-right round hover-rotate cursor-pointer"
-                :class="iconBackground"
-                :size="`${size*0.4}px`"
-                @click="$emit('iconClick')"
-              >
-                <q-tooltip v-if="tooltip" :delay="400" content-class="bg-primary">
-                  Custodian
-                </q-tooltip>
-              </q-icon>
-            </transition>
-            
-            <!-- <q-badge floating color="negative">inactive</q-badge> -->
-          </q-avatar>
+  <q-avatar :size="`${size}px`" :class="$q.dark.isActive ? 'bg-secondary' : 'bg-grey-3'">
+    <q-img
+      v-if="profilepic"
+      :class="{ 'cursor-pointer': tooltip }"
+      class="fit"
+      :src="profilepic"
+      spinner-color="primary"
+      :spinner-size="`${size * 0.8}px`"
+      @load="$emit('loaded')"
+      @error="$emit('error')"
+    >
+      <q-tooltip v-if="tooltip" :delay="250" class="bg-secondary">
+        {{ account }}
+      </q-tooltip>
+    </q-img>
+    <q-icon v-else name="person" color="primary" :size="`${size * 0.8}px`" />
+    <transition
+      enter-active-class="animated zoomIn"
+      leave-active-class="animated zoomOut"
+    >
+      <q-icon
+        v-if="icon"
+        :name="icon"
+        :color="iconColor"
+        class="absolute-bottom-right round hover-rotate cursor-pointer"
+        :class="iconBackground"
+        :size="`${size * 0.4}px`"
+        @click="$emit('iconClick')"
+      >
+        <q-tooltip v-if="tooltip" :delay="400" class="bg-primary">
+          Guardian
+        </q-tooltip>
+      </q-icon>
+    </transition>
+
+    <!-- <q-badge floating color="negative">inactive</q-badge> -->
+  </q-avatar>
 </template>
 
 <script>
-import { isValidUrl } from "../imports/validators.js";
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
-export default {
-  name: 'profilePic',
-  props:{
-    size:{
+import { isValidUrl } from "../imports/validators.js";
+
+export default defineComponent({
+  name: "profilePic",
+  props: {
+    size: {
       type: Number,
-      default: 20
+      default: 20,
     },
-    border:{
+    border: {
       type: String,
-      default: 'primary'
+      default: "primary",
     },
-    icon:{
+    icon: {
       type: String,
-      default: ''
+      default: "",
     },
-    iconColor:{
+    iconColor: {
       type: String,
-      default: 'primary'
+      default: "primary",
     },
-    iconBackground:{
+    iconBackground: {
       type: String,
-      default: 'bg-secondary'
+      default: "bg-secondary",
     },
-    account:{
+    account: {
       type: String,
-      default: ""
+      default: "",
     },
-    url:{
+    url: {
       type: String,
-      default: ""
+      default: "",
     },
-    tooltip:{
+    tooltip: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-  data () {
-    return {}
+  data() {
+    return {};
   },
   computed: {
     ...mapGetters({
-      getAvatar: "group/getAvatar"
+      getAvatar: "group/getAvatar",
     }),
-    profilepic(){
-      if(this.url){
+    profilepic() {
+      if (this.url) {
         return this.url;
       }
-      if(this.account){
+      if (this.account) {
         let p = this.getAvatar(this.account);
-        if(isValidUrl(p) ){
+        if (isValidUrl(p)) {
           return p;
         }
       }
-      
-
-    }
-  }
-}
+    },
+  },
+});
 </script>
-<style>
-
-</style>
+<style></style>

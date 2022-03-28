@@ -2,8 +2,7 @@
   <q-page class=" bg-dark full-height">
 
     <div class="header_box relative-position">
-
-      <q-parallax src="statics/images/bg.jpg" :height="500">
+      <q-parallax src="statics/images/15410.jpg" :height="500">
         <div class="text-center text-primary" style="">
           <div
             style="background:#272822F2"
@@ -11,7 +10,7 @@
           >
             eosio Group accounts
           </div>
-          <div class=" bg-primary text-secondary text-weight-bold" style="font-size:17px">
+          <div class=" bg-white text-secondary text-weight-bold" style="font-size:17px">
             Start As Group - Proceed As DAC
           </div>
 
@@ -20,34 +19,11 @@
       </q-parallax>
     </div>
     <div class="q-pa-md center-page-content text-white">
-      <div class="text-white text-center q-mb-xl" style="font-size: calc(16px + 1.8vw);" >EMPOWEREMENT OF DECENTRALIZED COMMUNITIES</div>
-
-
-<!-- TODO -->
-
-      <!-- <div class=" q-mt-md q-pb-xl row q-col-gutter-lg text-weight-medium">
-        <q-intersection transition="scale" class="col-xs-12 col-sm-6">
-          
-            <h5 class="text-center">For Existing Projects</h5>
-            <p>ds sd qs  dq sd qs dssssssssssssssssssss ssssssssss ssssssss ssssssssssssssss sssssssssssssssssss sssssssssssssssssss q d qs</p>
-          
-        </q-intersection>
-        <q-intersection transition="scale" class="col-xs-12 col-sm-6">
-        
-            <h5 class="text-center" >For Startups</h5>
-            <p>eeeeeeeeeee eeeeeeeeeee eeeeeeee eeeeeeee eeeeeeee eeeeeeee  eee eeeeeeeeeeeeeeeee eeeeeeeeee ee ee eee</p>
-          
-        </q-intersection>
-      </div> -->
-
-
+      <div class="text-white text-center q-mb-x1" style="font-size: calc(16px + 1.8vw);" >EMPOWEREMENT OF DECENTRALIZED COMMUNITIES</div>
 
       <div class="">
         <comparison-table style="width:100%"/>
       </div>
-
-
-
 
       <div class=" q-mt-md q-pb-xl row q-col-gutter-lg text-grey-9 text-weight-medium">
         <q-intersection transition="scale" class="col-xs-12 col-sm-6">
@@ -122,6 +98,6 @@ export default {
 
 <style>
 .header_box {
-  border-bottom: 5px solid var(--q-color-primary);
+  border-bottom: 5px solid var(--q-primary);
 }
 </style>

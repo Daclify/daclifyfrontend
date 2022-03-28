@@ -2,7 +2,6 @@
   <div v-if="getAppConfig && getAccountName">
     <!-- <pre>{{getHubDeposits}}</pre> -->
 
-
     <transition-group
       appear
       enter-active-class="animated zoomIn"
@@ -10,8 +9,8 @@
       tag="div"
     >
       <div v-for="d in getHubDeposits" :key="d.contract + d.symbol">
-        <q-card >
-          <q-item >
+        <q-card>
+          <q-item>
             <q-item-section avatar>
               <q-img
                 contain
@@ -31,19 +30,23 @@
             <q-item-section side> </q-item-section>
           </q-item>
         </q-card>
-      
       </div>
     </transition-group>
 
-    <q-tabs  v-model="active_tab"  dense align="left" class="text-primary q-mt-md">
+    <q-tabs v-model="active_tab" dense align="left" class="text-primary q-mt-md">
       <q-tab label="Deposit" name="deposit" />
-      <q-tab label="Withdraw" name="withdraw"  />
+      <q-tab label="Withdraw" name="withdraw" />
     </q-tabs>
 
-    <q-input v-model="input_value" class="q-mt-md" type="number" outlined bottom-slots dense>
-      <template v-slot:append>
-        EOS
-      </template>
+    <q-input
+      v-model="input_value"
+      class="q-mt-md"
+      type="number"
+      outlined
+      bottom-slots
+      dense
+    >
+      <template v-slot:append> EOS/TLOS/WAX </template>
     </q-input>
 
     <div class="row justify-between q-mt-md">
@@ -55,14 +58,16 @@
         @click="refresh_deposits"
         :loading="is_loading_deposits"
       >
-        <q-tooltip content-class="bg-secondary" :delay="500">
-          Reload
-        </q-tooltip>
+        <q-tooltip class="bg-secondary" :delay="500"> Reload </q-tooltip>
       </q-btn>
       <div>
-        <transition enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown" mode="out-in">
+        <transition
+          enter-active-class="animated fadeInUp"
+          leave-active-class="animated fadeOutDown"
+          mode="out-in"
+        >
           <q-btn
-            v-if="active_tab=='withdraw'"
+            v-if="active_tab == 'withdraw'"
             key="w"
             label="withdraw"
             @click="withdraw"
@@ -88,55 +93,61 @@
 
 <script>
 import { mapGetters } from "vuex";
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "hubDepositWallet",
 
   data() {
     return {
       active_tab: "deposit",
       transfer_asset: { contract: "eosio.token", quantity: "1.0000 EOS" },
-      input_value: '',
+      input_value: "",
       is_transfering: false,
       is_withdrawing: false,
       is_loading_deposits: false,
-      selected_index : 0
+      selected_index: 0,
     };
   },
   computed: {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
       getAppConfig: "app/getAppConfig",
-      getHubDeposits: "user/getHubDeposits"
+      getHubDeposits: "user/getHubDeposits",
     }),
     can_withdraw() {
       return this.getHubDeposits && this.getHubDeposits.length;
     },
-    selected_asset(){
-      if(this.getHubDeposits && this.getHubDeposits.length){
+    selected_asset() {
+      if (this.getHubDeposits && this.getHubDeposits.length) {
         return this.getHubDeposits[this.selected_index];
+      } else {
+        return this.getAppConfig.system_token;
       }
-      else{
-        return this.getAppConfig.system_token
-      }
-    }
+    },
   },
   methods: {
     async refresh_deposits() {
       this.is_loading_deposits = true;
-      await this.$store.dispatch("user/fetchHubDeposits", this.getAccountName);
+      await this.$store.dispatch("user/fetchHubDeposits", {
+        accountname: this.getAccountName,
+        vm: this,
+      });
       this.is_loading_deposits = false;
-      this.input_value='';
+      this.input_value = "";
     },
     async deposit() {
-
       let open = {
         account: this.getAppConfig.groups_contract,
         name: "opendeposit",
         data: {
           account: this.getAccountName,
           ram_payer: this.getAccountName,
-          amount: {contract: this.selected_asset.contract, quantity: Number(0).toFixed(4)+` ${this.selected_asset.symbol}`}
-        }
+          amount: {
+            contract: this.selected_asset.contract,
+            quantity: Number(0).toFixed(4) + ` ${this.selected_asset.symbol}`,
+          },
+        },
       };
 
       let transfer = {
@@ -145,14 +156,16 @@ export default {
         data: {
           from: this.getAccountName,
           to: this.getAppConfig.groups_contract,
-          quantity: Number(this.input_value).toFixed(this.selected_asset.precision)+` ${this.selected_asset.symbol}`,
-          memo: ""
-        }
+          quantity:
+            Number(this.input_value).toFixed(this.selected_asset.precision) +
+            ` ${this.selected_asset.symbol}`,
+          memo: "",
+        },
       };
       this.is_transfering = true;
       let res = await this.$store.dispatch("ual/transact", {
         actions: [open, transfer],
-        disable_signing_overlay: true
+        disable_signing_overlay: true,
       });
       if (res && res.trxid) {
         //dispatch('fetchHubDeposits', payload.accountname);
@@ -164,20 +177,24 @@ export default {
       }, 1000);
     },
     async withdraw() {
-
       let withdraw = {
         account: this.getAppConfig.groups_contract,
         name: "withdraw",
         data: {
           account: this.getAccountName,
-          amount: {contract: this.selected_asset.contract, quantity: Number(this.input_value).toFixed(this.selected_asset.precision)+` ${this.selected_asset.symbol}`}
-        }
+          amount: {
+            contract: this.selected_asset.contract,
+            quantity:
+              Number(this.input_value).toFixed(this.selected_asset.precision) +
+              ` ${this.selected_asset.symbol}`,
+          },
+        },
       };
 
       this.is_withdrawing = true;
       let res = await this.$store.dispatch("ual/transact", {
         actions: [withdraw],
-        disable_signing_overlay: true
+        disable_signing_overlay: true,
       });
       if (res && res.trxid) {
         //dispatch('fetchHubDeposits', payload.accountname);
@@ -187,13 +204,15 @@ export default {
       setTimeout(() => {
         this.refresh_deposits();
       }, 1000);
+    },
+  },
+  mounted() {
+    if (this.getAccountName) {
+      this.$store.dispatch("user/fetchHubDeposits", {
+        accountname: this.getAccountName,
+        vm: this,
+      });
     }
   },
-  mounted(){
-    if(this.getAccountName){
-      this.$store.dispatch("user/fetchHubDeposits", this.getAccountName);
-    }
-    
-  }
-};
+});
 </script>

@@ -1,36 +1,38 @@
 <template>
-  <q-input v-model="profile_data.text" autogrow type="textarea"  />
-
+  <q-input v-model="profile_data.text" autogrow type="textarea" />
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
-export default {
+
+export default defineComponent({
   // name: 'ComponentName',
   name: "textEdit",
-  props:{
-    account:{
+  props: {
+    account: {
       type: String,
-      default:""
+      default: "",
     },
     profile_data: {
       type: Object,
-      default:()=>{return {} }
-    }
+      default: () => {
+        return {};
+      },
+    },
   },
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
       getActiveGroup: "group/getActiveGroup",
-      getMyOldProfile: "group/getMyOldProfile"
+      getMyOldProfile: "group/getMyOldProfile",
 
       // getActiveGroupConfig: "group/getActiveGroupConfig",
-      // getNumberCustodians: "group/getNumberCustodians"
-    })
-  }
-}
+      // getNumberGuardians: "group/getNumberGuardians"
+    }),
+  },
+});
 </script>

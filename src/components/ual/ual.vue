@@ -16,7 +16,7 @@
             icon="close"
             @click="$store.commit('ual/setShouldRenderLoginModal', false); resetUI()"
           >
-            <q-tooltip content-class="bg-secondary text-white">Close</q-tooltip>
+            <q-tooltip class="bg-secondary text-white">Close</q-tooltip>
           </q-btn>
         </q-bar>
 
@@ -25,6 +25,7 @@
             v-model="slide"
             transition-prev="scale"
             transition-next="scale"
+            transition-duration="500"
             animated
             control-color="red"
             class="no-padding"
@@ -75,14 +76,16 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue';
 import { UAL } from "universal-authenticator-library";
 import { mapGetters } from "vuex";
+
 import authenticatorBtn from "components/ual/authenticator-btn";
 import signingOverlay from "components/ual/signing-overlay";
 
 import {notifyError, notifySuccess} from '../../imports/notifications.js';
 
-export default {
+export default defineComponent({
   name: "UAL",
   components: {
     authenticatorBtn,
@@ -188,7 +191,7 @@ export default {
       }
     }
   }
-};
+});
 </script>
 
 <style>
