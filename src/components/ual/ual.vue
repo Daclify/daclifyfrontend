@@ -54,7 +54,6 @@
                   color="primary"
                   class="full-width"
                   @click="connectAuthenticator(authenticator)"
-                  
                 />
                 <q-btn label="back" flat color="primary" class="q-mt-sm" @click="resetUI" />
               </div>
@@ -140,6 +139,10 @@ export default defineComponent({
         }
         if (!users) {
           return;
+        }
+
+        if (authenticator.getStyle().text == "Anchor") {
+          document.querySelector("div.anchor-link.anchor-link-active").classList.remove('anchor-link-active');
         }
 
         const account_name = await users[0].getAccountName();

@@ -7,9 +7,11 @@ import { Scatter } from "ual-scatter";
 import { Ledger } from "ual-ledger";
 import { Lynx } from "ual-lynx";
 import { TokenPocket } from "ual-token-pocket";
-//import { EOSIOAuth } from 'ual-eosio-reference-authenticator';
 import { Anchor } from "ual-anchor";
 import { Wax } from '@eosdacio/ual-wax';
+import { Sqrl } from "@smontero/ual-sqrl";
+import { Wombat } from "ual-wombat";
+// import { EOSIOAuth } from 'ual-eosio-reference-authenticator';
 
 import { freeCpuPatch } from "../../../imports/cosign/ual_user_patch.js";
 
@@ -20,25 +22,27 @@ let opt = {
 };
 let freecpu = new freeCpuPatch(opt);
 
-export async function initUAL ({ state, commit, dispatch, getters }, network) {
-  let appName = "daclify";
-  let chains = [state.networks[getters.getActiveNetwork].config];
-  console.log("init ual with", chains);
+export async function initUAL({ state, commit, dispatch, getters }, network) {
+  const appName = "daclify";
+  const chains = [state.networks[getters.getActiveNetwork].config];
+
   let authenticators = [
-    new Scatter(chains, { appName: appName }),
+    new Scatter(chains, { appName }),
     new Ledger(chains),
-    new Lynx(chains, { appName: appName }),
+    new Lynx(chains, { appName }),
     new TokenPocket(chains),
-    new Anchor(chains, { appName: appName }),
-    new Wax(chains, { appName: appName })
-    //new EOSIOAuth(chains, { appName, protocol: 'eosio' })
+    new Anchor(chains, { appName }),
+    new Wax(chains, { appName }),
+    new Sqrl(chains, { appName }),
+    new Wombat(chains, { appName }),
+    // new EOSIOAuth(chains, { appName, protocol: 'eosio' })
   ];
   let ual = new UAL(chains, appName, authenticators);
   console.log("UAL", ual);
   commit("setUAL", ual);
 }
 
-export async function renderLoginModal ({ state, commit, dispatch, getters }) {
+export async function renderLoginModal({ state, commit, dispatch, getters }) {
   for (var i = 0; i < getters.getAuthenticators; i++) {
     getters.getAuthenticators[i].reset();
     getters.getAuthenticators[i].init();
@@ -48,7 +52,7 @@ export async function renderLoginModal ({ state, commit, dispatch, getters }) {
   console.log("available authenticators", getters.getAuthenticators);
 }
 
-export async function logout ({ state, commit, dispatch }) {
+export async function logout({ state, commit, dispatch }) {
   let activeAuth = state.activeAuthenticator;
   if (activeAuth) {
     console.log(
@@ -79,7 +83,7 @@ export async function logout ({ state, commit, dispatch }) {
   }
 }
 
-export async function waitForAuthenticatorToLoad ({ }, authenticator) {
+export async function waitForAuthenticatorToLoad({ }, authenticator) {
   return new Promise(resolve => {
     if (!authenticator.isLoading()) {
       resolve();
@@ -93,7 +97,7 @@ export async function waitForAuthenticatorToLoad ({ }, authenticator) {
     }, 250);
   });
 }
-export async function attemptAutoLogin ({ state, commit, dispatch }) {
+export async function attemptAutoLogin({ state, commit, dispatch }) {
   let { accountName, authenticatorName, timestamp } = state.SESSION;
   if (accountName && authenticatorName) {
     //commit("setAccountName", accountName);
@@ -131,7 +135,7 @@ export async function attemptAutoLogin ({ state, commit, dispatch }) {
   }
 }
 
-export async function transact ({ state, dispatch, commit }, payload) {
+export async function transact({ state, dispatch, commit }, payload) {
   const disable_signing_overlay = payload.disable_signing_overlay || false;
   //check if logged in before transacting
   if (!state.activeAuthenticator || !state.accountName) {
@@ -246,7 +250,7 @@ export async function transact ({ state, dispatch, commit }, payload) {
   // return res;
 }
 
-export async function parseUalError ({ }, error) {
+export async function parseUalError({ }, error) {
   let cause = "unknown cause";
   let error_code = "";
   if (error.cause) {
@@ -259,14 +263,14 @@ export async function parseUalError ({ }, error) {
   return `${error}. ${cause} ${error_code}`;
 }
 
-export async function hideSigningOverlay ({ commit }, ms = 10000) {
+export async function hideSigningOverlay({ commit }, ms = 10000) {
   await new Promise(resolve => {
     setTimeout(resolve, ms);
   });
   commit("setSigningOverlay", { show: false, status: 0 });
 }
 
-export async function proposeSystemMsig (
+export async function proposeSystemMsig(
   { state, rootState, commit, dispatch, getters, rootGetters },
   payload
 ) {

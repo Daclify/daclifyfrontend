@@ -16,8 +16,8 @@ export function getActiveAuthenticator (state) {
 
 export function getAuthenticators (state) {
     if (state.UAL) {
-        return state.UAL.getAuthenticators().availableAuthenticators;
-        // return state.UAL.authenticators;
+        // return state.UAL.getAuthenticators().availableAuthenticators;
+        return state.UAL.authenticators;
     }
     else {
         return [];
