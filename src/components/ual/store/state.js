@@ -55,12 +55,12 @@ export default {
         rpcEndpoints: [
           {
             protocol: "https",
-            host: "jungle3.eossweden.org",
+            host: "jungle.eosn.io",
             port: 443
           },
           {
             protocol: "https",
-            host: "api.jungle3.alohaeos.com",
+            host: "jungle3.cryptolions.io",
             port: 443
           }
         ]

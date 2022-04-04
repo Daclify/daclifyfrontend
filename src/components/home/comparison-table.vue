@@ -17,7 +17,7 @@
                 filter: brightness(0) invert(1);
               "
               contain
-              src="~assets/animus-logo-small.png"
+              src="~assets/daclify-logo-small-white.png"
             />
           </th>
           <th class="text-center bg-grey-9">

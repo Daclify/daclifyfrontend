@@ -7,7 +7,7 @@
       <div class="q-pa-sm">
         
         <div class="text-h6 q-mb-md">
-          <img  src="~assets/animus-logo-small.png" style="height:60px" class="cursor-pointer q-mt-sm"/>
+          <img  src="~assets/daclify-logo-small-white.png" style="height:50px" class="cursor-pointer q-mt-sm"/>
           <!-- <router-link to="/" tag="a" class="text-link text-caption" style="display:block">
             Pricing
           </router-link>
