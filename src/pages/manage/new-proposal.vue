@@ -7,7 +7,6 @@
       <q-tab label="Advanced" name="advanced" />
     </q-tabs>
     <q-separator class="q-mb-md" />
-
     <q-tab-panels
       v-model="advanced_slide"
       animated
@@ -16,7 +15,7 @@
       class="bg-transparent"
     >
       <q-tab-panel name="action_selection" class="no-padding overflow-hidden">
-        <find-account v-model="selected_contract" />
+        <find-account :value="selected_contract" @input="handleInput"/>
         <list-actions
           v-if="selected_contract"
           ref="listactions"
@@ -102,6 +101,9 @@ export default defineComponent({
       });
       this.advanced_slide = "action_fields";
     },
+    handleInput (e) {
+      this.selected_contract = e.target.value;
+    }
   },
   created() {
     let uri = window.location.search.substring(1);

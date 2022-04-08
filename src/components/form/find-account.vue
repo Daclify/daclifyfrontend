@@ -16,7 +16,7 @@
       :options="fetchedAccountNames"
       @filter="filterFn"
       placeholder="Find Contract"
-      @input="$emit('input', $event)"
+      @input="handleInput"
     >
 
       <template v-slot:no-option>
@@ -166,6 +166,9 @@ export default defineComponent({
         // update();
       });
     },
+    handleInput (e) {
+      this.$emit('input', e)
+    }
   },
 });
 </script>
