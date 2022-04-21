@@ -45,7 +45,6 @@
                 autogrow
                 :input-style="{ padding: 0 }"
               />
-
               <div v-if="!content" class="text-caption">No file selected</div>
             </div>
           </transition>
@@ -96,13 +95,12 @@ export default defineComponent({
         "content",
         this
       );
-      console.log(x);
       if (!x.error) {
         this.content = x.content;
       } else {
         this.error = true;
       }
-      console.log("receipt", file.block_num, "fetched", x.block_num);
+
       this.is_loading = false;
     }
   },

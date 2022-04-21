@@ -45,7 +45,7 @@ export function relativeTimeDelta (previous, current = Date.now(),) {
     else {
       return n + ` seconds ago`;
     }
-    //return Math.round(elapsed/1000) + ' seconds ago'; 
+    //return Math.round(elapsed/1000) + ' seconds ago';
     return "just now";
   }
 
@@ -97,7 +97,7 @@ export async function getSystemMsig (proposer, proposal_name) {
     .catch(e => false);
   if (res && res.rows.length && res.rows[0].proposal_name == proposal_name) {
     console.log(res.rows)
-    //hash code 
+    //hash code
     let r = {
       hash_code: crypto.createHash('sha256').update(res.rows[0].packed_transaction).digest('hex'),
     }
@@ -140,7 +140,7 @@ export async function get_content_from_trace (trxid, block_num, actionname, data
 
   while (!found && startblock != endblock && !error) {
     block = await vm.$eos.api.rpc.get_block(startblock);
-    console.log('looking in block_num', startblock)
+    // console.log('looking in block_num', startblock)
     // console.log(block)
     if (block && block.transactions.length) {
       let transaction = block.transactions.find(trx => trx.trx.id == trxid);
