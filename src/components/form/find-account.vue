@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{model_accountname}}
     <q-select
       ref="searchselect"
       autocapitalize="off"
@@ -16,7 +17,7 @@
       :options="fetchedAccountNames"
       @filter="filterFn"
       placeholder="Find Contract"
-      @input="handleInput"
+      @input-value="handleInput"
     >
 
       <template v-slot:no-option>
@@ -97,6 +98,9 @@ export default defineComponent({
         this.setDefaultOptions();
       },
     },
+    model_accountname(newVal, oldVal) {
+      this.$emit('inputval', newVal);
+    }
   },
 
   methods: {
@@ -166,9 +170,9 @@ export default defineComponent({
         // update();
       });
     },
-    handleInput (e) {
-      this.$emit('input', e)
-    }
+    handleInput(e) {
+      this.$emit('inputval', e);
+    },
   },
 });
 </script>

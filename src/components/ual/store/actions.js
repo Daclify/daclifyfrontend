@@ -204,6 +204,7 @@ export async function transact({ state, dispatch, commit }, payload) {
       receipt.block_num = res.transaction.processed.block_num;
     } else if (authenticator_name == "Anchor") {
       console.log("signed with Anchor");
+      document.querySelector("div.anchor-link.anchor-link-active")?.classList?.remove('anchor-link-active');
       receipt.block_time = res.transaction.processed.block_time;
       receipt.trxid = res.transaction.processed.id;
       receipt.block_num = res.transaction.processed.block_num;
