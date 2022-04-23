@@ -17,7 +17,7 @@
             @click="raw = !raw"
           >
             <q-tooltip class="bg-secondary" :delay="500">
-              todo: this is work in progress...
+              Edit document
             </q-tooltip>
           </q-btn>
         </q-toolbar>
@@ -38,13 +38,19 @@
                 :no-abbreviation="false"
               >
               </q-markdown>
-              <q-input
-                v-else
-                v-model="content"
-                type="textarea"
-                autogrow
-                :input-style="{ padding: 0 }"
-              />
+              <div v-else>
+                <action-proposer>
+                  <template v-slot="scope">
+                    <file-editer
+                      :fileid="file.id"
+                      :filescope="file.filescope"
+                      :filecontent="content"
+                      @propose="scope.propose"
+                      @addtobucket="scope.addtobucket"
+                    />
+                  </template>
+                </action-proposer>
+              </div>
               <div v-if="!content" class="text-caption">No file selected</div>
             </div>
           </transition>
@@ -58,10 +64,15 @@
 import { defineComponent } from "vue";
 import pageHeader from "components/page-header";
 import { get_content_from_trace } from "../../imports/helpers.js"; //get_content_from_trace(trxid, block_num, actionname, datakey )
+import actionProposer from "components/actions/action-proposer";
+import fileEditer from "components/dacfiles/file-editer";
+
 export default defineComponent({
   name: "fileViewer",
   components: {
     pageHeader,
+    actionProposer,
+    fileEditer
   },
   props: {
     file: "",
@@ -102,7 +113,10 @@ export default defineComponent({
       }
 
       this.is_loading = false;
-    }
+    },
+    async updateDocument() {
+      this.raw = false;
+    },
   },
   watch: {
     file: {

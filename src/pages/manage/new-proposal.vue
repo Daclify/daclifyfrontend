@@ -15,7 +15,6 @@
       class="bg-transparent"
     >
       <q-tab-panel name="action_selection" class="no-padding overflow-hidden">
-        <h6>{{ selected_contract }}</h6>
         <find-account :value="selected_contract" @inputval="handleInput"/>
         <list-actions
           v-if="selected_contract"

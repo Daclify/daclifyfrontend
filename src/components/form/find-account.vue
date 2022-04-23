@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{model_accountname}}
     <q-select
       ref="searchselect"
       autocapitalize="off"

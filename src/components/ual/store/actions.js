@@ -176,7 +176,7 @@ export async function transact({ state, dispatch, commit }, payload) {
   //sign
   try {
     console.log("trying to push trx");
-    console.log('USer', user)
+    console.log('user', user)
     let res = await user.signTransaction(
       { actions: payload.actions },
       { broadcast: true }

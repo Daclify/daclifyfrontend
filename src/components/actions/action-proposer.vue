@@ -7,7 +7,7 @@
     transition-next="fade"
   >
     <q-tab-panel name="request_input" class="overflow-hidden no-padding fit">
-        <slot v-bind:propose="proposeAction" v-bind:addtobucket="addToBucket"></slot>
+      <slot v-bind:propose="proposeAction" v-bind:addtobucket="addToBucket"></slot>
     </q-tab-panel>
 
     <q-tab-panel name="request_signature" class="fit overflow-hidden no-padding">

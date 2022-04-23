@@ -49,7 +49,7 @@
               <div>
                 <index-items
                   :file_scope="type.scope"
-                  @loadfile="$emit('loadfile', $event)"
+                  @loadfile="$emit('loadfile', $event = { ...$event, filescope: type.scope })"
                 />
               </div>
             </q-expansion-item>
