@@ -56,7 +56,7 @@
       </div>
 
       <div class="col-xs-12 col-sm-6">
-        <pick-chain-date v-model="action.data.due_date" label="due date" />
+        <pick-chain-date @input="e => action.data.due_date = e" label="due date" />
       </div>
 
       <div class="col-xs-12 col-sm-6">
@@ -242,6 +242,9 @@ export default defineComponent({
       action.data.amount = action.data.amount + " " + this.symbol;
       this.$emit("addtobucket", action);
     },
+    handleChange(e) {
+      console.log(111, e)
+    }
   },
   mounted() {
     let payroll_module = this.getModuleByName("payroll");

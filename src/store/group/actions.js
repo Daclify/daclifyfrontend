@@ -14,7 +14,7 @@ import { setCssVar } from 'quasar';
 // } from 'quasar'
 
 
-export async function resetStore ({ commit }, payload) {
+export async function resetStore({ commit }, payload) {
   commit('setCoreConfig', false);
   commit('setGuardians', []);
   commit('setMyOldProfile', false);
@@ -32,7 +32,7 @@ export async function resetStore ({ commit }, payload) {
   commit('bucket/setActionBucket', [], { root: true });
 }
 
-export async function loadGroupRoutine ({ dispatch, commit, rootGetters }, payload) {
+export async function loadGroupRoutine({ dispatch, commit, rootGetters }, payload) {
   // Loading.show({
   //   spinnerColor: 'white',
   //   messageColor: 'white',
@@ -68,7 +68,7 @@ export async function loadGroupRoutine ({ dispatch, commit, rootGetters }, paylo
   dispatch('fetchCoreState', { groupname: groupname, vm: payload.vm });
 }
 
-export async function fetchCoreConfig ({ dispatch, commit }, payload) {
+export async function fetchCoreConfig({ dispatch, commit }, payload) {
   let res = await payload.vm.$eos.api.rpc.get_table_rows({
     json: true,
     code: payload.groupname,
@@ -88,7 +88,7 @@ export async function fetchCoreConfig ({ dispatch, commit }, payload) {
   }
 }
 
-export async function fetchCoreState ({ commit, rootState, rootGetters }, payload) {
+export async function fetchCoreState({ commit, rootState, rootGetters }, payload) {
   let res = await payload.vm.$eos.api.rpc.get_table_rows({
     json: true,
     code: payload.groupname,
@@ -104,7 +104,7 @@ export async function fetchCoreState ({ commit, rootState, rootGetters }, payloa
 
 }
 
-export async function fetchGroupConfig ({ commit, rootState, rootGetters }, payload) {
+export async function fetchGroupConfig({ commit, rootState, rootGetters }, payload) {
   let hubcntr = rootGetters["app/getAppConfig"].groups_contract;
   let res = await payload.vm.$eos.api.rpc.get_table_rows({
     json: true,
@@ -124,7 +124,7 @@ export async function fetchGroupConfig ({ commit, rootState, rootGetters }, payl
   }
 }
 
-export async function fetchModules ({ commit, rootState, rootGetters }, payload) {
+export async function fetchModules({ commit, rootState, rootGetters }, payload) {
   let res = await payload.vm.$eos.api.rpc.get_table_rows({
     json: true,
     code: payload.groupname,
@@ -157,7 +157,7 @@ export async function fetchModules ({ commit, rootState, rootGetters }, payload)
 }
 
 
-export async function fetchAccount ({ commit, rootState, rootGetters }, payload) {
+export async function fetchAccount({ commit, rootState, rootGetters }, payload) {
   //let account = rootGetters.getAccountName ||
   if (!payload.groupname) return;
   let res = await payload.vm.$eos.api.rpc.get_account(payload.groupname);
@@ -167,7 +167,7 @@ export async function fetchAccount ({ commit, rootState, rootGetters }, payload)
   }
 }
 
-export async function fetchGuardians ({ state, commit }, payload) {
+export async function fetchGuardians({ state, commit }, payload) {
   let res = await payload.vm.$eos.api.rpc.get_table_rows({
     json: true,
     code: payload.groupname,
@@ -184,7 +184,7 @@ export async function fetchGuardians ({ state, commit }, payload) {
   }
 }
 
-export async function fetchProposals ({ state, commit }, payload) {
+export async function fetchProposals({ state, commit }, payload) {
   let res = await payload.vm.$eos.api.rpc.get_table_rows({
     json: true,
     code: payload.groupname,
@@ -203,7 +203,7 @@ export async function fetchProposals ({ state, commit }, payload) {
   }
 }
 
-export async function fetchThresholds ({ state, commit }, payload) {
+export async function fetchThresholds({ state, commit }, payload) {
 
   let res = await payload.vm.$eos.api.rpc.get_table_rows({
     json: true,
@@ -222,7 +222,7 @@ export async function fetchThresholds ({ state, commit }, payload) {
   }
 }
 
-export async function fetchThresholdLinks ({ state, commit }, payload) {
+export async function fetchThresholdLinks({ state, commit }, payload) {
 
   let res = await payload.vm.$eos.api.rpc.get_table_rows({
     json: true,
@@ -241,7 +241,7 @@ export async function fetchThresholdLinks ({ state, commit }, payload) {
   }
 }
 
-export async function fetchThresholdLinksForScope ({ state, commit }, payload) {
+export async function fetchThresholdLinksForScope({ state, commit }, payload) {
   let groupname = payload.groupname;
   let scope = payload.scope;
   let res = await payload.vm.$eos.api.rpc.get_table_rows({
@@ -262,7 +262,7 @@ export async function fetchThresholdLinksForScope ({ state, commit }, payload) {
 }
 
 
-export async function fetchTokensOwnedByScope ({ state, commit }, payload) {
+export async function fetchTokensOwnedByScope({ state, commit }, payload) {
 
   let groupname = payload.groupname;
   let scope = payload.scope;
@@ -300,7 +300,7 @@ export async function fetchTokensOwnedByScope ({ state, commit }, payload) {
   }
 }
 
-export async function fetchAvatars ({ state, commit }, payload) {
+export async function fetchAvatars({ state, commit }, payload) {
   let res = await payload.vm.$eos.api.rpc.get_table_rows({
     json: true,
     code: payload.groupname,
@@ -318,7 +318,7 @@ export async function fetchAvatars ({ state, commit }, payload) {
   }
 }
 
-export async function fetchLatestUserterms ({ state, commit }, payload) {
+export async function fetchLatestUserterms({ state, commit }, payload) {
   let res = await payload.vm.$eos.api.rpc.get_table_rows({
     json: true,
     code: payload.groupname,
@@ -339,7 +339,7 @@ export async function fetchLatestUserterms ({ state, commit }, payload) {
   }
 }
 
-export async function fetchProfile ({ state, commit, rootState, rootGetters }, payload) {
+export async function fetchProfile({ state, commit, rootState, rootGetters }, payload) {
   if (!rootState.group.activeGroup) {
     return;
   }
@@ -402,7 +402,7 @@ export async function fetchProfile ({ state, commit, rootState, rootGetters }, p
 }
 
 
-export async function propose ({ state, rootState, dispatch, commit }, payload) {
+export async function propose({ state, rootState, dispatch, commit }, payload) {
   // return_action: false
   // description:"",
   // title:"",

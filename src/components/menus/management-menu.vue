@@ -80,7 +80,7 @@
               ? 'secondary'
               : 'primary'
           "
-          :to="`/manage/${getActiveGroup}/new-proposal`"
+          @click="handleNewProposal"
         >
           <q-icon v-if="getActionBucket.length == 0" name="add" color="white" />
           <span v-else>{{ getActionBucket.length }}</span>
@@ -186,5 +186,12 @@ export default defineComponent({
       getModuleByName: "group/getModuleByName",
     }),
   },
+  methods: {
+    handleNewProposal() {
+      setTimeout(() => {
+        this.$router.push(`/manage/${this.getActiveGroup}/new-proposal`)
+      }, 0);
+    }
+  }
 });
 </script>

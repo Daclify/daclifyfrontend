@@ -46,8 +46,9 @@ export async function renderLoginModal({ state, commit, dispatch, getters }) {
   for (var i = 0; i < getters.getAuthenticators; i++) {
     getters.getAuthenticators[i].reset();
     getters.getAuthenticators[i].init();
-    await dispatch("waitForAuthenticatorToLoad", getters.getAuthenticators[i]);
+    await waitForAuthenticatorToLoad(getters.getAuthenticators[i]);
   }
+  await new Promise(resolve => setTimeout(resolve, 600));
   commit("setShouldRenderLoginModal", true);
   console.log("available authenticators", getters.getAuthenticators);
 }
@@ -83,7 +84,7 @@ export async function logout({ state, commit, dispatch }) {
   }
 }
 
-export async function waitForAuthenticatorToLoad({ }, authenticator) {
+export async function waitForAuthenticatorToLoad(authenticator) {
   return new Promise(resolve => {
     if (!authenticator.isLoading()) {
       resolve();
@@ -97,6 +98,7 @@ export async function waitForAuthenticatorToLoad({ }, authenticator) {
     }, 250);
   });
 }
+
 export async function attemptAutoLogin({ state, commit, dispatch }) {
   let { accountName, authenticatorName, timestamp } = state.SESSION;
   if (accountName && authenticatorName) {
@@ -106,7 +108,7 @@ export async function attemptAutoLogin({ state, commit, dispatch }) {
     );
     console.log(authenticator);
     authenticator.init();
-    await dispatch("waitForAuthenticatorToLoad", authenticator);
+    await waitForAuthenticatorToLoad(authenticator);
     if (authenticator.initError) {
       console.log(
         `Attempt to auto login with authenticator ${authenticatorName} failed because it's not available anymore.`
@@ -174,7 +176,7 @@ export async function transact({ state, dispatch, commit }, payload) {
   //sign
   try {
     console.log("trying to push trx");
-    console.log('USer', user)
+    console.log('user', user)
     let res = await user.signTransaction(
       { actions: payload.actions },
       { broadcast: true }
@@ -202,6 +204,7 @@ export async function transact({ state, dispatch, commit }, payload) {
       receipt.block_num = res.transaction.processed.block_num;
     } else if (authenticator_name == "Anchor") {
       console.log("signed with Anchor");
+      document.querySelector("div.anchor-link.anchor-link-active")?.classList?.remove('anchor-link-active');
       receipt.block_time = res.transaction.processed.block_time;
       receipt.trxid = res.transaction.processed.id;
       receipt.block_num = res.transaction.processed.block_num;

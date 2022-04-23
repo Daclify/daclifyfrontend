@@ -16,7 +16,7 @@
       :options="fetchedAccountNames"
       @filter="filterFn"
       placeholder="Find Contract"
-      @input="$emit('input', $event)"
+      @input-value="handleInput"
     >
 
       <template v-slot:no-option>
@@ -97,6 +97,9 @@ export default defineComponent({
         this.setDefaultOptions();
       },
     },
+    model_accountname(newVal, oldVal) {
+      this.$emit('inputval', newVal);
+    }
   },
 
   methods: {
@@ -165,6 +168,9 @@ export default defineComponent({
         this.fetchedAccountNames = accs.filter((v) => v.value.startsWith(val));
         // update();
       });
+    },
+    handleInput(e) {
+      this.$emit('inputval', e);
     },
   },
 });
