@@ -5,7 +5,13 @@
       <q-card style="min-height: 300px">
         <q-toolbar class="bg-secondary text-white shadow-2">
           <q-toolbar-title :shrink="true">
-            <span class="text-capitalize">{{ getFileTitle() }}</span>
+            <span v-if="!raw" class="text-capitalize">{{ getFileTitle() }}</span>
+            <q-input
+              v-else
+              dense
+              v-model="file_title"
+              :input-style="{ padding: 0, color: '#fff' }"
+            />
           </q-toolbar-title>
           <q-space />
           <q-btn
@@ -18,6 +24,19 @@
           >
             <q-tooltip class="bg-secondary" :delay="500">
               Edit document
+            </q-tooltip>
+          </q-btn>
+          <q-btn
+            v-if="content"
+            icon="mdi-trash-can"
+            round
+            dense
+            style="margin-left: 3px"
+            color="primary"
+            @click="handleRemoveFile"
+          >
+            <q-tooltip class="bg-secondary" :delay="500">
+              Remove document
             </q-tooltip>
           </q-btn>
         </q-toolbar>
@@ -43,6 +62,7 @@
                   <template v-slot="scope">
                     <file-editer
                       :fileid="file.id"
+                      :filetitle="file_title"
                       :filescope="file.filescope"
                       :filecontent="content"
                       @propose="scope.propose"
@@ -62,10 +82,12 @@
 
 <script>
 import { defineComponent } from "vue";
+import { mapGetters } from "vuex";
 import pageHeader from "components/page-header";
 import { get_content_from_trace } from "../../imports/helpers.js"; //get_content_from_trace(trxid, block_num, actionname, datakey )
 import actionProposer from "components/actions/action-proposer";
 import fileEditer from "components/dacfiles/file-editer";
+import {notifyError, notifySuccess} from '../../imports/notifications';
 
 export default defineComponent({
   name: "fileViewer",
@@ -83,7 +105,14 @@ export default defineComponent({
       error: false,
       is_loading: false,
       raw: false,
+      file_title: ""
     };
+  },
+  computed: {
+    ...mapGetters({
+      getAccountName: "ual/getAccountName",
+      getActiveGroup: "group/getActiveGroup",
+    })
   },
   methods: {
     getFileTitle() {
@@ -117,6 +146,40 @@ export default defineComponent({
     async updateDocument() {
       this.raw = false;
     },
+    async handleRemoveFile() {
+      const delete_action = {
+        account: this.getAccountName ? this.getActiveGroup : "",
+        name: "filedelete",
+        data: {
+          file_scope: this.file.filescope,
+          id: this.file.id,
+        },
+      };
+
+      const deleteAction = JSON.parse(JSON.stringify(delete_action));
+
+      const payload = {
+        actions: [deleteAction],
+        title: `Remove a file in category "${deleteAction.data.file_scope}"`,
+        description: "Remove a file",
+      };
+
+      try {
+        const res = await this.$store.dispatch("group/propose", {
+          data: payload,
+          vm: this,
+        });
+
+        if (res && res.trxid) {
+          notifySuccess({ message: `File ${this.file.id} of category ${this.file.filescope} was removed successfully!` });
+        } else {
+          const error_msg = res.message || res;
+          notifyError({ message: `${error_msg}`});
+        }
+      } catch (e) {
+        notifyError({ message: `${e.message}`});
+      }
+    }
   },
   watch: {
     file: {
@@ -124,9 +187,10 @@ export default defineComponent({
       handler: function (newV, oldV) {
         if (newV && newV != oldV) {
           this.get_uploaded_content_from_block(newV);
+          this.file_title = this.getFileTitle();
         }
       },
-    },
+    }
   },
 });
 </script>

@@ -5,6 +5,7 @@
       type="textarea"
       autogrow
       :input-style="{ padding: 0 }"
+      borderless
     />
     <div class="text-right q-mt-md">
       <q-btn
@@ -29,6 +30,7 @@ export default defineComponent({
   props: {
     filecontent: "",
     filescope: "",
+    filetitle: "",
     fileid: 0
   },
   components: {
@@ -64,7 +66,7 @@ export default defineComponent({
         data: {
           file_scope: "",
           trx_id: "",
-          title: "",
+          title: this.filetitle,
           block_num: "",
         },
       },
@@ -143,7 +145,7 @@ export default defineComponent({
           }
         }
       },
-    },
+    }
   },
 });
 </script>

@@ -72,6 +72,7 @@ import { mapGetters } from "vuex";
 import numberPopAnimation from "components/number-pop-animation";
 import bucketSvg from "components/proposer/bucket-svg";
 // import { action_icon_map } from "../imports/action_icon_map";
+
 export default defineComponent({
   name: "actionProposer",
   components: {
@@ -135,6 +136,7 @@ export default defineComponent({
       }, ms);
     },
   },
+
   mounted() {},
 });
 </script>
