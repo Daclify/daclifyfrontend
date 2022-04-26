@@ -33,7 +33,7 @@
           <q-list v-else class="primary-hover-list" separator striped>
             <q-expansion-item
               clickable
-              v-for="type in file_scopes"
+              v-for="type in file_scopes.filter(t => t.count / 2 >= 1)"
               :key="type.scope"
               group="index"
             >
