@@ -176,7 +176,7 @@ export async function get_content_from_trace (trxid, block_num, actionname, data
 
 export async function getCurrentCodeHash (rpcEndpoints, account, vm) {
 
-  let url = rpcEndpoints[0] + '/v1/chain/get_raw_abi';
+  let url = rpcEndpoints[1] + '/v1/chain/get_raw_abi';
   let res = await vm.$axios({
     method: 'post',
     url: url,
