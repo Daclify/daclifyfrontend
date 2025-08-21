@@ -88,16 +88,11 @@ export default defineComponent({
     getLogoForToken,
     async getBalance() {
       let symbol = this.payroll.total_paid.quantity.split(" ")[1];
-      let res = await this.$eos.api.rpc.get_currency_balance(
-        this.payroll.total_paid.contract,
-        this.payroll.pay_permission.actor,
-        symbol
-      );
-      if (res && res.length) {
-        this.current_balance = res[0];
-      } else {
-        this.current_balance = `0 ${symbol}`;
-      }
+
+      // Mock balance data for UI testing
+      const mockBalance = `1000.0000 ${symbol}`;
+      this.current_balance = mockBalance;
+
       this.$emit("onbalance", this.current_balance);
     },
   },

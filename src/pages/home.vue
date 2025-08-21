@@ -1,6 +1,12 @@
 <template>
   <q-page class=" bg-dark full-height">
 
+    <!-- Demo Banner -->
+    <q-banner class="bg-positive text-white text-center" style="position: fixed; top: 0; left: 0; right: 0; z-index: 9999;">
+      <q-icon name="info" class="q-mr-sm" />
+      <strong>DEMO VERSION:</strong> This is not a functional UI - it only shows the old version of Daclify for demonstration purposes.
+    </q-banner>
+
     <div class="header_box relative-position">
       <q-parallax src="statics/images/15410.jpg" :height="500">
         <div class="text-center text-primary" style="">
@@ -39,7 +45,7 @@
             <onchain  />
         </q-intersection>
       </div>
-  
+
     </div>
   </q-page>
 </template>

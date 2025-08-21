@@ -158,30 +158,6 @@ export default defineComponent({
           icon: "img:statics/images/networks/telos.png",
           msg: "active: beta version",
         },
-        {
-          label: "TelosTestnet",
-          key: "telosTest",
-          icon: "img:statics/images/networks/telos.png",
-          msg: "active: beta version",
-        },
-        {
-          label: "EOS",
-          key: "mainnet",
-          icon: "img:statics/images/networks/mainnet.png",
-          msg: "active: beta version",
-        },
-        {
-          label: "Jungle",
-          key: "jungle",
-          icon: "img:statics/images/networks/jungle.png",
-          msg: "active: beta version",
-        },
-        {
-          label: "WAX",
-          key: "wax",
-          icon: "img:statics/images/networks/wax.png",
-          msg: "active: beta version",
-        },
       ],
     };
   },

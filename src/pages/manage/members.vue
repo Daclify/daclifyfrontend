@@ -125,27 +125,57 @@ export default defineComponent({
   methods: {
     async fetchMembers() {
       this.is_loading = true;
-      let res = await this.$eos.api.rpc
-        .get_table_rows({
-          json: true,
-          code: this.getActiveGroup,
-          scope: this.getActiveGroup,
-          table: "members",
-          lower_bound: this.next_key,
-          limit: 10,
-        })
-        .catch((e) => false);
 
-      if (res) {
-        console.log(res);
-        this.members = this.members.concat(res.rows);
-        if (res.more) {
-          this.next_key = res.next_key;
+      // Mock data for UI testing
+      const mockMembers = [
+        {
+          account: "member1",
+          weight: 1000,
+          joined: "2024-01-01T00:00:00.000Z",
+          is_active: true,
+          last_active: "2024-01-15T10:30:00.000Z"
+        },
+        {
+          account: "member2",
+          weight: 1500,
+          joined: "2024-01-02T00:00:00.000Z",
+          is_active: true,
+          last_active: "2024-01-14T15:45:00.000Z"
+        },
+        {
+          account: "member3",
+          weight: 800,
+          joined: "2024-01-03T00:00:00.000Z",
+          is_active: true,
+          last_active: "2024-01-13T09:20:00.000Z"
+        },
+        {
+          account: "member4",
+          weight: 1200,
+          joined: "2024-01-04T00:00:00.000Z",
+          is_active: false,
+          last_active: "2024-01-10T14:15:00.000Z"
+        },
+        {
+          account: "member5",
+          weight: 900,
+          joined: "2024-01-05T00:00:00.000Z",
+          is_active: true,
+          last_active: "2024-01-15T11:00:00.000Z"
         }
-        this.more = res.more;
+      ];
+
+      // Simulate pagination
+      if (this.next_key === "") {
+        this.members = mockMembers.slice(0, 3); // First 3 members
+        this.more = true;
+        this.next_key = "3";
       } else {
-        //return [];
+        this.members = this.members.concat(mockMembers.slice(3, 5)); // Last 2 members
+        this.more = false;
+        this.next_key = "";
       }
+
       this.is_loading = false;
     },
   },

@@ -65,7 +65,7 @@ export default defineComponent({
     if (this.$messaging) {
       this.$messaging.onMessage((payload) => {
         //messsage handling when app focused
-        console.log(payload);
+        // console.log('received messaging payload');
         if (
           (payload.data.type =
             "propose" && !payload.notification.body.includes(this.getAccountName))
